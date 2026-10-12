@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Horários e planeador de viagem dos Transportes Urbanos do Peso da Régua (TUPR). Linha Verde e Linha Vermelha." />
+    <meta name="theme-color" content="#143c57" />
+    <title>TUPR · Transportes Urbanos do Peso da Régua</title>
+    <script>
+      try {
+        if (localStorage.getItem('tupr:theme') === 'dark') document.documentElement.classList.add('dark')
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
