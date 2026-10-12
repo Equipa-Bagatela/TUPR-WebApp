@@ -95,7 +95,6 @@ export function Header() {
           </button>
         </div>
         <div className="flex items-center gap-1 lg:hidden">
-          <LangSwitch />
           <button onClick={() => setSearch(true)} aria-label={t('nav.search')} className="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-primary-soft">
             <Search className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -107,6 +106,10 @@ export function Header() {
       </div>
       {menu && (
         <nav id="menu-movel" aria-label={t('nav.menu')} className="menu-in absolute inset-x-0 top-full h-[calc(100dvh-4.5rem)] overflow-auto border-t border-hair bg-surface px-4 pb-8 pt-3 lg:hidden">
+          <div className="mb-3 flex items-center justify-between rounded-xl bg-surface-2 px-4 py-2">
+            <span className="text-sm font-semibold text-muted">{t('lang.label')}</span>
+            <LangSwitch />
+          </div>
           <ul className="space-y-1">
             {[{ to: '/', label: t('nav.home') }, { to: '/proximos', label: t('nav.next') }, ...nav].map((n, i) => (
               <li key={n.to} className="rise" style={{ animationDelay: `${i * 40}ms` }}>

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
+import { InstallBanner } from './components/InstallBanner'
 import { Splash } from './components/Splash'
 import { ErrorBoundary } from './components/ui'
 import { useTheme } from './hooks/useTheme'
@@ -57,6 +58,7 @@ export default function App() {
     <HashRouter>
       <Splash />
       <ScrollTop />
+      <InstallBanner />
       <Header />
       <main id="conteudo" tabIndex={-1} className="min-h-[60vh] outline-none">
         <ErrorBoundary>

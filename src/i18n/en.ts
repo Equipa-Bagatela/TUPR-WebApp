@@ -2,6 +2,23 @@ import type { pt } from './pt'
 
 /** English. Stop names are kept as officially published (Portuguese). */
 export const en: Record<keyof typeof pt, string> = {
+  'a2hs.android': 'On Android: browser menu ⋮ → “Add to Home screen” (or “Install app”).',
+  'a2hs.banner': 'Add TUPR to your Home Screen',
+  'a2hs.close': 'Dismiss notice',
+  'a2hs.closeDialog': 'Close',
+  'a2hs.gotIt': 'Got it',
+  'a2hs.how': 'How?',
+  'a2hs.intro': 'Open TUPR with one tap, like an app, and see timetables in seconds.',
+  'a2hs.never': 'Already added / don’t show again',
+  'a2hs.region': 'Install on Home Screen',
+  'a2hs.s1': 'Tap Share',
+  'a2hs.s1t': 'It is the button with a square and an up arrow, in the bar at the bottom of Safari.',
+  'a2hs.s2': 'Choose “Add to Home Screen”',
+  'a2hs.s2t': 'Scroll the list up if needed until you find this option.',
+  'a2hs.s3': 'Tap “Add”',
+  'a2hs.s3t': 'The TUPR icon appears on your Home Screen.',
+  'a2hs.safariNote': 'On iPhone this is done in Safari. If you opened this address in another app, copy it and open it in Safari.',
+  'a2hs.title': 'Add to Home Screen (iPhone)',
   'bus.credit': 'Real-time position provided by the TUPR tracking system —',
   'bus.error': 'Live location is not available right now.',
   'bus.errorStale': 'No connection to tracking — showing the last known position.',
