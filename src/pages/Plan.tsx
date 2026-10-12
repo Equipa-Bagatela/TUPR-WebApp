@@ -9,11 +9,13 @@ import { EmptyState, PageHeader } from '../components/ui'
 import { getStop, stopById } from '../data/network'
 import { useFavorites } from '../hooks/useFavorites'
 import { useNow } from '../hooks/useNow'
+import { useT } from '../i18n'
 import { directJourneys, transferJourneys, type Journey } from '../utils/planner'
 import { hasServiceOn } from '../utils/service'
-import { clock, fromMinutes, isoDate, minutesOfDay, parseIsoDate, toMinutes, WEEKDAYS } from '../utils/time'
+import { clock, fromMinutes, isoDate, minutesOfDay, parseIsoDate, toMinutes, weekdayName } from '../utils/time'
 
 export default function Plan() {
+  const { t, locale } = useT()
   const [sp, setSp] = useSearchParams()
   const now = useNow(30_000)
   const fav = useFavorites()
@@ -50,15 +52,15 @@ export default function Plan() {
 
   return (
     <>
-      <PageHeader title="Planear viagem" subtitle="Escolha a origem, o destino e quando quer partir.">
+      <PageHeader title={t('plan.title')} subtitle={t('plan.subtitle')}>
         <div className="max-w-4xl">
           <PlannerForm key={`${from}${to}${dateStr}${timeStr}`} compact initial={{ from: from ?? undefined, to: to ?? undefined, date: dateStr, time: timeStr }} onSubmit={submit} />
         </div>
       </PageHeader>
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         {!valid ? (
-          <EmptyState icon={<Navigation className="h-5 w-5" aria-hidden="true" />} title="Escolha o seu percurso">
-            Indique a paragem de partida e a de destino e carregue em “Planear viagem”.
+          <EmptyState icon={<Navigation className="h-5 w-5" aria-hidden="true" />} title={t('plan.emptyTitle')}>
+            {t('plan.emptyText')}
           </EmptyState>
         ) : (
           <div className="grid gap-8 lg:grid-cols-[1fr_26rem]">
@@ -67,30 +69,28 @@ export default function Plan() {
                 <div>
                   <h2 id="res-titulo" className="flex flex-wrap items-center gap-x-2 text-xl font-bold">
                     <span>{getStop(from!).name}</span>
-                    <ArrowRight className="h-5 w-5 text-muted" aria-label="para" />
+                    <ArrowRight className="h-5 w-5 text-muted" aria-label={t('plan.toWord')} />
                     <span>{getStop(to!).name}</span>
                   </h2>
                   <p className="mt-1 text-sm text-muted">
-                    {WEEKDAYS[date!.getDay()]}, {date!.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long' })} · a partir das {fromMinutes(selMin)}
+                    {weekdayName(date!.getDay())}, {date!.toLocaleDateString(locale, { day: 'numeric', month: 'long' })} · {t('plan.fromTime', { time: fromMinutes(selMin) })}
                   </p>
                 </div>
-                {route && <FavoriteButton active={fav.isRouteFav(route)} onToggle={() => fav.toggleRoute(route)} label={`${getStop(from!).name} para ${getStop(to!).name}`} />}
+                {route && <FavoriteButton active={fav.isRouteFav(route)} onToggle={() => fav.toggleRoute(route)} label={`${getStop(from!).name} → ${getStop(to!).name}`} />}
               </div>
 
               {noService ? (
-                <EmptyState icon={<CalendarX2 className="h-5 w-5" aria-hidden="true" />} title="Sem serviço neste dia">
-                  O horário oficial do TUPR só refere segunda-feira a sábado. Escolha outro dia.
+                <EmptyState icon={<CalendarX2 className="h-5 w-5" aria-hidden="true" />} title={t('plan.noServiceTitle')}>
+                  {t('plan.noServiceText')}
                 </EmptyState>
               ) : journeys.length === 0 ? (
-                <EmptyState title="Não encontrámos viagens para este percurso">
-                  Não há ligação directa nem com um transbordo entre estas duas paragens neste dia. Experimente outra paragem próxima.
-                </EmptyState>
+                <EmptyState title={t('plan.noneTitle')}>{t('plan.noneText')}</EmptyState>
               ) : (
                 <>
                   {upcoming.length === 0 && (
-                    <div role="status" className="mb-4 rounded-2xl bg-surface-2 px-4 py-3.5 text-sm">
-                      <p className="font-semibold">Já não há mais viagens depois das {fromMinutes(selMin)} neste dia.</p>
-                      <p className="text-muted">Pode ver as viagens que já passaram ou escolher outro dia.</p>
+                    <div role="status" className="rise mb-4 rounded-2xl bg-surface-2 px-4 py-3.5 text-sm">
+                      <p className="font-semibold">{t('plan.noMore', { time: fromMinutes(selMin) })}</p>
+                      <p className="text-muted">{t('plan.noMoreHint')}</p>
                     </div>
                   )}
                   <ol className="space-y-4">
@@ -103,15 +103,15 @@ export default function Plan() {
                   {past.length > 0 && (
                     <button onClick={() => setShowPast((s) => !s)} className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-xl border border-hair bg-surface px-4 text-sm font-bold">
                       {showPast ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
-                      {showPast ? 'Esconder viagens que já passaram' : `Mostrar viagens que já passaram (${past.length})`}
+                      {showPast ? t('plan.hidePast') : t('plan.showPast', { n: past.length })}
                     </button>
                   )}
-                  <p className="mt-6 text-xs text-muted">Viagens com transbordo assumem pelo menos 2 minutos para trocar de autocarro (valor da aplicação, não consta do PDF).</p>
+                  <p className="mt-6 text-xs text-muted">{t('plan.transferNote')}</p>
                 </>
               )}
             </section>
-            <aside aria-label="Mapa do percurso" className="lg:sticky lg:top-24 lg:self-start">
-              <MapBox height="h-80 lg:h-[26rem]" originId={from} destId={to} label="Mapa com origem e destino" />
+            <aside aria-label={t('plan.mapAria')} className="lg:sticky lg:top-24 lg:self-start">
+              <MapBox height="h-80 lg:h-[26rem]" originId={from} destId={to} label={t('plan.mapLabel')} />
             </aside>
           </div>
         )}

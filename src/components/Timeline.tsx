@@ -1,11 +1,13 @@
 import { getStop } from '../data/network'
+import { useT } from '../i18n'
 import type { Line } from '../types'
 
 /** Percurso vertical estilo metro/autocarro: horas à esquerda, linha com nós, paragens à direita. */
 export function Timeline({ line, tripIndex, nextStopIdx }: { line: Line; tripIndex: number; nextStopIdx?: number }) {
+  const { t } = useT()
   const last = line.stops.length - 1
   return (
-    <ol aria-label={`Percurso da ${line.name}`} className="relative">
+    <ol aria-label={t('line.routeOf', { name: line.name })} className="relative">
       {line.stops.map((s, i) => {
         const stop = getStop(s.stopId)
         const end = i === 0 || i === last
@@ -24,9 +26,9 @@ export function Timeline({ line, tripIndex, nextStopIdx }: { line: Line; tripInd
             <span className="min-w-0 flex-1 pb-3 pt-2">
               <span className={`block leading-snug ${end ? 'font-bold' : 'font-semibold'}`}>
                 {stop.name}
-                {i === 0 && <span className="ml-2 rounded bg-surface-2 px-1.5 py-0.5 text-xs font-bold uppercase">Partida</span>}
-                {i === last && <span className="ml-2 rounded bg-surface-2 px-1.5 py-0.5 text-xs font-bold uppercase">Chegada</span>}
-                {isNext && <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-xs font-bold uppercase text-on-primary">Próxima</span>}
+                {i === 0 && <span className="ml-2 rounded bg-surface-2 px-1.5 py-0.5 text-xs font-bold uppercase">{t('tl.start')}</span>}
+                {i === last && <span className="ml-2 rounded bg-surface-2 px-1.5 py-0.5 text-xs font-bold uppercase">{t('tl.end')}</span>}
+                {isNext && <span className="ml-2 rounded bg-primary px-1.5 py-0.5 text-xs font-bold uppercase text-on-primary">{t('tl.next')}</span>}
               </span>
               {stop.detail && <span className="block text-sm leading-snug text-muted">{stop.detail}</span>}
             </span>

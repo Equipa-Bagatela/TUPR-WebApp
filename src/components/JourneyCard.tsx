@@ -1,11 +1,13 @@
 import { ArrowDown, ArrowRightLeft, ChevronDown, Clock3, Repeat } from 'lucide-react'
 import { getStop, stopLabel } from '../data/network'
+import { useT } from '../i18n'
 import type { Journey, Leg } from '../utils/planner'
 import { MIN_TRANSFER } from '../utils/planner'
 import { fromMinutes, formatDuration } from '../utils/time'
 import { LineBadge } from './LineBadge'
 
 function LegView({ leg }: { leg: Leg }) {
+  const { t } = useT()
   const from = getStop(leg.fromStopId)
   const to = getStop(leg.toStopId)
   const via = leg.line.stops.slice(leg.fromIndex + 1, leg.toIndex)
@@ -15,7 +17,7 @@ function LegView({ leg }: { leg: Leg }) {
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <LineBadge line={leg.line} />
         <span className="text-sm text-muted">
-          {leg.stopCount} {leg.stopCount === 1 ? 'paragem' : 'paragens'} · circular, segue para {getStop(next.stopId).name}
+          {t('journey.stops', { count: leg.stopCount })} · {t('journey.circularTo', { name: getStop(next.stopId).name })}
         </span>
       </div>
       <div className="mt-3 grid grid-cols-[auto_1fr] gap-x-4">
@@ -35,7 +37,7 @@ function LegView({ leg }: { leg: Leg }) {
       {via.length > 0 && (
         <details className="group mt-3 rounded-xl bg-surface-2 px-3">
           <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 text-sm font-semibold">
-            Paragens intermédias ({via.length})
+            {t('journey.intermediate', { n: via.length })}
             <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden="true" />
           </summary>
           <ol className="pb-3">
@@ -53,26 +55,27 @@ function LegView({ leg }: { leg: Leg }) {
 }
 
 export function JourneyCard({ journey, past, index }: { journey: Journey; past: boolean; index: number }) {
+  const { t } = useT()
   const transfer = journey.legs.length > 1
   return (
-    <article aria-label={`Opção ${index}: partida ${fromMinutes(journey.depart)}, chegada ${fromMinutes(journey.arrive)}${past ? ', já passou' : ''}`} className={`rise rounded-2xl border bg-surface p-4 sm:p-5 ${past ? 'border-dashed border-hair opacity-65' : 'border-hair'}`} style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}>
+    <article aria-label={t('journey.aria', { n: index, dep: fromMinutes(journey.depart), arr: fromMinutes(journey.arrive) }) + (past ? `, ${t('journey.past').toLowerCase()}` : '')} className={`rise rounded-2xl border bg-surface p-4 transition-shadow hover:shadow-md sm:p-5 ${past ? 'border-dashed border-hair opacity-65' : 'border-hair'}`} style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}>
       <header className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2 text-sm font-bold text-muted">
-          Opção {index}
+          {t('journey.option', { n: index })}
           {transfer && (
             <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 px-2.5 py-0.5 text-xs text-ink">
-              <Repeat className="h-3 w-3" aria-hidden="true" /> 1 transbordo
+              <Repeat className="h-3 w-3" aria-hidden="true" /> {t('journey.oneTransfer')}
             </span>
           )}
           {past && (
             <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 px-2.5 py-0.5 text-xs text-ink">
-              <Clock3 className="h-3 w-3" aria-hidden="true" /> Já passou
+              <Clock3 className="h-3 w-3" aria-hidden="true" /> {t('journey.past')}
             </span>
           )}
         </div>
         <p className="text-right">
           <span className="tnum font-display text-2xl font-extrabold">{formatDuration(journey.duration)}</span>
-          <span className="sr-only"> de duração</span>
+          <span className="sr-only"> {t('journey.duration')}</span>
         </p>
       </header>
       <div className="space-y-4">
@@ -82,8 +85,8 @@ export function JourneyCard({ journey, past, index }: { journey: Journey; past: 
               <div className="mb-4 flex items-start gap-2 rounded-xl bg-primary-soft px-3 py-2.5 text-sm">
                 <ArrowRightLeft className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                 <p>
-                  <strong>Transbordo em {getStop(leg.fromStopId).name}</strong>
-                  {getStop(leg.fromStopId).detail ? ` (${getStop(leg.fromStopId).detail})` : ''} — espera de {leg.depart - journey.legs[i - 1].arrive} min (mínimo {MIN_TRANSFER} min).
+                  <strong>{t('journey.transferAt', { name: getStop(leg.fromStopId).name })}</strong>
+                  {getStop(leg.fromStopId).detail ? ` (${getStop(leg.fromStopId).detail})` : ''} — {t('journey.wait', { wait: leg.depart - journey.legs[i - 1].arrive, min: MIN_TRANSFER })}
                 </p>
               </div>
             )}

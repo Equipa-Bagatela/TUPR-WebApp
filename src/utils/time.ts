@@ -1,3 +1,5 @@
+import { localeOf, tr } from '../i18n'
+
 export const toMinutes = (hhmm: string): number => {
   const [h, m] = hhmm.split(':').map(Number)
   return h * 60 + m
@@ -30,10 +32,13 @@ export function formatDuration(min: number): string {
 export function formatRelative(departureMin: number, now: Date): string {
   const nowMin = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60
   const diff = Math.ceil(departureMin - nowMin)
-  if (diff <= 0) return 'agora'
-  if (diff < 60) return `em ${diff} min`
-  return `em ${formatDuration(diff)}`
+  if (diff <= 0) return tr('time.now')
+  return tr('time.in', { d: formatDuration(diff) })
 }
 
-export const WEEKDAYS = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
-export const WEEKDAYS_SHORT = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+/** 0 = domingo … 6 = sábado. Nome do dia no idioma actual, com maiúscula inicial. */
+export function weekdayName(d: number, style: 'long' | 'short' = 'long'): string {
+  const date = new Date(2024, 0, 7 + d) // 7 jan 2024 foi domingo
+  const s = date.toLocaleDateString(localeOf(), { weekday: style }).replace('.', '')
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}

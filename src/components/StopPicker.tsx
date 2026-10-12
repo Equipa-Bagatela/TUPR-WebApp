@@ -3,6 +3,7 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { stops } from '../data/stops'
 import { linesAtStop, stopById } from '../data/network'
 import { useFavorites } from '../hooks/useFavorites'
+import { useT } from '../i18n'
 import { normalize } from '../utils/service'
 import { LineDot } from './LineBadge'
 
@@ -17,7 +18,8 @@ interface Props {
   id?: string
 }
 
-export function StopPicker({ label, value, onChange, placeholder = 'Escolher paragem', onUseLocation, locating, id }: Props) {
+export function StopPicker({ label, value, onChange, placeholder, onUseLocation, locating, id }: Props) {
+  const { t } = useT()
   const uid = useId()
   const inputId = id ?? `${uid}-input`
   const listId = `${uid}-list`
@@ -90,7 +92,7 @@ export function StopPicker({ label, value, onChange, placeholder = 'Escolher par
             autoCorrect="off"
             spellCheck={false}
             enterKeyHint="search"
-            placeholder={placeholder}
+            placeholder={placeholder ?? t('picker.placeholder')}
             value={open ? query : selected ? selected.name + (selected.detail ? ` (${selected.detail})` : '') : ''}
             onFocus={(e) => {
               setOpen(true)
@@ -110,8 +112,8 @@ export function StopPicker({ label, value, onChange, placeholder = 'Escolher par
             type="button"
             onClick={onUseLocation}
             disabled={locating}
-            aria-label="Usar a minha localização para escolher a paragem mais próxima"
-            title="Usar a minha localização"
+            aria-label={t('picker.locateAria')}
+            title={t('loc.use')}
             className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-hair bg-surface text-primary transition hover:bg-primary-soft disabled:opacity-60"
           >
             <Crosshair className={`h-5 w-5 ${locating ? 'animate-spin' : ''}`} aria-hidden="true" />
@@ -119,8 +121,8 @@ export function StopPicker({ label, value, onChange, placeholder = 'Escolher par
         )}
       </div>
       {open && (
-        <ul id={listId} role="listbox" aria-label={`${label}: paragens`} className="absolute left-0 right-0 z-30 mt-2 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg">
-          {options.length === 0 && <li className="px-4 py-4 text-sm text-muted">Nenhuma paragem encontrada para “{query}”.</li>}
+        <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className="absolute left-0 right-0 z-30 mt-2 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg">
+          {options.length === 0 && <li className="px-4 py-4 text-sm text-muted">{t('picker.none', { q: query })}</li>}
           {options.map((s, i) => (
             <li
               key={s.id}
@@ -136,8 +138,8 @@ export function StopPicker({ label, value, onChange, placeholder = 'Escolher par
                 <span className="block text-[0.95rem] font-semibold leading-snug">{s.name}</span>
                 {s.detail && <span className="block text-sm leading-snug text-muted">{s.detail}</span>}
               </span>
-              {favs.includes(s.id) && <Star className="h-4 w-4 shrink-0 fill-[#f5b301] text-[#f5b301]" aria-label="Favorita" />}
-              <span className="flex shrink-0 gap-1" aria-label={`Linhas: ${linesAtStop(s.id).map((l) => l.name).join(', ')}`}>
+              {favs.includes(s.id) && <Star className="h-4 w-4 shrink-0 fill-[#f5b301] text-[#f5b301]" aria-label={t('picker.fav')} />}
+              <span className="flex shrink-0 gap-1" aria-label={t('stop.linesList', { list: linesAtStop(s.id).map((l) => l.name).join(', ') })}>
                 {linesAtStop(s.id).map((l) => (
                   <LineDot key={l.id} line={l} />
                 ))}

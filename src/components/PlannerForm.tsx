@@ -1,6 +1,7 @@
 import { ArrowDownUp, CalendarDays, Clock, Navigation } from 'lucide-react'
 import { useState } from 'react'
 import { useGeolocation } from '../hooks/useGeolocation'
+import { useT } from '../i18n'
 import { nearestStops } from '../utils/geo'
 import { clock, isoDate } from '../utils/time'
 import { StopPicker } from './StopPicker'
@@ -13,6 +14,7 @@ export interface PlanParams {
 }
 
 export function PlannerForm({ initial, onSubmit, compact = false }: { initial?: Partial<PlanParams>; onSubmit: (p: PlanParams) => void; compact?: boolean }) {
+  const { t } = useT()
   const now = new Date()
   const [from, setFrom] = useState<string | null>(initial?.from ?? null)
   const [to, setTo] = useState<string | null>(initial?.to ?? null)
@@ -58,49 +60,49 @@ export function PlannerForm({ initial, onSubmit, compact = false }: { initial?: 
   const tomorrow = isoDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1))
 
   return (
-    <form onSubmit={submit} className="space-y-4" noValidate aria-label="Planear viagem">
+    <form onSubmit={submit} className="space-y-4" noValidate aria-label={t('plan.title')}>
       <div className={`grid gap-3 ${compact ? 'lg:grid-cols-[1fr_auto_1fr]' : 'md:grid-cols-[1fr_auto_1fr]'} items-end`}>
-        <StopPicker label="De" value={from} onChange={setFrom} placeholder="Paragem de partida" onUseLocation={useLocation} locating={geo.status === 'loading' && wantNear} />
-        <button type="button" onClick={swap} aria-label="Trocar origem e destino" className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full border border-hair bg-surface text-primary hover:bg-primary-soft md:mb-1">
+        <StopPicker label={t('plan.from')} value={from} onChange={setFrom} placeholder={t('plan.fromPh')} onUseLocation={useLocation} locating={geo.status === 'loading' && wantNear} />
+        <button type="button" onClick={swap} aria-label={t('plan.swap')} className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full border border-hair bg-surface text-primary transition hover:bg-primary-soft active:rotate-180 md:mb-1">
           <ArrowDownUp className="h-5 w-5 md:rotate-90" aria-hidden="true" />
         </button>
-        <StopPicker label="Para" value={to} onChange={setTo} placeholder="Paragem de destino" />
+        <StopPicker label={t('plan.to')} value={to} onChange={setTo} placeholder={t('plan.toPh')} />
       </div>
-      {geo.status === 'denied' && wantNear === false && <p className="text-sm text-muted">Sem acesso à localização — pode escolher a paragem manualmente.</p>}
+      {geo.status === 'denied' && wantNear === false && <p className="text-sm text-muted">{t('loc.deniedShort')}</p>}
       <div className="grid grid-cols-2 gap-3 sm:max-w-xl">
         <div>
           <label htmlFor="plan-date" className="mb-1.5 flex items-center gap-1.5 text-sm font-semibold">
-            <CalendarDays className="h-4 w-4 text-muted" aria-hidden="true" /> Data
+            <CalendarDays className="h-4 w-4 text-muted" aria-hidden="true" /> {t('plan.date')}
           </label>
           <input id="plan-date" type="date" required value={date} onChange={(e) => setDate(e.target.value)} className="h-14 w-full rounded-xl border border-hair bg-surface px-3 text-base text-ink" />
         </div>
         <div>
           <label htmlFor="plan-time" className="mb-1.5 flex items-center gap-1.5 text-sm font-semibold">
-            <Clock className="h-4 w-4 text-muted" aria-hidden="true" /> Hora
+            <Clock className="h-4 w-4 text-muted" aria-hidden="true" /> {t('plan.time')}
           </label>
           <input id="plan-time" type="time" required value={time} onChange={(e) => setTime(e.target.value)} className="h-14 w-full rounded-xl border border-hair bg-surface px-3 text-base text-ink" />
         </div>
       </div>
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Atalhos de data e hora">
+      <div className="flex flex-wrap gap-2" role="group" aria-label={t('plan.shortcuts')}>
         {[
-          { l: 'Hoje', on: () => setDate(today), a: date === today },
-          { l: 'Amanhã', on: () => setDate(tomorrow), a: date === tomorrow },
+          { l: t('plan.today'), on: () => setDate(today), a: date === today },
+          { l: t('plan.tomorrow'), on: () => setDate(tomorrow), a: date === tomorrow },
         ].map((b) => (
-          <button key={b.l} type="button" onClick={b.on} aria-pressed={b.a} className={`min-h-11 rounded-full border px-4 text-sm font-semibold ${b.a ? 'border-primary bg-primary-soft text-primary' : 'border-hair bg-surface text-ink'}`}>
+          <button key={b.l} type="button" onClick={b.on} aria-pressed={b.a} className={`min-h-11 rounded-full border px-4 text-sm font-semibold transition ${b.a ? 'border-primary bg-primary-soft text-primary' : 'border-hair bg-surface text-ink'}`}>
             {b.l}
           </button>
         ))}
         <button type="button" onClick={() => { setDate(today); setTime(clock(new Date())) }} className="min-h-11 rounded-full border border-hair bg-surface px-4 text-sm font-semibold text-ink">
-          Agora
+          {t('plan.nowBtn')}
         </button>
       </div>
       {touched && (invalid || same) && (
         <p role="alert" className="text-sm font-semibold text-bad">
-          {invalid ? 'Escolha a paragem de partida e a de destino.' : 'A origem e o destino têm de ser paragens diferentes.'}
+          {invalid ? t('plan.errMissing') : t('plan.errSame')}
         </p>
       )}
       <button type="submit" className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 text-base font-bold text-on-primary transition hover:opacity-90 active:scale-[0.99] sm:w-auto sm:min-w-64">
-        <Navigation className="h-5 w-5" aria-hidden="true" /> Planear viagem
+        <Navigation className="h-5 w-5" aria-hidden="true" /> {t('plan.title')}
       </button>
     </form>
   )

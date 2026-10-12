@@ -1,21 +1,27 @@
 import { ArrowRight, Moon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { getStop } from '../data/network'
+import { useT } from '../i18n'
 import { nextDepartures, type Departure } from '../utils/departures'
 import { hasServiceOn } from '../utils/service'
-import { formatRelative, WEEKDAYS } from '../utils/time'
+import { formatRelative, weekdayName } from '../utils/time'
 import { LineBadge } from './LineBadge'
 import { EmptyState } from './ui'
 
-const dayWord = (offset: number, now: Date) => (offset === 0 ? 'hoje' : offset === 1 ? 'amanhã' : WEEKDAYS[(now.getDay() + offset) % 7].toLowerCase())
+function useDayWord() {
+  const { t } = useT()
+  return (offset: number, now: Date) => (offset === 0 ? t('time.today') : offset === 1 ? t('time.tomorrow') : weekdayName((now.getDay() + offset) % 7).toLowerCase())
+}
 
 export function DepartureRow({ d, now, first, showNext = true }: { d: Departure; now: Date; first?: boolean; showNext?: boolean }) {
+  const { t } = useT()
+  const dayWord = useDayWord()
   const nextName = d.nextStopId ? getStop(d.nextStopId).name : null
   return (
-    <li className={`rise flex items-center gap-4 rounded-2xl border bg-surface px-4 py-3.5 ${first ? 'border-primary' : 'border-hair'}`}>
+    <li className={`rise flex items-center gap-4 rounded-2xl border bg-surface px-4 py-3.5 transition-colors ${first ? 'border-primary' : 'border-hair'}`}>
       <div className="min-w-0 flex-1">
         <LineBadge line={d.line} size="sm" />
-        {showNext && nextName && <p className="mt-1.5 truncate text-sm text-muted">Segue para {nextName}</p>}
+        {showNext && nextName && <p className="mt-1.5 truncate text-sm text-muted">{t('dep.nextStop', { name: nextName })}</p>}
       </div>
       <div className="text-right">
         <p className="tnum font-display text-2xl font-bold leading-none">{d.time}</p>
@@ -30,20 +36,22 @@ export function DepartureRow({ d, now, first, showNext = true }: { d: Departure;
 
 /** Lista das próximas partidas de uma paragem, com estados vazios coerentes com o PDF. */
 export function NextDepartures({ stopId, now, limit = 5, linkToStop = false }: { stopId: string; now: Date; limit?: number; linkToStop?: boolean }) {
+  const { t } = useT()
+  const dayWord = useDayWord()
   const list = nextDepartures(stopId, now, limit)
-  if (list.length === 0) return <EmptyState title="Sem partidas">Não há partidas registadas para esta paragem.</EmptyState>
+  if (list.length === 0) return <EmptyState title={t('dep.none')}>{t('dep.noneText')}</EmptyState>
   const nowMin = now.getHours() * 60 + now.getMinutes()
   const far = list[0].dayOffset > 0 || list[0].minutes - nowMin > 120
   return (
     <div>
       {far && (
-        <div role="status" className="mb-3 flex items-start gap-3 rounded-2xl bg-surface-2 px-4 py-3.5">
+        <div role="status" className="rise mb-3 flex items-start gap-3 rounded-2xl bg-surface-2 px-4 py-3.5">
           <Moon className="mt-0.5 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
           <div>
-            <p className="font-semibold">Não existem partidas próximas.</p>
+            <p className="font-semibold">{t('dep.noClose')}</p>
             <p className="text-sm text-muted">
-              {!hasServiceOn(now.getDay()) && list[0].dayOffset > 0 ? 'Hoje é domingo e o horário oficial só refere segunda a sábado. ' : ''}
-              Próxima partida: <strong className="tnum text-ink">{list[0].time}</strong> ({dayWord(list[0].dayOffset, now)}).
+              {!hasServiceOn(now.getDay()) && list[0].dayOffset > 0 ? `${t('dep.sunday')} ` : ''}
+              {t('dep.nextIs')} <strong className="tnum text-ink">{list[0].time}</strong> ({dayWord(list[0].dayOffset, now)}).
             </p>
           </div>
         </div>
@@ -55,7 +63,7 @@ export function NextDepartures({ stopId, now, limit = 5, linkToStop = false }: {
       </ul>
       {linkToStop && (
         <Link to={`/paragens/${stopId}`} className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-          Ver todos os horários desta paragem <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          {t('dep.seeAll')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       )}
     </div>

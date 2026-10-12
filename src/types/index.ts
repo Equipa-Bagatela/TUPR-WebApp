@@ -50,7 +50,8 @@ export type ServiceLevel = 'normal' | 'disrupted' | 'suspended' | 'none'
 
 export interface ServiceStatus {
   level: ServiceLevel
-  title: string
+  /** Opcionais: se faltarem, usam-se os textos traduzidos do nível */
+  title?: string
   message?: string
   updatedAt?: string
 }

@@ -1,4 +1,5 @@
 import { stops } from '../data/stops'
+import { getLang } from '../i18n'
 import type { LatLng, Stop } from '../types'
 
 export function distanceMeters(a: LatLng, b: LatLng): number {
@@ -20,5 +21,6 @@ export function nearestStops(pos: LatLng, limit = 5): { stop: Stop; meters: numb
 
 export function formatDistance(m: number): string {
   if (m < 1000) return `${Math.round(m / 10) * 10} m`
-  return `${(m / 1000).toFixed(1).replace('.', ',')} km`
+  const v = (m / 1000).toFixed(1)
+  return `${getLang() === 'pt' ? v.replace('.', ',') : v} km`
 }

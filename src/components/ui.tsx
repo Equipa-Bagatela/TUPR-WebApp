@@ -1,6 +1,7 @@
 import { AlertTriangle, SearchX } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Component } from 'react'
+import { tr } from '../i18n'
 
 export function Skeleton({ className = '' }: { className?: string }) {
   return <div className={`skeleton ${className}`} aria-hidden="true" />
@@ -8,7 +9,7 @@ export function Skeleton({ className = '' }: { className?: string }) {
 
 export function EmptyState({ icon, title, children }: { icon?: ReactNode; title: string; children?: ReactNode }) {
   return (
-    <div role="status" className="rounded-2xl border border-dashed border-hair bg-surface px-5 py-8 text-center">
+    <div role="status" className="rise rounded-2xl border border-dashed border-hair bg-surface px-5 py-8 text-center">
       <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-surface-2 text-muted">{icon ?? <SearchX className="h-5 w-5" aria-hidden="true" />}</div>
       <p className="font-display text-base font-semibold">{title}</p>
       {children && <div className="mx-auto mt-1 max-w-md text-sm text-muted">{children}</div>}
@@ -16,17 +17,17 @@ export function EmptyState({ icon, title, children }: { icon?: ReactNode; title:
   )
 }
 
-export function ErrorState({ title = 'Algo correu mal', children, onRetry }: { title?: string; children?: ReactNode; onRetry?: () => void }) {
+export function ErrorState({ title, children, onRetry }: { title?: string; children?: ReactNode; onRetry?: () => void }) {
   return (
-    <div role="alert" className="rounded-2xl border border-bad/40 bg-surface px-5 py-6 text-center">
+    <div role="alert" className="rise rounded-2xl border border-bad/40 bg-surface px-5 py-6 text-center">
       <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-surface-2 text-bad">
         <AlertTriangle className="h-5 w-5" aria-hidden="true" />
       </div>
-      <p className="font-display text-base font-semibold">{title}</p>
+      <p className="font-display text-base font-semibold">{title ?? tr('error.title')}</p>
       {children && <div className="mx-auto mt-1 max-w-md text-sm text-muted">{children}</div>}
       {onRetry && (
         <button onClick={onRetry} className="mt-4 min-h-11 rounded-xl bg-primary px-5 text-sm font-semibold text-on-primary">
-          Tentar de novo
+          {tr('error.retry')}
         </button>
       )}
     </div>
@@ -43,7 +44,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode; fallback?: R
   }
   render() {
     if (this.state.failed) {
-      return this.props.fallback ?? <ErrorState title="Não foi possível mostrar este conteúdo" onRetry={() => this.setState({ failed: false })} />
+      return this.props.fallback ?? <ErrorState title={tr('error.content')} onRetry={() => this.setState({ failed: false })} />
     }
     return this.props.children
   }
@@ -73,4 +74,5 @@ export function PageHeader({ title, subtitle, children }: { title: string; subti
   )
 }
 
-export const card = 'rounded-2xl border border-hair bg-surface'
+/** Revela o conteúdo com uma subida suave quando entra no ecrã. */
+export { Reveal } from './Reveal'

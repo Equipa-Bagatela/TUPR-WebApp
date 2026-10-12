@@ -4,6 +4,7 @@ import { lines } from '../data/lines'
 import { linesAtStop, stopById, stopLabel } from '../data/network'
 import { stops } from '../data/stops'
 import { useTheme } from '../hooks/useTheme'
+import { useT } from '../i18n'
 import type { LatLng } from '../types'
 
 export interface TransitMapProps {
@@ -23,12 +24,13 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const css = (v: string) => getComputedStyle(document.documentElement).getPropertyValue(v).trim()
 
 /** Mapa Leaflet + OpenStreetMap (tiles oficiais, com atribuição visível). */
-export default function TransitMap({ lineIds, originId, destId, highlightStopId, userPos, interactive = true, className = '', label = 'Mapa dos percursos TUPR' }: TransitMapProps) {
+export default function TransitMap({ lineIds, originId, destId, highlightStopId, userPos, interactive = true, className = '', label }: TransitMapProps) {
   const el = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
   const layer = useRef<L.LayerGroup | null>(null)
   const fitted = useRef('')
   const { theme } = useTheme()
+  const { t, lang } = useT()
 
   useEffect(() => {
     if (!el.current || map.current) return
@@ -94,13 +96,13 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
       const ls = linesAtStop(s.id)
         .map((l) => esc(l.shortName))
         .join(' · ')
-      const tag = isO ? '<b>Origem</b><br/>' : isD ? '<b>Destino</b><br/>' : ''
-      mk.bindPopup(`${tag}<strong>${esc(s.name)}</strong>${s.detail ? `<br/><span>${esc(s.detail)}</span>` : ''}<br/><small>Linhas: ${ls}</small><br/><a href="#/paragens/${esc(s.id)}">Ver partidas →</a>`)
+      const tag = isO ? `<b>${esc(t('map.origin'))}</b><br/>` : isD ? `<b>${esc(t('map.dest'))}</b><br/>` : ''
+      mk.bindPopup(`${tag}<strong>${esc(s.name)}</strong>${s.detail ? `<br/><span>${esc(s.detail)}</span>` : ''}<br/><small>${esc(t('map.lines'))}: ${ls}</small><br/><a href="#/paragens/${esc(s.id)}">${esc(t('map.seeDepartures'))} →</a>`)
       mk.getElement()?.setAttribute('aria-label', stopLabel(s))
       if (special) mk.bringToFront()
     }
     if (userPos) {
-      L.circleMarker(userPos, { radius: 8, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1 }).addTo(g).bindTooltip('A sua localização', { permanent: false })
+      L.circleMarker(userPos, { radius: 8, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1 }).addTo(g).bindTooltip(t('loc.yours'), { permanent: false })
       L.circle(userPos, { radius: 60, color: '#1a73e8', weight: 1, fillOpacity: 0.08 }).addTo(g)
       bounds.push(userPos)
     }
@@ -112,7 +114,7 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
       else if (focus.length === 1) m.setView(focus[0], 16)
       else if (bounds.length) m.fitBounds(L.latLngBounds(bounds), { padding: [24, 24] })
     }
-  }, [lineIds, originId, destId, highlightStopId, userPos, theme])
+  }, [lineIds, originId, destId, highlightStopId, userPos, theme, lang])
 
-  return <div ref={el} role="region" aria-label={label} className={`h-full w-full ${className}`} />
+  return <div ref={el} role="region" aria-label={label ?? t('map.defaultLabel')} className={`h-full w-full ${className}`} />
 }

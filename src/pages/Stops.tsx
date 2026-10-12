@@ -7,9 +7,11 @@ import { NearbyStops } from '../components/NearbyStops'
 import { EmptyState, PageHeader } from '../components/ui'
 import { linesAtStop } from '../data/network'
 import { stops } from '../data/stops'
+import { useT } from '../i18n'
 import { normalize } from '../utils/service'
 
 export default function Stops() {
+  const { t } = useT()
   const [q, setQ] = useState('')
   const list = useMemo(() => {
     const tokens = normalize(q.trim()).split(/\s+/).filter(Boolean)
@@ -19,18 +21,18 @@ export default function Stops() {
   }, [q])
   return (
     <>
-      <PageHeader title="Paragens" subtitle={`${stops.length} paragens nas duas linhas. Pesquise pelo nome ou pela referência (ex.: “câmara”, “escola”).`}>
+      <PageHeader title={t('nav.stops')} subtitle={t('stops.subtitle', { n: stops.length })}>
         <div className="relative max-w-xl">
-          <label htmlFor="q-paragem" className="sr-only">Pesquisar paragem</label>
+          <label htmlFor="q-paragem" className="sr-only">{t('stops.searchLabel')}</label>
           <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
-          <input id="q-paragem" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Pesquisar paragem…" autoComplete="off" className="h-14 w-full rounded-xl border border-hair bg-surface pl-12 pr-4 text-base" />
+          <input id="q-paragem" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('stops.searchPh')} autoComplete="off" className="h-14 w-full rounded-xl border border-hair bg-surface pl-12 pr-4 text-base" />
         </div>
       </PageHeader>
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_22rem]">
         <section aria-labelledby="lista-paragens" aria-live="polite">
-          <h2 id="lista-paragens" className="mb-3 text-sm font-semibold text-muted">{list.length} {list.length === 1 ? 'paragem' : 'paragens'}</h2>
+          <h2 id="lista-paragens" className="mb-3 text-sm font-semibold text-muted">{t('stops.count', { count: list.length })}</h2>
           {list.length === 0 ? (
-            <EmptyState title={`Nenhuma paragem para “${q}”`}>Verifique a ortografia ou tente uma palavra mais curta.</EmptyState>
+            <EmptyState title={t('stops.noneFor', { q })}>{t('stops.noneHint')}</EmptyState>
           ) : (
             <ul className="grid gap-2.5 sm:grid-cols-2">
               {list.map((s) => (
@@ -40,7 +42,7 @@ export default function Stops() {
                       <span className="block font-semibold leading-snug">{s.name}</span>
                       {s.detail && <span className="block text-sm leading-snug text-muted">{s.detail}</span>}
                     </span>
-                    <span className="flex gap-1" aria-label={`Linhas: ${linesAtStop(s.id).map((l) => l.name).join(', ')}`}>
+                    <span className="flex gap-1" aria-label={t('stop.linesList', { list: linesAtStop(s.id).map((l) => l.name).join(', ') })}>
                       {linesAtStop(s.id).map((l) => <LineDot key={l.id} line={l} className="h-3.5 w-3.5" />)}
                     </span>
                   </Link>

@@ -1,10 +1,12 @@
-import { WEEKDAYS, WEEKDAYS_SHORT } from '../utils/time'
+import { useT } from '../i18n'
+import { weekdayName } from '../utils/time'
 
 const ORDER = [1, 2, 3, 4, 5, 6] // o PDF só refere segunda a sábado
 
-export function DayChips({ value, onChange, label = 'Dia da semana' }: { value: number; onChange: (d: number) => void; label?: string }) {
+export function DayChips({ value, onChange, label }: { value: number; onChange: (d: number) => void; label?: string }) {
+  const { t } = useT()
   return (
-    <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-2">
+    <div role="radiogroup" aria-label={label ?? t('day.aria')} className="flex flex-wrap gap-2">
       {ORDER.map((d) => {
         const on = d === value
         return (
@@ -14,11 +16,11 @@ export function DayChips({ value, onChange, label = 'Dia da semana' }: { value: 
             role="radio"
             aria-checked={on}
             onClick={() => onChange(d)}
-            aria-label={WEEKDAYS[d]}
+            aria-label={weekdayName(d)}
             className={`min-h-11 rounded-xl border px-4 text-sm font-semibold transition ${on ? 'border-primary bg-primary text-on-primary' : 'border-hair bg-surface text-ink hover:bg-primary-soft'}`}
           >
-            <span className="sm:hidden" aria-hidden="true">{WEEKDAYS_SHORT[d]}</span>
-            <span className="hidden sm:inline" aria-hidden="true">{WEEKDAYS[d]}</span>
+            <span className="sm:hidden" aria-hidden="true">{weekdayName(d, 'short')}</span>
+            <span className="hidden sm:inline" aria-hidden="true">{weekdayName(d)}</span>
           </button>
         )
       })}

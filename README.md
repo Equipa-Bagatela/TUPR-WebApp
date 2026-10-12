@@ -42,3 +42,9 @@ src/data/service.ts     estado do serviço – substituir fetchServiceStatus() p
 - Mapa: tiles `tile.openstreetmap.org` com atribuição visível, carregados só quando necessário (lazy).
 - Localização: opcional, só em memória, nunca enviada nem guardada. Favoritos: `localStorage`.
 - Modo claro por omissão; escuro por escolha do utilizador. Rotas com `HashRouter` (funciona em qualquer alojamento estático).
+
+## Idiomas e animações
+
+- **PT / EN**: dicionários em `src/i18n/pt.ts` e `src/i18n/en.ts` (o TypeScript falha o build se faltar uma chave). Idioma inicial = o do browser; a escolha fica em `localStorage`. Os nomes das paragens ficam como publicados pela Câmara (em português).
+- **Transições**: tema (círculo que se expande) e idioma (fusão) usam a View Transitions API, com *fallback* sem animação; as páginas entram suavemente e as secções da homepage revelam-se ao fazer scroll.
+- **Abertura**: um autocarro TUPR atravessa o ecrã e vai revelando a página (uma vez por sessão; toque/Esc para saltar). Desativa-se com “reduzir movimento”.

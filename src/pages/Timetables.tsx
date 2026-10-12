@@ -6,10 +6,12 @@ import { StopPicker } from '../components/StopPicker'
 import { EmptyState, PageHeader } from '../components/ui'
 import { lines } from '../data/lines'
 import { getStop, stopLabel } from '../data/network'
+import { useT } from '../i18n'
 import { hasServiceOn, runningTrips } from '../utils/service'
 import type { Line } from '../types'
 
 function FullTable({ line, day }: { line: Line; day: number }) {
+  const { t } = useT()
   const cols = runningTrips(line, day)
   return (
     <section aria-labelledby={`t-${line.id}`} className="rise">
@@ -17,10 +19,10 @@ function FullTable({ line, day }: { line: Line; day: number }) {
       {/* Desktop: tabela com primeira coluna fixa */}
       <div className="hidden overflow-x-auto rounded-2xl border border-hair bg-surface md:block">
         <table className="w-full border-collapse text-sm">
-          <caption className="sr-only">Horários da {line.name}</caption>
+          <caption className="sr-only">{t('tt.captionLine', { name: line.name })}</caption>
           <thead>
             <tr>
-              <th scope="col" className="sticky left-0 z-10 min-w-[17rem] bg-surface-2 px-4 py-3 text-left font-bold">Paragem</th>
+              <th scope="col" className="sticky left-0 z-10 min-w-[17rem] bg-surface-2 px-4 py-3 text-left font-bold">{t('stop.one')}</th>
               {cols.map(({ trip }) => <th key={trip.id} scope="col" className="tnum bg-surface-2 px-3 py-3 text-center font-bold">{trip.departure}</th>)}
             </tr>
           </thead>
@@ -73,10 +75,11 @@ function FullTable({ line, day }: { line: Line; day: number }) {
 }
 
 function StopTimes({ stopId, lineFilter, day }: { stopId: string; lineFilter: string; day: number }) {
+  const { t } = useT()
   const rows = lines
     .filter((l) => lineFilter === 'all' || l.id === lineFilter)
     .flatMap((line) => line.stops.map((s, i) => ({ line, s, i })).filter(({ s }) => s.stopId === stopId))
-  if (rows.length === 0) return <EmptyState title="Esta linha não passa nesta paragem">Escolha “Todas” ou outra linha.</EmptyState>
+  if (rows.length === 0) return <EmptyState title={t('tt.noPass')}>{t('tt.noPassHint')}</EmptyState>
   return (
     <div className="space-y-5">
       {rows.map(({ line, s, i }) => {
@@ -86,16 +89,16 @@ function StopTimes({ stopId, lineFilter, day }: { stopId: string; lineFilter: st
           <section key={line.id + i} className="rise rounded-2xl border border-hair bg-surface p-4 sm:p-5">
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <LineBadge line={line} />
-              {arrivalOnly && <span className="text-sm text-muted">Fim do circuito (hora de chegada)</span>}
-              {i === 0 && <span className="text-sm text-muted">Início do circuito</span>}
+              {arrivalOnly && <span className="text-sm text-muted">{t('tt.endCircuit')}</span>}
+              {i === 0 && <span className="text-sm text-muted">{t('tt.startCircuit')}</span>}
             </div>
             {/* Desktop: tabela; Mobile: grelha de horas */}
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full text-sm">
-                <caption className="sr-only">Horas de passagem da {line.name} em {stopLabel(getStop(stopId))}</caption>
+                <caption className="sr-only">{t('tt.captionStop', { name: line.name, stop: stopLabel(getStop(stopId)) })}</caption>
                 <thead>
                   <tr>
-                    <th scope="col" className="px-3 py-2 text-left">Paragem</th>
+                    <th scope="col" className="px-3 py-2 text-left">{t('stop.one')}</th>
                     {trips.map(({ trip }) => <th key={trip.id} scope="col" className="tnum px-3 py-2 text-center text-muted">{trip.departure}</th>)}
                   </tr>
                 </thead>
@@ -120,6 +123,7 @@ function StopTimes({ stopId, lineFilter, day }: { stopId: string; lineFilter: st
 }
 
 export default function Timetables() {
+  const { t } = useT()
   const today = new Date().getDay()
   const [day, setDay] = useState(hasServiceOn(today) ? today : 1)
   const [lineId, setLineId] = useState('all')
@@ -128,27 +132,27 @@ export default function Timetables() {
   const filtered = lineId !== 'all' || stopId !== null
   return (
     <>
-      <PageHeader title="Horários" subtitle="Horários oficiais de segunda-feira a sábado. Escolha a linha, a paragem e o dia." />
+      <PageHeader title={t('nav.timetables')} subtitle={t('tt.subtitle')} />
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
         <div className="space-y-5 rounded-2xl border border-hair bg-surface p-4 sm:p-5">
           <fieldset>
-            <legend className="mb-2 text-sm font-semibold">Linha</legend>
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Linha">
-              {[{ id: 'all', name: 'Todas' }, ...lines].map((l) => (
+            <legend className="mb-2 text-sm font-semibold">{t('tt.line')}</legend>
+            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={t('tt.line')}>
+              {[{ id: 'all', name: t('tt.all') }, ...lines].map((l) => (
                 <button key={l.id} role="radio" aria-checked={lineId === l.id} onClick={() => setLineId(l.id)} className={`min-h-11 rounded-xl border px-4 text-sm font-semibold ${lineId === l.id ? 'border-primary bg-primary text-on-primary' : 'border-hair bg-surface hover:bg-primary-soft'}`}>
                   {l.name}
                 </button>
               ))}
             </div>
           </fieldset>
-          <div className="max-w-xl"><StopPicker label="Paragem" value={stopId} onChange={setStopId} placeholder="Todas as paragens" /></div>
+          <div className="max-w-xl"><StopPicker label={t('stop.one')} value={stopId} onChange={setStopId} placeholder={t('tt.allStops')} /></div>
           <div>
-            <p className="mb-2 text-sm font-semibold">Dia</p>
+            <p className="mb-2 text-sm font-semibold">{t('tt.day')}</p>
             <DayChips value={day} onChange={setDay} />
-            {day === 6 && <p className="mt-2 text-sm text-muted">Ao sábado não se realizam as viagens das 18:00 e das 19:00.</p>}
+            {day === 6 && <p className="mt-2 text-sm text-muted">{t('sat.note')}</p>}
           </div>
           {filtered && (
-            <button onClick={reset} className="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-primary"><FilterX className="h-4 w-4" aria-hidden="true" /> Limpar filtros</button>
+            <button onClick={reset} className="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-primary"><FilterX className="h-4 w-4" aria-hidden="true" /> {t('tt.clear')}</button>
           )}
         </div>
         {stopId ? (
@@ -158,7 +162,7 @@ export default function Timetables() {
             {lines.filter((l) => lineId === 'all' || l.id === lineId).map((l) => <FullTable key={l.id + day} line={l} day={day} />)}
           </div>
         )}
-        <p className="text-sm text-muted">As linhas são circulares: o último horário de cada coluna é a chegada ao ponto de partida. O PDF oficial não refere domingos nem feriados.</p>
+        <p className="text-sm text-muted">{t('tt.footnote')}</p>
       </div>
     </>
   )

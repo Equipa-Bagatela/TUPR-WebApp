@@ -101,3 +101,79 @@ button, a, input, select, summary { touch-action: manipulation; }
 .leaflet-control-attribution a { color: var(--muted) !important; }
 .leaflet-bar a { background: var(--surface); color: var(--ink); border-color: var(--hair); }
 .leaflet-touch .leaflet-bar a { width: 40px; height: 40px; line-height: 40px; }
+
+/* ───────── Transições e animações ───────── */
+body, header, footer, section, article, aside, input, button, select, li, summary, details, table, th, td, a {
+  transition-property: background-color, border-color, color, opacity, box-shadow, transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+button:not(:disabled):active, a.press:active { transform: scale(0.97); }
+
+/* Revelação ao fazer scroll */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.reveal.reveal-in { opacity: 1; transform: none; }
+
+/* Entrada de página */
+@keyframes page-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.page-in { animation: page-in 0.4s ease-out both; }
+
+@keyframes menu-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+.menu-in { animation: menu-in 0.25s ease-out both; }
+
+@keyframes icon-pop { 0% { opacity: 0; transform: rotate(-90deg) scale(0.4); } 100% { opacity: 1; transform: none; } }
+.icon-pop { animation: icon-pop 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3) both; }
+
+/* Troca de tema (círculo que se expande) e de idioma (fusão) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html[data-vt='fade']::view-transition-old(root) { animation: vt-out 0.3s ease both; }
+html[data-vt='fade']::view-transition-new(root) { animation: vt-in 0.3s ease both; }
+html[data-vt='reveal']::view-transition-old(root) { z-index: 1; }
+html[data-vt='reveal']::view-transition-new(root) { z-index: 2; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; } }
+
+/* ───────── Abertura: o autocarro TUPR a passar ───────── */
+.splash {
+  --bus-w: min(70vw, 300px);
+  --dur: 2.1s;
+  --delay: 0.55s;
+  position: fixed; inset: 0; z-index: 3000; overflow: hidden; cursor: pointer;
+  background: #143c57;
+  animation: splash-wipe var(--dur) cubic-bezier(0.55, 0.05, 0.35, 1) var(--delay) both;
+}
+/* a página aparece atrás do autocarro: o painel azul encolhe a partir da esquerda, colado ao centro do autocarro */
+@keyframes splash-wipe {
+  from { clip-path: inset(0 0 0 calc(var(--bus-w) * -0.5)); }
+  to { clip-path: inset(0 0 0 calc(100% + var(--bus-w) * 0.5)); }
+}
+.splash-brand {
+  position: absolute; left: 50%; top: 36%; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; width: max-content; max-width: 92vw;
+  animation: brand-in 0.6s ease-out both;
+}
+@keyframes brand-in { from { opacity: 0; transform: translate(-50%, -42%) scale(0.94); } to { opacity: 1; transform: translate(-50%, -50%); } }
+.splash-road {
+  position: absolute; left: 0; right: 0; top: calc(62% + 1px); height: 3px;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0 22px, transparent 22px 44px);
+  opacity: 0.7;
+}
+.splash-bus {
+  position: absolute; top: 62%; left: 0; width: var(--bus-w); aspect-ratio: 280 / 120; margin-top: calc(var(--bus-w) * -0.4286 + 14px);
+  transform: translateX(calc(var(--bus-w) * -1));
+  animation: bus-drive var(--dur) cubic-bezier(0.55, 0.05, 0.35, 1) var(--delay) both;
+  will-change: transform; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+}
+@keyframes bus-drive { from { transform: translateX(calc(var(--bus-w) * -1)); } to { transform: translateX(100vw); } }
+.splash-bus-svg { animation: bus-bob 0.35s ease-in-out infinite alternate; }
+@keyframes bus-bob { to { transform: translateY(-1.5px); } }
+.wheel { transform-box: fill-box; transform-origin: center; animation: spin 0.45s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* o painel cobre o ecrã ainda antes do autocarro arrancar */
+@media (prefers-reduced-motion: reduce) { .splash { display: none; } }
+
+/* rio do hero: deriva lenta */
+@keyframes river-drift { from { transform: translateX(0); } to { transform: translateX(-40px); } }
+.river { animation: river-drift 9s ease-in-out infinite alternate; }
+.river.r2 { animation-duration: 12s; animation-direction: alternate-reverse; }
+.river.r3 { animation-duration: 15s; }
