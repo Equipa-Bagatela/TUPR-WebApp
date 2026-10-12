@@ -16,13 +16,12 @@ export function useTheme() {
   useEffect(() => apply(theme), [theme])
   return {
     theme,
-    /** `origin`: de onde nasce o círculo da transição (ex.: centro do botão) */
-    toggle: (origin?: { x: number; y: number }) => {
+    toggle: () => {
       const next: Theme = store.get() === 'dark' ? 'light' : 'dark'
       smoothUpdate(() => {
         store.set(next)
         apply(next)
-      }, { origin })
+      })
     },
   }
 }

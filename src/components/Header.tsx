@@ -53,19 +53,18 @@ export function Header() {
     return () => document.removeEventListener('keydown', esc)
   }, [menu])
 
+  const dark = theme === 'dark'
+  // Sol e lua empilhados: ao trocar, um roda e encolhe enquanto o outro roda e cresce
+  const icon = 'absolute inset-0 m-auto h-5 w-5 transition-all duration-500 ease-[cubic-bezier(0.34,1.4,0.5,1)]'
   const themeBtn = (
     <button
-      onClick={(e) => {
-        const r = e.currentTarget.getBoundingClientRect()
-        toggle({ x: r.left + r.width / 2, y: r.top + r.height / 2 })
-      }}
-      aria-label={theme === 'dark' ? t('theme.toLight') : t('theme.toDark')}
-      aria-pressed={theme === 'dark'}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink transition-colors hover:bg-primary-soft"
+      onClick={() => toggle()}
+      aria-label={dark ? t('theme.toLight') : t('theme.toDark')}
+      aria-pressed={dark}
+      className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full text-ink transition-colors hover:bg-primary-soft"
     >
-      <span key={theme} className="icon-pop inline-flex">
-        {theme === 'dark' ? <Sun className="h-5 w-5" aria-hidden="true" /> : <Moon className="h-5 w-5" aria-hidden="true" />}
-      </span>
+      <Sun className={`${icon} ${dark ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`} aria-hidden="true" />
+      <Moon className={`${icon} ${dark ? '-rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`} aria-hidden="true" />
     </button>
   )
 

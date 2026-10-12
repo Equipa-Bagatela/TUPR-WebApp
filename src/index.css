@@ -124,12 +124,10 @@ button:not(:disabled):active, a.press:active { transform: scale(0.97); }
 @keyframes icon-pop { 0% { opacity: 0; transform: rotate(-90deg) scale(0.4); } 100% { opacity: 1; transform: none; } }
 .icon-pop { animation: icon-pop 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3) both; }
 
-/* Troca de tema (círculo que se expande) e de idioma (fusão) */
+/* Troca de tema e de idioma: fusão suave */
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
-html[data-vt='fade']::view-transition-old(root) { animation: vt-out 0.3s ease both; }
-html[data-vt='fade']::view-transition-new(root) { animation: vt-in 0.3s ease both; }
-html[data-vt='reveal']::view-transition-old(root) { z-index: 1; }
-html[data-vt='reveal']::view-transition-new(root) { z-index: 2; }
+html[data-vt='fade']::view-transition-old(root) { animation: vt-out 0.4s ease both; }
+html[data-vt='fade']::view-transition-new(root) { animation: vt-in 0.4s ease both; }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; } }
 
