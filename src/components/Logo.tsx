@@ -15,7 +15,7 @@ export function Logo({ light = false }: { light?: boolean }) {
       <LogoMark />
       <span className="flex flex-col leading-none">
         <span className={`font-display text-[1.65rem] font-extrabold tracking-[0.18em] ${light ? 'text-white' : 'text-primary'}`}>TUPR</span>
-        <span className={`mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] ${light ? 'text-white/85' : 'text-muted'}`}>
+        <span className={`mt-1 text-[0.6rem] font-semibold uppercase leading-[1.3] tracking-[0.1em] ${light ? 'text-white/85' : 'text-muted'}`}>
           Transportes Urbanos
           <br />
           Peso da Régua

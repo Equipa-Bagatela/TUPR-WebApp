@@ -79,10 +79,10 @@ h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0
 button, a, input, select, summary { touch-action: manipulation; }
 
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 100% { box-shadow: 0 0 0 6px transparent; } }
 @keyframes shimmer { 0% { background-position: -200px 0; } 100% { background-position: calc(200px + 100%) 0; } }
 .rise { animation: rise 0.35s ease-out both; }
-.live-dot { animation: pulse-ring 1.8s ease-out infinite; }
+.live-dot { animation: pulse-ring 1.8s ease-out infinite; margin-right: 2px; }
 .skeleton {
   background: linear-gradient(90deg, var(--surface-2) 0, var(--hair) 40%, var(--surface-2) 80%);
   background-size: 200px 100%; background-repeat: no-repeat; background-color: var(--surface-2);

@@ -133,7 +133,7 @@ export const pt = {
   'map.origin': 'Origem',
   'map.seeDepartures': 'Ver partidas',
   'map.subtitle': 'Percursos e paragens do TUPR na zona urbana do Peso da Régua.',
-  'map.tip': 'Toque numa paragem para ver as partidas. Use Ctrl/⌘ + roda do rato para ampliar. As posições das paragens são aproximadas.',
+  'map.tip': 'Toque numa paragem para ver as partidas. No telemóvel use dois dedos para mover e ampliar o mapa; no computador, Ctrl/⌘ + roda do rato. As posições das paragens são aproximadas.',
   'map.visible': 'visível',
   'map.visibleLines': 'Linhas visíveis',
   'nav.closeMenu': 'Fechar menu',

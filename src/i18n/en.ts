@@ -135,7 +135,7 @@ export const en: Record<keyof typeof pt, string> = {
   'map.origin': 'Origin',
   'map.seeDepartures': 'See departures',
   'map.subtitle': 'TUPR routes and stops in the urban area of Peso da Régua.',
-  'map.tip': 'Tap a stop to see its departures. Use Ctrl/⌘ + mouse wheel to zoom. Stop positions are approximate.',
+  'map.tip': 'Tap a stop to see its departures. On a phone use two fingers to move and zoom the map; on a computer, Ctrl/⌘ + mouse wheel. Stop positions are approximate.',
   'map.visible': 'visible',
   'map.visibleLines': 'Visible lines',
   'nav.closeMenu': 'Close menu',

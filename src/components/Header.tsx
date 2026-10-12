@@ -69,7 +69,7 @@ export function Header() {
   )
 
   return (
-    <header className={`sticky top-0 z-[1100] border-b bg-surface/95 backdrop-blur transition-shadow duration-300 ${scrolled ? 'border-hair shadow-[0_6px_20px_-12px_rgba(15,42,61,0.35)]' : 'border-hair'}`}>
+    <header className={`sticky top-0 z-[1100] border-b bg-surface transition-shadow duration-300 ${scrolled ? 'border-hair shadow-[0_6px_20px_-12px_rgba(15,42,61,0.35)]' : 'border-hair'}`}>
       <a href="#conteudo" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[1300] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-3 focus:text-on-primary">
         {t('nav.skip')}
       </a>

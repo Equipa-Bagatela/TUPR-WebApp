@@ -43,9 +43,11 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
 
   useEffect(() => {
     if (!el.current || map.current) return
+    // Em ecrãs tácteis, um dedo faz scroll da página (não fica "preso" no mapa); dois dedos movem/ampliam.
+    const touch = window.matchMedia('(pointer: coarse)').matches
     const m = L.map(el.current, {
       zoomControl: interactive,
-      dragging: interactive,
+      dragging: interactive && !touch,
       scrollWheelZoom: false,
       doubleClickZoom: interactive,
       touchZoom: interactive,
@@ -199,5 +201,5 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
     }
   }, [focusBusId, focusTick])
 
-  return <div ref={el} role="region" aria-label={label ?? t('map.defaultLabel')} className={`h-full w-full ${className}`} />
+  return <div ref={el} role="region" aria-label={label ?? t('map.defaultLabel')} className={`h-full w-full ${className}`} style={{ touchAction: 'pan-y pinch-zoom' }} />
 }

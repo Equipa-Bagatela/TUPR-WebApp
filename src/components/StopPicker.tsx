@@ -104,6 +104,7 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
               setOpen(true)
             }}
             onKeyDown={onKey}
+            onBlur={(e) => { e.currentTarget.scrollLeft = 0 }}
             className="h-14 w-full truncate rounded-xl border border-hair bg-surface pl-11 pr-3 text-base text-ink placeholder:text-muted focus:border-primary"
           />
         </div>
