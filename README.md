@@ -48,3 +48,13 @@ src/data/service.ts     estado do serviço – substituir fetchServiceStatus() p
 - **PT / EN**: dicionários em `src/i18n/pt.ts` e `src/i18n/en.ts` (o TypeScript falha o build se faltar uma chave). Idioma inicial = o do browser; a escolha fica em `localStorage`. Os nomes das paragens ficam como publicados pela Câmara (em português).
 - **Transições**: tema (círculo que se expande) e idioma (fusão) usam a View Transitions API, com *fallback* sem animação; as páginas entram suavemente e as secções da homepage revelam-se ao fazer scroll.
 - **Abertura**: um autocarro TUPR atravessa o ecrã e vai revelando a página (uma vez por sessão; toque/Esc para saltar). Desativa-se com “reduzir movimento”.
+
+## Autocarros em tempo real
+
+Posições obtidas da API pública do sistema de tracking do TUPR (<https://tracking.elevensystems.pt/tupr>, © Eleven Systems):
+`GET https://tupr.elevensystems.pt/api/locations?passengerInfo=true&routeId=1|2` (1 = Verde, 2 = Vermelha). Código em `src/services/tracking.ts` e `src/hooks/useBuses.ts`.
+
+- Só consulta a API (a cada 10 s) enquanto houver um mapa/painel de autocarros no ecrã e o separador estiver visível.
+- Se a API falhar, mantém a última posição conhecida e avisa; o resto da app não é afetado.
+- O único estado documentado no site oficial é `ontime`; qualquer outro valor é mostrado tal como vem.
+- Privacidade: o browser do utilizador contacta `tupr.elevensystems.pt` diretamente (essa entidade vê o IP). Convém confirmar com a Eleven Systems / Câmara que a utilização por terceiros é aceite.

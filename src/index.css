@@ -177,3 +177,13 @@ html[data-vt='reveal']::view-transition-new(root) { z-index: 2; }
 .river { animation: river-drift 9s ease-in-out infinite alternate; }
 .river.r2 { animation-duration: 12s; animation-direction: alternate-reverse; }
 .river.r3 { animation-duration: 15s; }
+
+/* Autocarros em tempo real */
+.bus-marker { background: none; border: 0; }
+.bus-pin {
+  position: relative; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+  border-radius: 50%; background: var(--c); border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+.bus-pin::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--c); animation: bus-ping 1.8s ease-out infinite; }
+@keyframes bus-ping { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.7); opacity: 0; } }
+.dark .bus-pin { border-color: #0b1a26; }

@@ -2,6 +2,7 @@ import { ArrowRight, Bus, CalendarClock, Clock, Info, MapPinned, Route, Ticket }
 import { Link, useNavigate } from 'react-router-dom'
 import { FavoritesPanel } from '../components/FavoritesPanel'
 import { LineCard } from '../components/LineCard'
+import { LiveBuses } from '../components/LiveBuses'
 import { MapBox } from '../components/MapBox'
 import { NearbyStops } from '../components/NearbyStops'
 import { NowPanel } from '../components/NowPanel'
@@ -105,6 +106,7 @@ export default function Home() {
         <section aria-labelledby="mapa-titulo">
           <Reveal>
             <SectionTitle eyebrow="Peso da Régua" title={t('home.mapTitle')} action={<Link to="/mapa" className="inline-flex min-h-11 items-center font-bold text-primary hover:underline">{t('home.openMap')}</Link>} />
+            <div className="mb-4"><LiveBuses compact /></div>
             <MapBox height="h-[22rem] sm:h-[28rem]" label={t('home.mapAria')} />
           </Reveal>
         </section>

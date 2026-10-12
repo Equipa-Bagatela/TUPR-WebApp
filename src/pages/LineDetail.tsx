@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { DayChips } from '../components/DayChips'
+import { LiveBuses } from '../components/LiveBuses'
 import { MapBox } from '../components/MapBox'
 import { Timeline } from '../components/Timeline'
 import { EmptyState, PageHeader } from '../components/ui'
@@ -68,7 +69,8 @@ export default function LineDetail() {
             <Timeline line={line} tripIndex={sel} nextStopIdx={live ? nextIdx : undefined} />
           </div>
         </section>
-        <aside aria-label={t('line.mapOf', { name: line.name })} className="lg:sticky lg:top-24 lg:self-start">
+        <aside aria-label={t('line.mapOf', { name: line.name })} className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+          <LiveBuses lineIds={[line.id]} compact />
           <MapBox height="h-80 lg:h-[30rem]" lineIds={[line.id]} label={t('line.mapOf', { name: line.name })} />
         </aside>
       </div>

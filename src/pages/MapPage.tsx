@@ -2,6 +2,7 @@ import { LocateFixed } from 'lucide-react'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { LineDot } from '../components/LineBadge'
+import { LiveBuses } from '../components/LiveBuses'
 import { MapBox } from '../components/MapBox'
 import { PageHeader } from '../components/ui'
 import { lines } from '../data/lines'
@@ -14,6 +15,7 @@ export default function MapPage() {
   const [sp] = useSearchParams()
   const [on, setOn] = useState<string[]>(lines.map((l) => l.id))
   const geo = useGeolocation()
+  const [focus, setFocus] = useState<{ id: string | null; tick: number }>({ id: null, tick: 0 })
   const ok = (k: string) => (sp.get(k) && stopById.has(sp.get(k)!) ? sp.get(k)! : null)
   const toggle = (id: string) => setOn((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
   return (
@@ -38,7 +40,8 @@ export default function MapPage() {
           {geo.status === 'error' && t('loc.errorShort')}
           {geo.status === 'granted' && `📍 ${t('map.locShown')}`}
         </div>
-        <MapBox height="h-[65dvh] min-h-[24rem]" lineIds={on} originId={ok('de')} destId={ok('para')} highlightStopId={ok('paragem')} userPos={geo.pos} label={t('map.interactive')} />
+        <LiveBuses lineIds={on} onLocate={(id) => setFocus((f) => ({ id, tick: f.tick + 1 }))} />
+        <MapBox height="h-[65dvh] min-h-[24rem]" focusBusId={focus.id} focusTick={focus.tick} lineIds={on} originId={ok('de')} destId={ok('para')} highlightStopId={ok('paragem')} userPos={geo.pos} label={t('map.interactive')} />
         <p className="text-sm text-muted">{t('map.tip')}</p>
       </div>
     </>

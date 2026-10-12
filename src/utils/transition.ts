@@ -5,7 +5,7 @@ interface Opts {
   origin?: { x: number; y: number }
 }
 
-type VT = { ready: Promise<void>; finished: Promise<void> }
+type VT = { ready: Promise<void>; finished: Promise<void>; updateCallbackDone?: Promise<void> }
 type DocVT = Document & { startViewTransition?: (cb: () => void) => VT }
 
 /**
@@ -19,6 +19,7 @@ export function smoothUpdate(update: () => void, opts: Opts = {}) {
   const root = document.documentElement
   root.dataset.vt = opts.origin ? 'reveal' : 'fade'
   const vt = doc.startViewTransition(() => flushSync(update))
+  vt.updateCallbackDone?.catch(() => {})
   if (opts.origin) {
     const { x, y } = opts.origin
     const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
@@ -26,5 +27,6 @@ export function smoothUpdate(update: () => void, opts: Opts = {}) {
       root.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] }, { duration: 650, easing: 'cubic-bezier(.65,0,.35,1)', pseudoElement: '::view-transition-new(root)' }),
     ).catch(() => {})
   }
-  vt.finished.finally(() => delete root.dataset.vt)
+  // `finished` rejeita se a transição for saltada (ex.: separador oculto); não é um erro da app
+  vt.finished.catch(() => {}).finally(() => delete root.dataset.vt)
 }

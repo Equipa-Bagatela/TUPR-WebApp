@@ -2,6 +2,20 @@ import type { pt } from './pt'
 
 /** English. Stop names are kept as officially published (Portuguese). */
 export const en: Record<keyof typeof pt, string> = {
+  'bus.credit': 'Real-time position provided by the TUPR tracking system —',
+  'bus.error': 'Live location is not available right now.',
+  'bus.errorStale': 'No connection to tracking — showing the last known position.',
+  'bus.live': 'Buses live',
+  'bus.locate': 'Locate',
+  'bus.near': 'Near',
+  'bus.none': 'No bus running',
+  'bus.onTime': 'On time',
+  'bus.refresh': 'Refresh positions',
+  'bus.running_one': '{count} bus running',
+  'bus.running_other': '{count} buses running',
+  'bus.statusOther': 'Status: {status}',
+  'bus.unknown': 'Position unavailable',
+  'bus.updated': 'Updated at {time}',
   'day.aria': 'Day of the week',
   'dep.nextIs': 'Next departure:',
   'dep.nextStop': 'Heading to {name}',
