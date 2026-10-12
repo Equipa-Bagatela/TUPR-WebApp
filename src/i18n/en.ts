@@ -220,7 +220,7 @@ export const en: Record<keyof typeof pt, string> = {
   'status.suspended': 'Service suspended',
   'status.suspendedMsg': 'The service is temporarily suspended.',
   'stop.allTimes': 'Full timetable',
-  'stop.approx': 'Approximate position (OpenStreetMap).',
+  'stop.approx': 'Approximate position.',
   'stop.leaveHere': 'Leave from here',
   'stop.linesHere': 'Lines serving this stop',
   'stop.linesList': 'Lines: {list}',

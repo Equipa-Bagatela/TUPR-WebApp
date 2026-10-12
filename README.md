@@ -31,7 +31,7 @@ src/data/service.ts     estado do serviço – substituir fetchServiceStatus() p
 
 ## Ambiguidades / limites (assinalados no código)
 
-- **Sem coordenadas no PDF.** As posições do mapa vêm das paragens equivalentes no OpenStreetMap (© colaboradores OSM, ODbL) e são **aproximadas**; o traçado foi calculado sobre a rede viária (OSRM). “Cruzamento da Casa do Povo de Godim” não tem posição fiável e não aparece no mapa.
+- **Sem coordenadas no PDF.** As posições do mapa vêm das paragens da API de tracking do TUPR (© Eleven Systems), que foi validada contra este PDF (mesmas paragens, ordem e horas) por `scripts/apply_api_coords.py`; esse script também recalcula o traçado sobre a rede viária (OSRM). Paragens partilhadas por duas linhas usam o ponto médio das duas posições.
 - O PDF **não indica o lado da via**: paragens com o mesmo nome *e* a mesma indicação nas duas linhas foram unificadas; as restantes ficam separadas.
 - O PDF **não refere domingos nem feriados**: a app assume que não há serviço ao domingo e avisa o utilizador; feriados não são tratados.
 - Transbordos: máx. 1, em paragem partilhada, com folga mínima de 2 min (valor da app, não do PDF).

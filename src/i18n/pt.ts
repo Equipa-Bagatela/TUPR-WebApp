@@ -218,7 +218,7 @@ export const pt = {
   'status.suspended': 'Serviço suspenso',
   'status.suspendedMsg': 'O serviço está temporariamente suspenso.',
   'stop.allTimes': 'Todos os horários',
-  'stop.approx': 'Posição aproximada (OpenStreetMap).',
+  'stop.approx': 'Posição aproximada.',
   'stop.leaveHere': 'Partir daqui',
   'stop.linesHere': 'Linhas que passam nesta paragem',
   'stop.linesList': 'Linhas: {list}',
