@@ -14,6 +14,7 @@ import Lines from './pages/Lines'
 import MapPage from './pages/MapPage'
 import Next from './pages/Next'
 import NotFound from './pages/NotFound'
+import { Privacy, Terms } from './pages/Legal'
 import Plan from './pages/Plan'
 import StopDetail from './pages/StopDetail'
 import Stops from './pages/Stops'
@@ -43,6 +44,8 @@ function Pages() {
         <Route path="/paragens" element={<Stops />} />
         <Route path="/paragens/:id" element={<StopDetail />} />
         <Route path="/mapa" element={<MapPage />} />
+        <Route path="/termos" element={<Terms />} />
+        <Route path="/privacidade" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

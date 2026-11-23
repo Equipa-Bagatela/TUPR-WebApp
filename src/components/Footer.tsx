@@ -27,6 +27,11 @@ export function Footer() {
           <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-white/70">{t('footer.aboutTitle')}</h2>
           <p className="text-sm font-semibold text-white">{t('footer.independent')}</p>
           <p className="mt-2 text-sm text-white/80">{t('footer.dataNote')}</p>
+          <p className="mt-2 text-sm text-white/80">{t('footer.source')}</p>
+          <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
+            <Link to="/termos" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.terms')}</Link>
+            <Link to="/privacidade" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.privacy')}</Link>
+          </p>
         </div>
       </div>
       <div className="border-t border-white/15">
