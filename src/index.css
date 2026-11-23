@@ -255,3 +255,39 @@ html.glass header.glass-bar::before {
   -webkit-backdrop-filter: blur(24px) saturate(190%);
   box-shadow: inset 0 -1px 0 var(--glass-lo);
 }
+
+/* ───────── "liquid glass" em todo o site ─────────
+ * Qualquer caixa do site (cartões, listas, botões de escolha, cabeçalhos de página…) é vidro.
+ * Ficam sólidos: campos de escrever (leitura), elementos marcados com .solid (ex.: o popup de apoio) e os fixos pequenos. */
+html.glass :is(.rounded-xl, .rounded-2xl, .rounded-3xl).bg-surface.border-hair:not(input):not(select):not(textarea):not(.solid):not(.glass-panel) {
+  isolation: isolate;
+  background-color: var(--glass-fill) !important;
+  backdrop-filter: blur(16px) saturate(175%);
+  -webkit-backdrop-filter: blur(16px) saturate(175%);
+  border-color: var(--glass-edge) !important;
+  box-shadow: inset 0 1.5px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-lo), 0 10px 26px -16px var(--glass-shadow);
+}
+html.glass :is(.rounded-xl, .rounded-2xl, .rounded-3xl).bg-surface.border-hair:not(input):not(select):not(textarea):not(.solid):not(.glass-panel):not(.fixed):not(.absolute):not(.sticky) { position: relative; }
+html.glass :is(.rounded-xl, .rounded-2xl, .rounded-3xl).bg-surface.border-hair:not(input):not(select):not(textarea):not(.solid):not(.glass-panel)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 36%, rgba(255, 255, 255, 0) 68%, rgba(255, 255, 255, 0.18) 100%);
+}
+html.glass.dark :is(.rounded-xl, .rounded-2xl, .rounded-3xl).bg-surface.border-hair:not(input):not(.solid):not(.glass-panel)::before { opacity: 0.3; }
+
+/* cabeçalho de cada página (título + subtítulo) */
+html.glass header.border-b.border-hair.bg-surface:not(.sticky) {
+  background-color: color-mix(in srgb, var(--surface) 62%, transparent) !important;
+  backdrop-filter: blur(18px) saturate(175%);
+  -webkit-backdrop-filter: blur(18px) saturate(175%);
+  border-bottom-color: var(--glass-edge) !important;
+  box-shadow: inset 0 -1px 0 var(--glass-lo);
+}
+/* faixas de tabela: ligeiramente translúcidas para se ver o fundo */
+html.glass thead th { background-color: color-mix(in srgb, var(--surface-2) 80%, transparent) !important; }
+/* o popup de apoio e os campos de escrever ficam sólidos */
+html.glass .solid { background-color: var(--surface) !important; backdrop-filter: none !important; }
