@@ -55,7 +55,7 @@ export default function Plan() {
     <>
       <PageHeader title={t('plan.title')} subtitle={t('plan.subtitle')}>
         <div className="max-w-4xl">
-          <PlannerForm key={`${from}${to}${dateStr}${timeStr}`} compact initial={{ from: from ?? undefined, to: to ?? undefined, date: dateStr, time: timeStr }} onSubmit={submit} />
+          <PlannerForm key={`${from}${to}${dateStr}${timeStr}`} initial={{ from: from ?? undefined, to: to ?? undefined, date: dateStr, time: timeStr }} onSubmit={submit} />
         </div>
       </PageHeader>
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">

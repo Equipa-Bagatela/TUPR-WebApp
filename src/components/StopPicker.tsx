@@ -1,5 +1,5 @@
 import { Crosshair, MapPin, Star } from 'lucide-react'
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import { stops } from '../data/stops'
 import { linesAtStop, stopById } from '../data/network'
 import { useFavorites } from '../hooks/useFavorites'
@@ -16,9 +16,13 @@ interface Props {
   onUseLocation?: () => void
   locating?: boolean
   id?: string
+  /** 'row': linha sem moldura própria (para juntar origem e destino num só cartão) */
+  variant?: 'field' | 'row'
+  /** Ícone à esquerda no modo 'row' */
+  leading?: ReactNode
 }
 
-export function StopPicker({ label, value, onChange, placeholder, onUseLocation, locating, id }: Props) {
+export function StopPicker({ label, value, onChange, placeholder, onUseLocation, locating, id, variant = 'field', leading }: Props) {
   const { t } = useT()
   const uid = useId()
   const inputId = id ?? `${uid}-input`
@@ -72,6 +76,77 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
     } else if (e.key === 'Escape') setOpen(false)
   }
 
+  const row = variant === 'row'
+  const listbox = open && (
+    <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className={`glass-panel absolute left-0 right-0 z-30 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg ${row ? 'top-full mt-1' : 'mt-2'}`}>
+      {options.length === 0 && <li className="px-4 py-4 text-sm text-muted">{t('picker.none', { q: query })}</li>}
+      {options.map((s, i) => (
+        <li
+          key={s.id}
+          id={`${listId}-${i}`}
+          role="option"
+          aria-selected={s.id === value}
+          onPointerDown={(e) => e.preventDefault()}
+          onClick={() => choose(s.id)}
+          onMouseMove={() => setActive(i)}
+          className={`flex min-h-12 cursor-pointer items-center gap-3 px-4 py-2 ${i === active ? 'bg-primary-soft' : ''}`}
+        >
+          <span className="min-w-0 flex-1">
+            <span className="block text-[0.95rem] font-semibold leading-snug">{s.name}</span>
+            {s.detail && <span className="block text-sm leading-snug text-muted">{s.detail}</span>}
+          </span>
+          {favs.includes(s.id) && <Star className="h-4 w-4 shrink-0 fill-[#f5b301] text-[#f5b301]" aria-label={t('picker.fav')} />}
+          <span className="flex shrink-0 gap-1" aria-label={t('stop.linesList', { list: linesAtStop(s.id).map((l) => l.name).join(', ') })}>
+            {linesAtStop(s.id).map((l) => (
+              <LineDot key={l.id} line={l} />
+            ))}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+  const inputProps = {
+    id: inputId,
+    type: 'text' as const,
+    role: 'combobox' as const,
+    'aria-expanded': open,
+    'aria-controls': listId,
+    'aria-autocomplete': 'list' as const,
+    'aria-activedescendant': open && options[active] ? `${listId}-${active}` : undefined,
+    autoComplete: 'off',
+    autoCorrect: 'off',
+    spellCheck: false,
+    enterKeyHint: 'search' as const,
+    placeholder: placeholder ?? t('picker.placeholder'),
+    value: open ? query : selected ? selected.name + (selected.detail ? ` (${selected.detail})` : '') : '',
+    onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
+      setOpen(true)
+      setQuery('')
+      e.currentTarget.select()
+    },
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+      setQuery(e.target.value)
+      setOpen(true)
+    },
+    onKeyDown: onKey,
+    onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+      e.currentTarget.scrollLeft = 0
+    },
+  }
+
+  if (row) {
+    return (
+      <div ref={wrapRef} className="relative">
+        <label htmlFor={inputId} className="sr-only">
+          {label}
+        </label>
+        <span className="pointer-events-none absolute left-4 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center">{leading}</span>
+        <input {...inputProps} className="h-[3.4rem] w-full truncate bg-transparent pl-14 pr-16 text-[1.02rem] font-semibold text-ink placeholder:font-normal placeholder:text-muted focus-visible:outline-offset-[-3px]" />
+        {listbox}
+      </div>
+    )
+  }
+
   return (
     <div ref={wrapRef} className="relative">
       <label htmlFor={inputId} className="mb-1.5 block text-sm font-semibold text-ink">
@@ -80,33 +155,7 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
       <div className="flex gap-2">
         <div className="relative min-w-0 flex-1">
           <MapPin className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
-          <input
-            id={inputId}
-            type="text"
-            role="combobox"
-            aria-expanded={open}
-            aria-controls={listId}
-            aria-autocomplete="list"
-            aria-activedescendant={open && options[active] ? `${listId}-${active}` : undefined}
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck={false}
-            enterKeyHint="search"
-            placeholder={placeholder ?? t('picker.placeholder')}
-            value={open ? query : selected ? selected.name + (selected.detail ? ` (${selected.detail})` : '') : ''}
-            onFocus={(e) => {
-              setOpen(true)
-              setQuery('')
-              e.currentTarget.select()
-            }}
-            onChange={(e) => {
-              setQuery(e.target.value)
-              setOpen(true)
-            }}
-            onKeyDown={onKey}
-            onBlur={(e) => { e.currentTarget.scrollLeft = 0 }}
-            className="h-14 w-full truncate rounded-xl border border-hair bg-surface pl-11 pr-3 text-base text-ink placeholder:text-muted focus:border-primary"
-          />
+          <input {...inputProps} className="h-14 w-full truncate rounded-xl border border-hair bg-surface pl-11 pr-3 text-base text-ink placeholder:text-muted focus:border-primary" />
         </div>
         {onUseLocation && (
           <button
@@ -121,34 +170,7 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
           </button>
         )}
       </div>
-      {open && (
-        <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className="glass-panel absolute left-0 right-0 z-30 mt-2 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg">
-          {options.length === 0 && <li className="px-4 py-4 text-sm text-muted">{t('picker.none', { q: query })}</li>}
-          {options.map((s, i) => (
-            <li
-              key={s.id}
-              id={`${listId}-${i}`}
-              role="option"
-              aria-selected={s.id === value}
-              onPointerDown={(e) => e.preventDefault()}
-              onClick={() => choose(s.id)}
-              onMouseMove={() => setActive(i)}
-              className={`flex min-h-12 cursor-pointer items-center gap-3 px-4 py-2 ${i === active ? 'bg-primary-soft' : ''}`}
-            >
-              <span className="min-w-0 flex-1">
-                <span className="block text-[0.95rem] font-semibold leading-snug">{s.name}</span>
-                {s.detail && <span className="block text-sm leading-snug text-muted">{s.detail}</span>}
-              </span>
-              {favs.includes(s.id) && <Star className="h-4 w-4 shrink-0 fill-[#f5b301] text-[#f5b301]" aria-label={t('picker.fav')} />}
-              <span className="flex shrink-0 gap-1" aria-label={t('stop.linesList', { list: linesAtStop(s.id).map((l) => l.name).join(', ') })}>
-                {linesAtStop(s.id).map((l) => (
-                  <LineDot key={l.id} line={l} />
-                ))}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      {listbox}
     </div>
   )
 }

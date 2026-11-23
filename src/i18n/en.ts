@@ -222,6 +222,7 @@ export const en: Record<keyof typeof pt, string> = {
   'plan.shortcuts': 'Date and time shortcuts',
   'plan.showPast': 'Show trips already gone ({n})',
   'plan.subtitle': 'Choose where you start, where you are going and when.',
+  'plan.useLocationFrom': 'Use my location as the starting point',
   'plan.swap': 'Swap origin and destination',
   'plan.time': 'Time',
   'plan.title': 'Plan a trip',

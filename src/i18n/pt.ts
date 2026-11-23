@@ -220,6 +220,7 @@ export const pt = {
   'plan.shortcuts': 'Atalhos de data e hora',
   'plan.showPast': 'Mostrar viagens que já passaram ({n})',
   'plan.subtitle': 'Escolha a origem, o destino e quando quer partir.',
+  'plan.useLocationFrom': 'Usar a minha localização como partida',
   'plan.swap': 'Trocar origem e destino',
   'plan.time': 'Hora',
   'plan.title': 'Planear viagem',
