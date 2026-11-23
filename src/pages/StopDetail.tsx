@@ -6,6 +6,8 @@ import { FavoriteButton } from '../components/FavoriteButton'
 import { LineBadge } from '../components/LineBadge'
 import { MapBox } from '../components/MapBox'
 import { NextDepartures } from '../components/DepartureList'
+import { ReportError } from '../components/ReportError'
+import { ScheduleChecked } from '../components/ScheduleChecked'
 import { EmptyState, PageHeader } from '../components/ui'
 import { linesAtStop, passingsOf, stopById } from '../data/network'
 import { useFavorites } from '../hooks/useFavorites'
@@ -73,6 +75,8 @@ export default function StopDetail() {
               ))}
             </ul>
             {all.length === 0 && <EmptyState title={t('stop.noneDay')} />}
+            <ScheduleChecked className="mt-3" />
+            <ReportError what={stop.name} />
           </section>
         </div>
         <aside aria-label={t('stop.locAria')} className="lg:sticky lg:top-24 lg:self-start">

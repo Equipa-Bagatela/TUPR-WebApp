@@ -13,7 +13,8 @@ function useBusStatusLabel() {
 }
 
 /** Painel "Autocarros em direto": por linha, quantos circulam agora e onde (botão "Localizar"). */
-export function LiveBuses({ lineIds, onLocate, compact = false }: { lineIds?: string[]; onLocate?: (busId: string) => void; compact?: boolean }) {
+export function LiveBuses({ lineIds, onLocate, compact = false, headingLevel = 3 }: { lineIds?: string[]; onLocate?: (busId: string) => void; compact?: boolean; headingLevel?: 2 | 3 }) {
+  const Heading = `h${headingLevel}` as 'h2' | 'h3'
   const { t } = useT()
   const label = useBusStatusLabel()
   const { buses, status, updatedAt } = useBuses()
@@ -21,10 +22,10 @@ export function LiveBuses({ lineIds, onLocate, compact = false }: { lineIds?: st
   return (
     <section aria-labelledby="live-titulo" className="glass-panel rounded-2xl border border-hair bg-surface p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h3 id="live-titulo" className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-muted">
+        <Heading id="live-titulo" className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-muted">
           <span className={`inline-block h-2.5 w-2.5 rounded-full ${status === 'error' ? 'bg-bad' : 'live-dot bg-accent'}`} aria-hidden="true" />
           {t('bus.live')}
-        </h3>
+        </Heading>
         <div className="flex items-center gap-1 text-xs text-muted">
           {updatedAt && status !== 'error' && <span className="tnum">{t('bus.updated', { time: clock(updatedAt) })}</span>}
           <button onClick={refreshBuses} aria-label={t('bus.refresh')} title={t('bus.refresh')} className="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-surface-2">

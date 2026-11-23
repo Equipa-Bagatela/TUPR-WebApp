@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
 import { BagatelaMark } from './BagatelaMark'
 import { COFFEE_URL } from './CoffeeFab'
+import { CONTACT_EMAIL } from '../i18n/legal'
 import { Logo } from './Logo'
 
 export function Footer() {
@@ -45,6 +46,7 @@ export function Footer() {
           <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
             <Link to="/termos" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.terms')}</Link>
             <Link to="/privacidade" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.privacy')}</Link>
+            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('report.subject', { what: 'Horários TUPR' }))}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.report')}</a>
           </p>
         </div>
       </div>
@@ -57,7 +59,6 @@ export function Footer() {
             href="https://abagatela.pt"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Powered by Bagatela (abagatela.pt)"
             className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/25 bg-white/[0.06] py-1.5 pl-2 pr-4 transition duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-white/10"
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F7F2E9] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">

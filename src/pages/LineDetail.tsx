@@ -3,6 +3,8 @@ import { DayChips } from '../components/DayChips'
 import { LiveBuses } from '../components/LiveBuses'
 import { MapBox } from '../components/MapBox'
 import { Timeline } from '../components/Timeline'
+import { ReportError } from '../components/ReportError'
+import { ScheduleChecked } from '../components/ScheduleChecked'
 import { EmptyState, PageHeader } from '../components/ui'
 import { lineById } from '../data/lines'
 import { useNow } from '../hooks/useNow'
@@ -68,6 +70,8 @@ export default function LineDetail() {
           <div className="rounded-2xl border border-hair bg-surface p-4 sm:p-6">
             <Timeline line={line} tripIndex={sel} nextStopIdx={live ? nextIdx : undefined} />
           </div>
+          <ScheduleChecked className="mt-3" />
+          <ReportError what={line.name} />
         </section>
         <aside aria-label={t('line.mapOf', { name: line.name })} className="space-y-4 lg:sticky lg:top-24 lg:self-start">
           <LiveBuses lineIds={[line.id]} compact />

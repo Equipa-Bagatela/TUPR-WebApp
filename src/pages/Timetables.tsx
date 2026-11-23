@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { DayChips } from '../components/DayChips'
 import { LineBadge } from '../components/LineBadge'
 import { StopPicker } from '../components/StopPicker'
+import { ReportError } from '../components/ReportError'
+import { ScheduleChecked } from '../components/ScheduleChecked'
 import { EmptyState, PageHeader } from '../components/ui'
 import { lines } from '../data/lines'
 import { getStop, stopLabel } from '../data/network'
@@ -15,7 +17,7 @@ function FullTable({ line, day }: { line: Line; day: number }) {
   const cols = runningTrips(line, day)
   return (
     <section aria-labelledby={`t-${line.id}`} className="rise">
-      <h3 id={`t-${line.id}`} className="mb-3"><LineBadge line={line} /></h3>
+      <h2 id={`t-${line.id}`} className="mb-3"><LineBadge line={line} /></h2>
       {/* Desktop: tabela com primeira coluna fixa */}
       <div className="hidden overflow-x-auto rounded-2xl border border-hair bg-surface md:block">
         <table className="w-full border-collapse text-sm">
@@ -163,6 +165,8 @@ export default function Timetables() {
           </div>
         )}
         <p className="text-sm text-muted">{t('tt.footnote')}</p>
+        <ScheduleChecked />
+        <ReportError what={t('nav.timetables')} />
       </div>
     </>
   )

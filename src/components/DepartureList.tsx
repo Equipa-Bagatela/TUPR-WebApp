@@ -6,6 +6,7 @@ import { nextDepartures, type Departure } from '../utils/departures'
 import { hasServiceOn } from '../utils/service'
 import { formatRelative, weekdayName } from '../utils/time'
 import { LineBadge } from './LineBadge'
+import { HolidayNotice } from './HolidayNotice'
 import { EmptyState } from './ui'
 
 function useDayWord() {
@@ -44,6 +45,7 @@ export function NextDepartures({ stopId, now, limit = 5, linkToStop = false }: {
   const far = list[0].dayOffset > 0 || list[0].minutes - nowMin > 120
   return (
     <div>
+      <HolidayNotice date={now} />
       {far && (
         <div role="status" className="rise mb-3 flex items-start gap-3 rounded-2xl bg-surface-2 px-4 py-3.5">
           <Moon className="mt-0.5 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />

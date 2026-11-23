@@ -8,6 +8,7 @@ import { NearbyStops } from '../components/NearbyStops'
 import { NowPanel } from '../components/NowPanel'
 import { PlannerForm } from '../components/PlannerForm'
 import { ServiceStatusCard } from '../components/ServiceStatusCard'
+import { ScheduleChecked } from '../components/ScheduleChecked'
 import { Reveal, SectionTitle } from '../components/ui'
 import { lines } from '../data/lines'
 import { tariffs } from '../data/tariffs'
@@ -124,6 +125,7 @@ export default function Home() {
                   <li>{t('info.hours2')}</li>
                   <li>{t('info.hours3')}</li>
                 </ul>
+                <ScheduleChecked className="mt-3" />
               </div>
             </Reveal>
             <Reveal delay={90}>

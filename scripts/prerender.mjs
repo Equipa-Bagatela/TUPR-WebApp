@@ -193,5 +193,9 @@ if (!NOINDEX) {
 // 404.html: alojamentos estáticos (GitHub Pages) usam-no como "fallback" da aplicação
 await writeFile(join(DIST, '404.html'), template)
 
+// service worker: cada build renova a cache
+const sw = await readFile(join(DIST, 'sw.js'), 'utf8')
+await writeFile(join(DIST, 'sw.js'), sw.replaceAll('__BUILD_ID__', Date.now().toString(36)))
+
 await vite.close()
 console.log(`prerender: ${written.length} páginas · site ${SITE}${NOINDEX ? ' · NOINDEX' : ''}`)

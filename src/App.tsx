@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { InstallBanner } from './components/InstallBanner'
+import { OfflineBadge } from './components/OfflineBadge'
 import { Seo } from './components/Seo'
 import { Splash } from './components/Splash'
 import { CoffeeFab } from './components/CoffeeFab'
@@ -68,6 +69,7 @@ export default function App() {
       <Splash />
       <ScrollTop />
       <InstallBanner />
+      <OfflineBadge />
       <Header />
       <main id="conteudo" tabIndex={-1} className="min-h-[60vh] outline-none">
         <ErrorBoundary>
@@ -77,7 +79,7 @@ export default function App() {
       <Footer />
       <CoffeeFab />
       <SupportToast />
-      <Analytics />
+      {!['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname) && <Analytics />}
     </BrowserRouter>
   )
 }

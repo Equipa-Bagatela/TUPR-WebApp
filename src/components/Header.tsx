@@ -16,7 +16,7 @@ export function LangSwitch() {
   return (
     <div role="group" aria-label={t('lang.label')} className="inline-flex rounded-full border border-hair p-0.5 text-xs font-bold">
       {(['pt', 'en'] as const).map((l) => (
-        <button key={l} onClick={() => pick(l)} aria-pressed={lang === l} lang={l} aria-label={l === 'pt' ? 'Português' : 'English'} className={`min-h-10 min-w-10 rounded-full px-2.5 uppercase transition-colors ${lang === l ? 'bg-primary text-on-primary' : 'text-ink hover:bg-primary-soft'}`}>
+        <button key={l} onClick={() => pick(l)} aria-pressed={lang === l} lang={l} aria-label={l === 'pt' ? 'PT, Português' : 'EN, English'} className={`min-h-10 min-w-10 rounded-full px-2.5 uppercase transition-colors ${lang === l ? 'bg-primary text-on-primary' : 'text-ink hover:bg-primary-soft'}`}>
           {l}
         </button>
       ))}
@@ -74,8 +74,9 @@ export function Header() {
         {t('nav.skip')}
       </a>
       <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-        <Link to="/" aria-label={t('nav.homeAria')} className="shrink-0 rounded-lg transition-transform active:scale-95">
+        <Link to="/" className="shrink-0 rounded-lg transition-transform active:scale-95">
           <Logo />
+          <span className="sr-only">{t('nav.homeSuffix')}</span>
         </Link>
         <nav aria-label={t('nav.main')} className="hidden items-center gap-1 lg:flex">
           {nav.map((n) => (

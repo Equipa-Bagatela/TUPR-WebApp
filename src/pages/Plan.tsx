@@ -2,6 +2,7 @@ import { ArrowRight, CalendarX2, Eye, EyeOff, Navigation } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { FavoriteButton } from '../components/FavoriteButton'
+import { HolidayNotice } from '../components/HolidayNotice'
 import { JourneyCard } from '../components/JourneyCard'
 import { MapBox } from '../components/MapBox'
 import { PlannerForm, type PlanParams } from '../components/PlannerForm'
@@ -79,6 +80,7 @@ export default function Plan() {
                 {route && <FavoriteButton active={fav.isRouteFav(route)} onToggle={() => fav.toggleRoute(route)} label={`${getStop(from!).name} → ${getStop(to!).name}`} />}
               </div>
 
+              {date && <HolidayNotice date={date} />}
               {noService ? (
                 <EmptyState icon={<CalendarX2 className="h-5 w-5" aria-hidden="true" />} title={t('plan.noServiceTitle')}>
                   {t('plan.noServiceText')}

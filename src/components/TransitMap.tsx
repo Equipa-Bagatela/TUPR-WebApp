@@ -126,7 +126,19 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
         .join(' · ')
       const tag = isO ? `<b>${esc(t('map.origin'))}</b><br/>` : isD ? `<b>${esc(t('map.dest'))}</b><br/>` : ''
       mk.bindPopup(`${tag}<strong>${esc(s.name)}</strong>${s.detail ? `<br/><span>${esc(s.detail)}</span>` : ''}<br/><small>${esc(t('map.lines'))}: ${ls}</small><br/><a href="${esc(urlFor(lang, `/paragens/${s.id}`))}" data-nav="/paragens/${esc(s.id)}">${esc(t('map.seeDepartures'))} →</a>`)
-      mk.getElement()?.setAttribute('aria-label', stopLabel(s))
+      const el = mk.getElement()
+      if (el) {
+        el.setAttribute('role', 'button')
+        el.setAttribute('tabindex', '0')
+        el.setAttribute('aria-label', stopLabel(s))
+        el.addEventListener('keydown', (ev) => {
+          const k = (ev as KeyboardEvent).key
+          if (k === 'Enter' || k === ' ') {
+            ev.preventDefault()
+            mk.openPopup()
+          }
+        })
+      }
       if (special) mk.bringToFront()
     }
     if (userPos) {

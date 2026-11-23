@@ -5,7 +5,8 @@ Aplica a src/data/stops.ts as coordenadas das paragens da API de tracking do TUP
 Também valida os horários: a API tem de ter as mesmas paragens, pela mesma ordem e com as mesmas horas
 (viagem das 08:00) que src/data/schedules.ts. Se houver diferenças, o script pára.
 
-Uso:  python3 scripts/apply_api_coords.py
+Uso:  python3 scripts/apply_api_coords.py          (valida, aplica coordenadas e recalcula o traçado)
+      python3 scripts/apply_api_coords.py --check  (só valida e regista a data em src/data/meta.ts)
 """
 import json, re, subprocess, sys, math
 
@@ -39,6 +40,15 @@ for lid, circ in api.items():
         positions.setdefault(sid, set()).add(p)
     seqs[lid] = [sid for sid, _ in st]
 print('Horários e API coincidem (paragens, ordem e horas).')
+
+import datetime
+today = datetime.date.today().isoformat()
+open(f'{ROOT}/src/data/meta.ts', 'w').write(
+    '/** Escrito por scripts/apply_api_coords.py quando os horários coincidem com o sistema de tracking do TUPR. */\n'
+    f"export const SCHEDULE_CHECKED = '{today}'\n")
+print('meta.ts atualizado:', today)
+if '--check' in sys.argv:
+    sys.exit(0)
 
 # paragem partilhada por duas linhas (lados diferentes da via): ponto médio das posições da API
 coords = {sid: (sum(p[0] for p in ps) / len(ps), sum(p[1] for p in ps) / len(ps)) for sid, ps in positions.items()}

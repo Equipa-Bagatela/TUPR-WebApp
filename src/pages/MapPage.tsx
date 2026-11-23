@@ -40,7 +40,7 @@ export default function MapPage() {
           {geo.status === 'error' && t('loc.errorShort')}
           {geo.status === 'granted' && `📍 ${t('map.locShown')}`}
         </div>
-        <LiveBuses lineIds={on} onLocate={(id) => setFocus((f) => ({ id, tick: f.tick + 1 }))} />
+        <LiveBuses headingLevel={2} lineIds={on} onLocate={(id) => setFocus((f) => ({ id, tick: f.tick + 1 }))} />
         <MapBox height="h-[65dvh] min-h-[24rem]" focusBusId={focus.id} focusTick={focus.tick} lineIds={on} originId={ok('de')} destId={ok('para')} highlightStopId={ok('paragem')} userPos={geo.pos} label={t('map.interactive')} />
         <p className="text-sm text-muted">{t('map.tip')}</p>
       </div>
