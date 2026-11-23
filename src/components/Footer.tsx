@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
+import { BagatelaMark } from './BagatelaMark'
 import { Logo } from './Logo'
 
 export function Footer() {
@@ -40,7 +41,9 @@ export function Footer() {
             aria-label="Powered by Bagatela (bagatela.pt)"
             className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/25 bg-white/[0.06] py-1.5 pl-2 pr-4 transition duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-white/10"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent font-display text-sm font-extrabold text-[#143c57] transition-transform duration-500 group-hover:rotate-[360deg]" aria-hidden="true">B</span>
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">
+              <BagatelaMark className="h-[1.35rem] w-[1.35rem]" />
+            </span>
             <span className="flex flex-col leading-none">
               <span className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-white/60">Powered by</span>
               <span className="mt-1 font-display text-[1.05rem] font-extrabold tracking-wide text-white">Bagatela</span>
