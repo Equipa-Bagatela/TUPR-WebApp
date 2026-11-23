@@ -78,7 +78,7 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
 
   const row = variant === 'row'
   const listbox = open && (
-    <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className={`glass-panel absolute left-0 right-0 z-30 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg ${row ? 'top-full mt-1' : 'mt-2'}`}>
+    <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className={`solid absolute left-0 right-0 z-30 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-[0_18px_40px_-12px_rgba(15,42,61,0.55)] ring-1 ring-black/5 ${row ? 'top-full mt-1' : 'mt-2'}`}>
       {options.length === 0 && <li className="px-4 py-4 text-sm text-muted">{t('picker.none', { q: query })}</li>}
       {options.map((s, i) => (
         <li

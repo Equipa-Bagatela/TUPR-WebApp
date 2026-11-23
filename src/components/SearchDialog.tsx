@@ -63,7 +63,7 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
 
   return (
     <div className="fixed inset-0 z-[1200] flex items-start justify-center bg-ink/50 p-3 pt-[8vh] sm:pt-[12vh]" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={dialog} role="dialog" aria-modal="true" aria-label={t('search.aria')} onKeyDown={trap} className="glass-panel w-full max-w-xl overflow-hidden rounded-2xl border border-hair bg-surface shadow-2xl">
+      <div ref={dialog} role="dialog" aria-modal="true" aria-label={t('search.aria')} onKeyDown={trap} className="solid w-full max-w-xl overflow-hidden rounded-2xl border border-hair bg-surface shadow-2xl">
         <div className="flex items-center gap-2 border-b border-hair px-3">
           <Search className="h-5 w-5 text-muted" aria-hidden="true" />
           <input ref={input} value={q} onChange={(e) => setQ(e.target.value)} type="search" placeholder={t('search.placeholder')} aria-label={t('search.placeholder')} role="combobox" aria-expanded={results.length > 0} aria-controls="search-results" className="h-14 min-w-0 flex-1 bg-transparent text-base outline-none focus-visible:!outline-none" />

@@ -311,3 +311,6 @@ html.glass .solid { background-color: var(--surface) !important; backdrop-filter
   .dt-text { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; height: 100%; padding: 0 0.85rem; font-weight: 600; font-size: 1rem; color: var(--ink); }
   .dt-box:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 0.75rem; }
 }
+
+/* Qualquer caixa com uma lista de sugestões aberta passa à frente do que vem depois (evita a lista ficar por baixo de outros campos) */
+html.glass :is(.glass-panel, .rounded-2xl, .rounded-3xl):has([role='listbox']) { z-index: 25; }

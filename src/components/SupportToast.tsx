@@ -32,8 +32,17 @@ export function SupportToast() {
   useEffect(() => {
     if (!open) return
     const esc = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    // se a pessoa começa a escrever (ex.: escolher uma paragem), o aviso sai da frente
+    const focus = (e: FocusEvent) => {
+      const el = e.target as HTMLElement | null
+      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && !card.current?.contains(el)) setOpen(false)
+    }
     document.addEventListener('keydown', esc)
-    return () => document.removeEventListener('keydown', esc)
+    document.addEventListener('focusin', focus)
+    return () => {
+      document.removeEventListener('keydown', esc)
+      document.removeEventListener('focusin', focus)
+    }
   }, [open])
 
   const close = () => setOpen(false)

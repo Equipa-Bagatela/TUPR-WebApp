@@ -88,7 +88,7 @@ export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParam
   return (
     <form onSubmit={submit} className="space-y-3.5" noValidate aria-label={t('plan.title')}>
       {/* Origem e destino juntos num só cartão, com a linha do percurso à esquerda */}
-      <div className="relative rounded-2xl border border-hair bg-surface md:grid md:grid-cols-2">
+      <div className="relative z-20 rounded-2xl border border-hair bg-surface md:grid md:grid-cols-2">
         <span aria-hidden="true" className="pointer-events-none absolute left-[1.65rem] top-[1.7rem] h-[3.4rem] border-l-2 border-dotted border-muted/60 md:hidden" />
         <div className="border-b border-hair md:border-b-0 md:border-r">
           <StopPicker
