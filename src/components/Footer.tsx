@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Coffee } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
 import { BagatelaMark } from './BagatelaMark'
@@ -28,6 +28,19 @@ export function Footer() {
           <p className="text-sm font-semibold text-white">{t('footer.independent')}</p>
           <p className="mt-2 text-sm text-white/80">{t('footer.dataNote')}</p>
           <p className="mt-2 text-sm text-white/80">{t('footer.source')}</p>
+          <div className="mt-4">
+            <a
+              href="https://buymeacoffee.com/bagatela"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-12 items-center gap-2.5 rounded-full bg-[#FFD84D] px-5 font-display text-[0.95rem] font-extrabold text-[#143c57] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ffe27a] active:scale-95"
+            >
+              <Coffee className="h-5 w-5 transition-transform duration-300 group-hover:-rotate-12" aria-hidden="true" />
+              {t('footer.support')}
+              <ArrowUpRight className="h-4 w-4 opacity-70" aria-hidden="true" />
+            </a>
+            <p className="mt-2 text-xs text-white/70">{t('footer.supportNote')}</p>
+          </div>
           <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
             <Link to="/termos" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.terms')}</Link>
             <Link to="/privacidade" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.privacy')}</Link>

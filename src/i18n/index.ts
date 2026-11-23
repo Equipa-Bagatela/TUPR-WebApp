@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { createStore } from '../hooks/store'
+import { urlLang } from './routing'
 import { en } from './en'
 import { pt } from './pt'
 
@@ -9,15 +10,8 @@ export type Key = Raw extends infer K ? (K extends `${infer B}_one` | `${infer B
 
 const dicts: Record<Lang, Record<string, string>> = { pt, en }
 
-const detect = (): Lang => {
-  try {
-    return navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'
-  } catch {
-    return 'pt'
-  }
-}
-
-const store = createStore<Lang>(detect(), { key: 'tupr:lang', parse: (r) => (r === 'en' ? 'en' : 'pt') })
+// O idioma vem do endereço (/en/... = inglês). Sem persistência: o URL é a fonte de verdade.
+const store = createStore<Lang>(urlLang())
 
 export const getLang = () => store.get()
 export const setLang = (l: Lang) => store.set(l)

@@ -1,13 +1,15 @@
 import { useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { InstallBanner } from './components/InstallBanner'
+import { Seo } from './components/Seo'
 import { Splash } from './components/Splash'
 import { ErrorBoundary } from './components/ui'
 import { useTheme } from './hooks/useTheme'
 import { useT } from './i18n'
+import { routerBasename } from './i18n/routing'
 import Home from './pages/Home'
 import LineDetail from './pages/LineDetail'
 import Lines from './pages/Lines'
@@ -59,7 +61,8 @@ export default function App() {
     document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en'
   }, [lang])
   return (
-    <HashRouter>
+    <BrowserRouter basename={routerBasename(lang)}>
+      <Seo />
       <Splash />
       <ScrollTop />
       <InstallBanner />
@@ -71,6 +74,6 @@ export default function App() {
       </main>
       <Footer />
       <Analytics />
-    </HashRouter>
+    </BrowserRouter>
   )
 }

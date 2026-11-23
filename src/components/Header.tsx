@@ -2,8 +2,8 @@ import { Menu, Moon, Navigation, Search, Sun, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../hooks/useTheme'
-import { setLang, useT, type Lang } from '../i18n'
-import { smoothUpdate } from '../utils/transition'
+import { useT, type Lang } from '../i18n'
+import { switchLanguage } from '../i18n/routing'
 import { Logo } from './Logo'
 import { SearchDialog } from './SearchDialog'
 
@@ -12,7 +12,7 @@ const link = ({ isActive }: { isActive: boolean }) =>
 
 export function LangSwitch() {
   const { lang, t } = useT()
-  const pick = (l: Lang) => l !== lang && smoothUpdate(() => setLang(l))
+  const pick = (l: Lang) => l !== lang && switchLanguage(l)
   return (
     <div role="group" aria-label={t('lang.label')} className="inline-flex rounded-full border border-hair p-0.5 text-xs font-bold">
       {(['pt', 'en'] as const).map((l) => (
@@ -61,7 +61,7 @@ export function Header() {
       onClick={() => toggle()}
       aria-label={dark ? t('theme.toLight') : t('theme.toDark')}
       aria-pressed={dark}
-      className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full text-ink transition-colors hover:bg-primary-soft"
+      className="relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full text-ink transition-colors hover:bg-primary-soft min-[360px]:h-11 min-[360px]:w-11"
     >
       <Sun className={`${icon} ${dark ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`} aria-hidden="true" />
       <Moon className={`${icon} ${dark ? '-rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`} aria-hidden="true" />
@@ -94,12 +94,12 @@ export function Header() {
             <Navigation className="h-4 w-4" aria-hidden="true" /> {t('plan.title')}
           </button>
         </div>
-        <div className="flex items-center gap-1 lg:hidden">
-          <button onClick={() => setSearch(true)} aria-label={t('nav.search')} className="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-primary-soft">
+        <div className="flex shrink-0 items-center lg:hidden">
+          <button onClick={() => setSearch(true)} aria-label={t('nav.search')} className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-primary-soft min-[360px]:h-11 min-[360px]:w-11">
             <Search className="h-5 w-5" aria-hidden="true" />
           </button>
           {themeBtn}
-          <button onClick={() => setMenu((m) => !m)} aria-label={menu ? t('nav.closeMenu') : t('nav.openMenu')} aria-expanded={menu} aria-controls="menu-movel" className="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-primary-soft">
+          <button onClick={() => setMenu((m) => !m)} aria-label={menu ? t('nav.closeMenu') : t('nav.openMenu')} aria-expanded={menu} aria-controls="menu-movel" className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-primary-soft min-[360px]:h-11 min-[360px]:w-11">
             <span key={String(menu)} className="icon-pop inline-flex">{menu ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}</span>
           </button>
         </div>

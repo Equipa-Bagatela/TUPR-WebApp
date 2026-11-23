@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: './',
+  // BASE: subpasta de alojamento (ex.: GitHub Pages usa /TUPR-WebApp/). Em domínio próprio fica '/'.
+  base: process.env.BASE ?? '/',
   test: { environment: 'node', include: ['src/**/*.test.ts'] },
 })

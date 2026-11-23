@@ -42,7 +42,7 @@ src/data/service.ts     estado do serviço – substituir fetchServiceStatus() p
 
 - Mapa: tiles `tile.openstreetmap.org` com atribuição visível, carregados só quando necessário (lazy).
 - Localização: opcional, só em memória, nunca enviada nem guardada. Favoritos: `localStorage`.
-- Modo claro por omissão; escuro por escolha do utilizador. Rotas com `HashRouter` (funciona em qualquer alojamento estático).
+- Modo claro por omissão; escuro por escolha do utilizador. URLs limpos (`/horarios`, `/linhas/verde`, `/paragens/estacao`; inglês em `/en/...`): o idioma vem do endereço.
 
 ## Idiomas e animações
 
@@ -59,3 +59,17 @@ Posições obtidas da API pública do sistema de tracking do TUPR (<https://trac
 - Se a API falhar, mantém a última posição conhecida e avisa; o resto da app não é afetado.
 - O único estado documentado no site de tracking é `ontime`; qualquer outro valor é mostrado tal como vem.
 - Privacidade: o browser do utilizador contacta `tupr.elevensystems.pt` diretamente (essa entidade vê o IP). Convém confirmar com a Eleven Systems que a utilização por terceiros é aceite.
+
+## SEO e build
+
+`npm run build` faz: verificação de tipos → build do Vite → `scripts/prerender.mjs`, que gera um HTML por página (70 páginas × 2 idiomas) com título, descrição, canónico, `hreflang`, Open Graph, dados estruturados (BusStop, BreadcrumbList, WebSite) e o conteúdo real; mais `sitemap.xml`, `robots.txt` e `404.html`. O React substitui o conteúdo pré-gerado ao arrancar.
+
+Variáveis de ambiente do build:
+
+| Variável | Para quê |
+|---|---|
+| `SITE_URL` | Endereço público sem barra final (ex.: `https://horariostupr.pt`). Na Vercel usa `VERCEL_PROJECT_PRODUCTION_URL` só se for um domínio próprio (não `*.vercel.app`). Sem endereço, o build é `noindex`. |
+| `NOINDEX=1` | Não indexar (meta `noindex` e `robots.txt` a bloquear). Usado no GitHub Pages para não duplicar o site principal. |
+| `BASE` | Subpasta de alojamento (GitHub Pages: `/TUPR-WebApp/`). Em domínio próprio fica `/`. |
+
+`vercel.json` ativa `cleanUrls` (serve `/horarios` a partir de `horarios.html`) e reencaminha endereços desconhecidos para a app.

@@ -5,7 +5,9 @@ import { linesAtStop, stopById, stopLabel } from '../data/network'
 import { stops } from '../data/stops'
 import { useBuses } from '../hooks/useBuses'
 import { useTheme } from '../hooks/useTheme'
+import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n'
+import { urlFor } from '../i18n/routing'
 import type { LatLng } from '../types'
 
 export interface TransitMapProps {
@@ -40,6 +42,9 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
   const fitted = useRef('')
   const { theme } = useTheme()
   const { t, lang } = useT()
+  const navigate = useNavigate()
+  const navRef = useRef(navigate)
+  navRef.current = navigate
 
   useEffect(() => {
     if (!el.current || map.current) return
@@ -58,6 +63,14 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
     })
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>' }).addTo(m)
     layer.current = L.layerGroup().addTo(m)
+    // ligações dentro dos popups navegam sem recarregar a página
+    m.on('popupopen', (e) => {
+      const a = e.popup.getElement()?.querySelector<HTMLAnchorElement>('a[data-nav]')
+      a?.addEventListener('click', (ev) => {
+        ev.preventDefault()
+        navRef.current(a.dataset.nav!)
+      })
+    })
     busLayer.current = L.layerGroup().addTo(m)
     map.current = m
     const ro = new ResizeObserver(() => m.invalidateSize())
@@ -112,7 +125,7 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
         .map((l) => esc(l.shortName))
         .join(' · ')
       const tag = isO ? `<b>${esc(t('map.origin'))}</b><br/>` : isD ? `<b>${esc(t('map.dest'))}</b><br/>` : ''
-      mk.bindPopup(`${tag}<strong>${esc(s.name)}</strong>${s.detail ? `<br/><span>${esc(s.detail)}</span>` : ''}<br/><small>${esc(t('map.lines'))}: ${ls}</small><br/><a href="#/paragens/${esc(s.id)}">${esc(t('map.seeDepartures'))} →</a>`)
+      mk.bindPopup(`${tag}<strong>${esc(s.name)}</strong>${s.detail ? `<br/><span>${esc(s.detail)}</span>` : ''}<br/><small>${esc(t('map.lines'))}: ${ls}</small><br/><a href="${esc(urlFor(lang, `/paragens/${s.id}`))}" data-nav="/paragens/${esc(s.id)}">${esc(t('map.seeDepartures'))} →</a>`)
       mk.getElement()?.setAttribute('aria-label', stopLabel(s))
       if (special) mk.bringToFront()
     }

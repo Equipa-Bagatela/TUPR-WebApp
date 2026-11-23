@@ -58,6 +58,10 @@ export const terms: Record<Lang, LegalDoc> = {
         p: ['Pode usar a aplicação livremente para consulta pessoal. Não a use para sobrecarregar os serviços de que depende (por exemplo, com pedidos automáticos em massa) nem para fins ilícitos.'],
       },
       {
+        h: 'Apoio voluntário',
+        p: ['Se quiser, pode apoiar o projeto através do Buy Me a Coffee. É totalmente voluntário e não dá direito a nenhum serviço, garantia, suporte ou tratamento especial: a aplicação é gratuita para todos. O pagamento é processado pelo Buy Me a Coffee, nos termos próprios dessa plataforma.'],
+      },
+      {
         h: 'Alterações e remoção de conteúdos',
         p: ['Podemos alterar, suspender ou terminar a aplicação, e atualizar estes termos, a qualquer momento. Se for titular de direitos sobre algum conteúdo e quiser que seja corrigido ou retirado, contacte-nos e responderemos com brevidade.'],
       },
@@ -111,6 +115,10 @@ export const terms: Record<Lang, LegalDoc> = {
         p: ['You may use the app freely for personal lookups. Do not use it to overload the services it depends on (for example with mass automated requests) or for unlawful purposes.'],
       },
       {
+        h: 'Voluntary support',
+        p: ['If you wish, you can support the project through Buy Me a Coffee. It is entirely voluntary and gives no right to any service, warranty, support or special treatment: the app is free for everyone. The payment is processed by Buy Me a Coffee under that platform’s own terms.'],
+      },
+      {
         h: 'Changes and removal of content',
         p: ['We may change, suspend or end the app, and update these terms, at any time. If you hold rights over any content and want it corrected or removed, contact us and we will reply promptly.'],
       },
@@ -141,7 +149,7 @@ export const privacy: Record<Lang, LegalDoc> = {
         p: ['Para funcionar como esperado, a aplicação guarda no seu browser (não nos nossos servidores):'],
         ul: [
           'as suas paragens e percursos favoritos;',
-          'o idioma e o modo claro/escuro;',
+          'o modo claro/escuro;',
           'se já fechou o aviso para adicionar a aplicação ao ecrã principal;',
           'durante a sessão, se já viu a animação de abertura.',
         ],
@@ -159,6 +167,10 @@ export const privacy: Record<Lang, LegalDoc> = {
           'OpenStreetMap (tile.openstreetmap.org): fornece as imagens do mapa.',
           'Eleven Systems (tupr.elevensystems.pt): fornece a posição dos autocarros em direto.',
         ],
+      },
+      {
+        h: 'Apoio ao projeto',
+        p: ['O rodapé tem uma ligação para a nossa página no Buy Me a Coffee. Só contactamos esse serviço se clicar nela: a partir daí aplica-se a política de privacidade deles. Nós não recebemos os seus dados de pagamento.'],
       },
       {
         h: 'O que não fazemos',
@@ -188,7 +200,7 @@ export const privacy: Record<Lang, LegalDoc> = {
         p: ['To work as expected, the app stores in your browser (not on our servers):'],
         ul: [
           'your favourite stops and journeys;',
-          'your language and light/dark mode;',
+          'your light/dark mode;',
           'whether you have dismissed the prompt to add the app to your Home Screen;',
           'during the session, whether you have already seen the opening animation.',
         ],
@@ -206,6 +218,10 @@ export const privacy: Record<Lang, LegalDoc> = {
           'OpenStreetMap (tile.openstreetmap.org): provides the map images.',
           'Eleven Systems (tupr.elevensystems.pt): provides the live bus positions.',
         ],
+      },
+      {
+        h: 'Supporting the project',
+        p: ['The footer has a link to our Buy Me a Coffee page. We only contact that service if you click it: from then on their privacy policy applies. We do not receive your payment details.'],
       },
       {
         h: 'What we do not do',
