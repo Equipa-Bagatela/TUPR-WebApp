@@ -1,9 +1,9 @@
 import { ArrowDownUp, CalendarDays, Clock, LocateFixed, MapPin, Navigation } from 'lucide-react'
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useGeolocation } from '../hooks/useGeolocation'
 import { useT } from '../i18n'
 import { nearestStops } from '../utils/geo'
-import { clock, isoDate } from '../utils/time'
+import { clock, isoDate, parseIsoDate } from '../utils/time'
 import { StopPicker } from './StopPicker'
 
 export interface PlanParams {
@@ -13,8 +13,34 @@ export interface PlanParams {
   time: string
 }
 
+function formatDate(iso: string, locale: string) {
+  const d = parseIsoDate(iso)
+  return d ? d.toLocaleDateString(locale, { day: '2-digit', month: '2-digit', year: 'numeric' }) : '--/--/----'
+}
+
+/**
+ * Campo de data/hora. Em computador é o campo nativo. Em ecrãs tácteis o retângulo é desenhado aqui (texto sempre bem
+ * centrado, igual em todos os telemóveis) e o campo nativo fica por cima, invisível, só para abrir o seletor ao tocar.
+ */
+function PickerBox({ id, type, label, icon, value, onChange, shown }: { id: string; type: 'date' | 'time'; label: string; icon: ReactNode; value: string; onChange: (v: string) => void; shown: string }) {
+  return (
+    <div className="min-w-0">
+      <label htmlFor={id} className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-muted">
+        {icon} {label}
+      </label>
+      <div className="dt-box solid relative h-12 rounded-xl border border-hair bg-surface">
+        <input id={id} type={type} required value={value} onChange={(e) => onChange(e.target.value)} className="date-time-field h-full w-full min-w-0 max-w-full rounded-xl bg-transparent px-3 text-base font-semibold text-ink" />
+        <span aria-hidden="true" className="dt-text">
+          <span className="tnum truncate">{shown}</span>
+          {type === 'date' ? <CalendarDays className="h-5 w-5 shrink-0 text-ink" /> : <Clock className="h-5 w-5 shrink-0 text-ink" />}
+        </span>
+      </div>
+    </div>
+  )
+}
+
 export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParams>; onSubmit: (p: PlanParams) => void }) {
-  const { t } = useT()
+  const { t, locale } = useT()
   const now = new Date()
   const [from, setFrom] = useState<string | null>(initial?.from ?? null)
   const [to, setTo] = useState<string | null>(initial?.to ?? null)
@@ -104,18 +130,8 @@ export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParam
       {geo.status === 'denied' && wantNear === false && <p className="-mt-2 text-sm text-muted">{t('loc.deniedShort')}</p>}
 
       <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-3 max-[339px]:grid-cols-1 md:max-w-xl">
-        <div className="min-w-0">
-          <label htmlFor="plan-date" className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-muted">
-            <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" /> {t('plan.date')}
-          </label>
-          <input id="plan-date" type="date" required value={date} onChange={(e) => setDate(e.target.value)} className="date-time-field h-12 w-full min-w-0 max-w-full rounded-xl border border-hair bg-surface px-3 text-base font-semibold text-ink" />
-        </div>
-        <div className="min-w-0">
-          <label htmlFor="plan-time" className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-muted">
-            <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {t('plan.time')}
-          </label>
-          <input id="plan-time" type="time" required value={time} onChange={(e) => setTime(e.target.value)} className="date-time-field h-12 w-full min-w-0 max-w-full rounded-xl border border-hair bg-surface px-3 text-base font-semibold text-ink" />
-        </div>
+        <PickerBox id="plan-date" type="date" label={t('plan.date')} icon={<CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />} value={date} onChange={setDate} shown={formatDate(date, locale)} />
+        <PickerBox id="plan-time" type="time" label={t('plan.time')} icon={<Clock className="h-3.5 w-3.5" aria-hidden="true" />} value={time} onChange={setTime} shown={time || '--:--'} />
       </div>
 
       {/* atalhos: seletor compacto de três opções */}

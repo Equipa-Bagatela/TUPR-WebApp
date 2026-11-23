@@ -303,3 +303,11 @@ html.glass .solid { background-color: var(--surface) !important; backdrop-filter
 }
 .date-time-field::-webkit-date-and-time-value { text-align: left; min-width: 0; }
 .date-time-field::-webkit-datetime-edit { padding: 0; }
+
+/* Data/hora em ecrãs tácteis: retângulo desenhado por nós, campo nativo invisível por cima */
+.dt-text { display: none; }
+@media (pointer: coarse) {
+  .dt-box input { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; opacity: 0; }
+  .dt-text { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; height: 100%; padding: 0 0.85rem; font-weight: 600; font-size: 1rem; color: var(--ink); }
+  .dt-box:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 0.75rem; }
+}
