@@ -2,7 +2,7 @@
 
 Webapp (React + Vite + TypeScript + Tailwind + Leaflet) para consultar horários, planear viagens e ver as próximas partidas do TUPR.
 
-> **Projeto isolado da Bagatela**, sem qualquer ligação à Câmara Municipal do Peso da Régua. Os horários são informação pública e podem estar desatualizados.
+> **Projeto isolado da Bagatela.** Os horários são informação pública e podem estar desatualizados.
 
 ```bash
 npm install
