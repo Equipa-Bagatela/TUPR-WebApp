@@ -1,6 +1,6 @@
 import type { Key } from '../i18n'
 
-/** Tarifário – transcrito do PDF oficial. `label` é uma chave de tradução; `price` é o valor do PDF. */
+/** Tarifário (informação pública do serviço). `label` é uma chave de tradução. */
 export interface Tariff {
   label: Key
   price: string
@@ -15,5 +15,3 @@ export const tariffs: Tariff[] = [
   { label: 'tariff.disabled', price: '10 €' },
   { label: 'tariff.veterans', price: '', free: true },
 ]
-export const OFFICIAL_PDF = 'https://www.cm-pesoregua.pt/cmpesodaregua/uploads/document/file/3201/horarios_tupr_2025.pdf'
-export const CM_SITE = 'https://www.cm-pesoregua.pt/'

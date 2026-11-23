@@ -1,7 +1,7 @@
 import { useT } from '../i18n'
 import { weekdayName } from '../utils/time'
 
-const ORDER = [1, 2, 3, 4, 5, 6] // o PDF só refere segunda a sábado
+const ORDER = [1, 2, 3, 4, 5, 6] // os horários publicados só referem segunda a sábado
 
 export function DayChips({ value, onChange, label }: { value: number; onChange: (d: number) => void; label?: string }) {
   const { t } = useT()

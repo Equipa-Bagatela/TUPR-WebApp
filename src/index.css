@@ -5,7 +5,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Identidade: azul-institucional do TUPR/CMPR, verde e vermelho das linhas (PDF oficial). */
+/* Identidade: azul do TUPR, verde e vermelho das linhas. */
 :root {
   --bg: #f5f8fa;
   --surface: #ffffff;

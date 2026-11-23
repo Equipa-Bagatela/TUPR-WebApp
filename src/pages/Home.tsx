@@ -144,7 +144,7 @@ export default function Home() {
                 <h3 className="mb-3 flex items-center gap-2 font-display text-lg font-bold"><Info className="h-5 w-5 text-primary" aria-hidden="true" /> {t('info.goodToKnow')}</h3>
                 <ul className="space-y-2 text-[0.95rem]">
                   <li>{t('info.circular')}</li>
-                  <li>{t('info.passes')} <a className="font-semibold text-primary underline" href="https://www.cm-pesoregua.pt/" target="_blank" rel="noopener noreferrer">cm-pesoregua.pt</a>.</li>
+                  <li>{t('info.passes')}</li>
                   <li>{t('info.clock')}</li>
                   <li>{t('info.namesNote')}</li>
                 </ul>

@@ -2,9 +2,9 @@ export type LatLng = [lat: number, lng: number]
 
 export interface Stop {
   id: string
-  /** Nome tal como no PDF oficial */
+  /** Nome tal como nos horários publicados */
   name: string
-  /** Indicação entre parênteses no PDF */
+  /** Indicação entre parênteses nos horários publicados */
   detail?: string
   /** Coordenadas APROXIMADAS (OpenStreetMap) – só para o mapa */
   coords?: LatLng
@@ -34,7 +34,7 @@ export interface LineTimetable {
 export interface LineMeta {
   id: string
   name: string
-  /** Cor oficial (barra do PDF) */
+  /** Cor da linha */
   color: string
   /** Variante mais clara para o modo escuro */
   colorDark: string

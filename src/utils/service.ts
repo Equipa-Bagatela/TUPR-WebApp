@@ -2,7 +2,7 @@ import type { Line, Trip } from '../types'
 
 /** 0 = domingo … 6 = sábado (Date.getDay) */
 export function tripRunsOn(trip: Trip, weekday: number): boolean {
-  if (weekday === 0) return false // o PDF só refere segunda a sábado
+  if (weekday === 0) return false // os horários publicados só referem segunda a sábado
   if (trip.days === 'mon-sat') return true
   return weekday >= 1 && weekday <= 5
 }

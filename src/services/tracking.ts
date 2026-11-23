@@ -3,13 +3,13 @@ import type { LatLng } from '../types'
 /**
  * Localização em tempo real dos autocarros.
  *
- * Fonte: API pública usada pela página oficial de tracking do TUPR
+ * Fonte: API pública usada pela página pública de tracking do TUPR
  * (https://tracking.elevensystems.pt/tupr, © Eleven Systems), que permite pedidos de qualquer origem (CORS *).
  * Endpoint: GET {API}/locations?passengerInfo=true&routeId={1|2}
  *   → [{ id, position: { lat, lon }, status: "ontime" | …, color }]
  *
  * O id de rota da API ('1', '2') é ligado às nossas linhas em ROUTES.
- * Só o estado "ontime" está documentado no código do site oficial; qualquer outro valor é mostrado sem interpretação.
+ * Só o estado "ontime" está documentado no código do site de tracking; qualquer outro valor é mostrado sem interpretação.
  */
 export const TRACKING_API = 'https://tupr.elevensystems.pt/api'
 export const TRACKING_PAGE = 'https://tracking.elevensystems.pt/tupr'

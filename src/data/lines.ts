@@ -15,7 +15,7 @@ interface Meta {
 }
 
 /**
- * Metadados das linhas. As cores são as das barras de cada linha no PDF oficial:
+ * Metadados das linhas. As cores são as habitualmente usadas para cada linha:
  * Linha Verde #416e48 · Linha Vermelha #c12a2b.
  * `name`, `shortName` e `summary` são getters: devolvem o texto no idioma activo.
  */

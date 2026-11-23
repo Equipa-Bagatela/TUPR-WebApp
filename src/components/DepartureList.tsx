@@ -34,7 +34,7 @@ export function DepartureRow({ d, now, first, showNext = true }: { d: Departure;
   )
 }
 
-/** Lista das próximas partidas de uma paragem, com estados vazios coerentes com o PDF. */
+/** Lista das próximas partidas de uma paragem, com estados vazios coerentes com os horários publicados. */
 export function NextDepartures({ stopId, now, limit = 5, linkToStop = false }: { stopId: string; now: Date; limit?: number; linkToStop?: boolean }) {
   const { t } = useT()
   const dayWord = useDayWord()

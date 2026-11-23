@@ -24,7 +24,7 @@ export interface Journey {
   duration: number
 }
 
-/** Tempo mínimo de transbordo (min). Não vem do PDF: é uma folga razoável para trocar de autocarro. */
+/** Tempo mínimo de transbordo (min). Valor da aplicação: é uma folga razoável para trocar de autocarro. */
 export const MIN_TRANSFER = 2
 
 function legsBetween(line: Line, tripIndex: number, fromId: string, toId: string): Leg | null {

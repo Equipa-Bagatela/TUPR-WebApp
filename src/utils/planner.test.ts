@@ -5,7 +5,7 @@ import { directJourneys, transferJourneys } from './planner'
 import { nextDepartures, departuresOnDay } from './departures'
 import { toMinutes } from './time'
 
-describe('integridade dos dados do PDF', () => {
+describe('integridade dos dados de horários', () => {
   it('tem 2 linhas, 12 viagens cada, 39 e 33 paragens', () => {
     expect(lines.map((l) => [l.id, l.trips.length, l.stops.length])).toEqual([['verde', 12, 39], ['vermelha', 12, 33]])
   })
@@ -23,7 +23,7 @@ describe('integridade dos dados do PDF', () => {
       }
     }
   })
-  it('amostras conferidas à mão com o PDF', () => {
+  it('amostras conferidas à mão com os horários publicados', () => {
     const v = lines[0]
     const r = lines[1]
     const t = (l: typeof v, id: string, j: number) => l.stops.find((s) => s.stopId === id)!.times[j]

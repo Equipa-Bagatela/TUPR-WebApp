@@ -2,7 +2,7 @@
 Aplica a src/data/stops.ts as coordenadas das paragens da API de tracking do TUPR
 (https://tupr.elevensystems.pt/api, © Eleven Systems) e recalcula o traçado (src/data/shapes.ts, via OSRM).
 
-Também valida o PDF: a API tem de ter as mesmas paragens, pela mesma ordem e com as mesmas horas
+Também valida os horários: a API tem de ter as mesmas paragens, pela mesma ordem e com as mesmas horas
 (viagem das 08:00) que src/data/schedules.ts. Se houver diferenças, o script pára.
 
 Uso:  python3 scripts/apply_api_coords.py
@@ -30,7 +30,7 @@ for lid, circ in api.items():
     blk = sched.split(f'  {lid}: {{')[1].split('\n  },')[0]
     st = re.findall(r"stopId: '([\w-]+)', times: \[\"(\d\d:\d\d)\"", blk)
     if len(st) != len(circ):
-        sys.exit(f'{lid}: {len(st)} paragens no PDF vs {len(circ)} na API')
+        sys.exit(f'{lid}: {len(st)} paragens nos horários vs {len(circ)} na API')
     base = circ[0]['departureTime']
     for (sid, t), c in zip(st, circ):
         if (c['arrivalTime'] - base) // 60 != tm(t) - tm(st[0][1]):
@@ -38,7 +38,7 @@ for lid, circ in api.items():
         p = (c['stage']['position']['lat'], c['stage']['position']['lon'])
         positions.setdefault(sid, set()).add(p)
     seqs[lid] = [sid for sid, _ in st]
-print('PDF e API coincidem (paragens, ordem e horas).')
+print('Horários e API coincidem (paragens, ordem e horas).')
 
 # paragem partilhada por duas linhas (lados diferentes da via): ponto médio das posições da API
 coords = {sid: (sum(p[0] for p in ps) / len(ps), sum(p[1] for p in ps) / len(ps)) for sid, ps in positions.items()}
@@ -53,9 +53,9 @@ def repl(m):
     assert line.endswith(' },'), line
     return line[:-3].rstrip(', ') + f', coords: [{c[0]:.6f}, {c[1]:.6f}] }},'
 out = re.sub(r'  \{ id: "([\w-]+)".*\},', repl, stops_ts)
-out = re.sub(r" \* - O PDF NÃO inclui coordenadas.*?Servem apenas para o mapa — nunca para horários\.\n",
- " * - O PDF NÃO inclui coordenadas. As coordenadas (`coords`) vêm das paragens (\"stages\") da API de tracking do TUPR\n"
- " *   (https://tupr.elevensystems.pt/api, © Eleven Systems), validadas contra este PDF (mesmas paragens, ordem e horas).\n"
+out = re.sub(r" \* - Os horários publicados NÃO incluem coordenadas.*?Servem apenas para o mapa — nunca para horários\.\n",
+ " * - Os horários publicados NÃO incluem coordenadas. As coordenadas (`coords`) vêm das paragens (\"stages\") da API de tracking do TUPR\n"
+ " *   (https://tupr.elevensystems.pt/api, © Eleven Systems), validadas contra estes horários (mesmas paragens, ordem e horas).\n"
  " *   Paragens partilhadas por duas linhas têm o ponto médio das duas posições. Servem só para o mapa — nunca para horários.\n", out, flags=re.S)
 out = re.sub(r" \* - Paragem sem `coords`.*?não é desenhada no mapa\.\n", "", out, flags=re.S)
 open(f'{ROOT}/src/data/stops.ts', 'w').write(out)

@@ -1,13 +1,13 @@
 import type { Stop } from '../types'
 
 /**
- * Paragens do TUPR, transcritas do PDF oficial "horarios_tupr_2025.pdf" (CM Peso da Régua).
+ * Paragens do TUPR (informação pública de horários).
  *
- * - `name` / `detail` seguem o texto do PDF (detail = a indicação entre parênteses).
- * - O PDF NÃO inclui coordenadas. As coordenadas (`coords`) vêm das paragens ("stages") da API de tracking do TUPR
- *   (https://tupr.elevensystems.pt/api, © Eleven Systems), validadas contra este PDF (mesmas paragens, ordem e horas).
+ * - `name` / `detail` seguem o texto publicado (detail = a indicação entre parênteses).
+ * - Os horários publicados NÃO incluem coordenadas. As coordenadas (`coords`) vêm das paragens ("stages") da API de tracking do TUPR
+ *   (https://tupr.elevensystems.pt/api, © Eleven Systems), validadas contra estes horários (mesmas paragens, ordem e horas).
  *   Paragens partilhadas por duas linhas têm o ponto médio das duas posições. Servem só para o mapa — nunca para horários.
- * - AMBIGUIDADE: o PDF não indica o lado da via. Paragens com o mesmo nome E a mesma indicação
+ * - AMBIGUIDADE: os horários não indicam o lado da via. Paragens com o mesmo nome E a mesma indicação
  *   nas duas linhas (ex.: "Lrg. da Estação") foram unificadas numa só paragem; as restantes
  *   (ex.: "Av. Dr. Manuel de Arriaga" sem indicação, em cada linha) mantêm-se separadas.
  */

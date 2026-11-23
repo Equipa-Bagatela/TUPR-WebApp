@@ -1,13 +1,13 @@
 import type { LineTimetable } from '../types'
 
 /**
- * Horários transcritos do PDF oficial "horarios_tupr_2025.pdf".
+ * Horários do TUPR (informação pública), transcritos para dados estruturados.
  *
  * Cada linha é CIRCULAR e tem 12 viagens por dia, de segunda-feira a sábado
  * (partidas às 08:00, 09:00 … 19:00 na R. Fernando Augusto Bandeira).
- * O PDF assinala (•) as viagens das 18:00 e das 19:00 com "NÃO SE REALIZA AO SÁBADO",
+ * A informação publicada assinala (•) as viagens das 18:00 e das 19:00 com "NÃO SE REALIZA AO SÁBADO",
  * pelo que essas duas viagens circulam apenas de segunda a sexta (`days: 'mon-fri'`).
- * O PDF não refere domingos nem feriados — assume-se que não há serviço (não confirmado).
+ * A informação publicada não refere domingos nem feriados — assume-se que não há serviço (não confirmado).
  *
  * `stops[i].times[j]` = hora de passagem da viagem `trips[j]` na paragem `stops[i]`.
  * A ordem das paragens é a do percurso; a mesma paragem pode aparecer mais de uma vez
