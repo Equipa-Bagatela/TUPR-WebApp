@@ -57,6 +57,7 @@ export const pt = {
   'footer.aboutTitle': 'Sobre este projeto',
   'footer.independent': 'Projeto isolado e não oficial da Bagatela. Feito com amor, café e alguma pressa de apanhar o autocarro, para turistas e locais que não querem perder tempo a ler um PDF.',
   'footer.source': 'Fonte dos horários: informação publicada pela Câmara Municipal do Peso da Régua. Posição dos autocarros em direto: Eleven Systems.',
+  'fab.aria': 'Apoiar o projeto: pagar-nos um café (abre o Buy Me a Coffee noutra janela)',
   'footer.support': 'Paga-nos um café',
   'footer.supportNote': 'Ajuda a manter os horários online. Apoio voluntário.',
   'footer.terms': 'Termos de utilização',

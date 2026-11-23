@@ -59,6 +59,7 @@ export const en: Record<keyof typeof pt, string> = {
   'footer.aboutTitle': 'About this project',
   'footer.independent': 'A standalone, unofficial Bagatela project. Made with love, coffee and a bit of a rush to catch the bus, for tourists and locals who would rather not waste time reading a PDF.',
   'footer.source': 'Timetables source: information published by the Municipality of Peso da Régua. Live bus positions: Eleven Systems.',
+  'fab.aria': 'Support the project: buy us a coffee (opens Buy Me a Coffee in a new window)',
   'footer.support': 'Buy us a coffee',
   'footer.supportNote': 'Helps keep the timetables online. Voluntary support.',
   'footer.terms': 'Terms of use',

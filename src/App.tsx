@@ -6,6 +6,7 @@ import { Header } from './components/Header'
 import { InstallBanner } from './components/InstallBanner'
 import { Seo } from './components/Seo'
 import { Splash } from './components/Splash'
+import { CoffeeFab } from './components/CoffeeFab'
 import { ErrorBoundary } from './components/ui'
 import { useTheme } from './hooks/useTheme'
 import { useT } from './i18n'
@@ -73,6 +74,7 @@ export default function App() {
         </ErrorBoundary>
       </main>
       <Footer />
+      <CoffeeFab />
       <Analytics />
     </BrowserRouter>
   )

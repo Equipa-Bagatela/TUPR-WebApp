@@ -2,6 +2,7 @@ import { ArrowUpRight, Coffee } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
 import { BagatelaMark } from './BagatelaMark'
+import { COFFEE_URL } from './CoffeeFab'
 import { Logo } from './Logo'
 
 export function Footer() {
@@ -30,7 +31,7 @@ export function Footer() {
           <p className="mt-2 text-sm text-white/80">{t('footer.source')}</p>
           <div className="mt-4">
             <a
-              href="https://buymeacoffee.com/bagatela"
+              href={COFFEE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex min-h-12 items-center gap-2.5 rounded-full bg-[#FFD84D] px-5 font-display text-[0.95rem] font-extrabold text-[#143c57] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ffe27a] active:scale-95"
