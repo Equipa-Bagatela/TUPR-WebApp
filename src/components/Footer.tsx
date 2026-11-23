@@ -41,7 +41,7 @@ export function Footer() {
             aria-label="Powered by Bagatela (bagatela.pt)"
             className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/25 bg-white/[0.06] py-1.5 pl-2 pr-4 transition duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-white/10"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F7F2E9] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" aria-hidden="true">
               <BagatelaMark className="h-[1.35rem] w-[1.35rem]" />
             </span>
             <span className="flex flex-col leading-none">
