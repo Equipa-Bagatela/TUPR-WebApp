@@ -55,7 +55,7 @@ export const pt = {
   'fav.stops': 'Paragens favoritas',
   'footer.about': 'Horários, mapa e planeador de viagem dos transportes urbanos do Peso da Régua (TUPR). Aplicação não oficial.',
   'footer.aboutTitle': 'Sobre este projeto',
-  'footer.independent': 'Projeto isolado e não oficial da Bagatela. Para os autocarros que já perdeste, e para os que ainda vais apanhar.',
+  'footer.independent': 'Projeto isolado e não oficial da Bagatela.',
   'footer.source': 'Fonte dos horários: informação publicada pela Câmara Municipal do Peso da Régua. Posição dos autocarros em direto: Eleven Systems.',
   'footer.terms': 'Termos de utilização',
   'footer.privacy': 'Privacidade',
