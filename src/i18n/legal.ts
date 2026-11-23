@@ -154,7 +154,7 @@ export const privacy: Record<Lang, LegalDoc> = {
         h: 'Serviços de terceiros',
         p: ['Ao usar a aplicação, o seu browser contacta estes serviços, que podem ver o seu endereço IP e os dados técnicos habituais de um pedido (browser, idioma, página):'],
         ul: [
-          'Alojamento (GitHub Pages e/ou Vercel): entrega a aplicação e pode manter registos técnicos de acesso.',
+          'Alojamento do site: entrega a aplicação e pode manter registos técnicos de acesso.',
           'Vercel Analytics: estatísticas agregadas de utilização (por exemplo, páginas vistas, país e tipo de dispositivo), sem cookies e sem o identificar pessoalmente, segundo a Vercel.',
           'OpenStreetMap (tile.openstreetmap.org): fornece as imagens do mapa.',
           'Eleven Systems (tupr.elevensystems.pt): fornece a posição dos autocarros em direto.',
@@ -201,7 +201,7 @@ export const privacy: Record<Lang, LegalDoc> = {
         h: 'Third-party services',
         p: ['When you use the app, your browser contacts these services, which may see your IP address and the usual technical data of a request (browser, language, page):'],
         ul: [
-          'Hosting (GitHub Pages and/or Vercel): delivers the app and may keep technical access logs.',
+          'Site hosting: delivers the app and may keep technical access logs.',
           'Vercel Analytics: aggregated usage statistics (for example page views, country and device type), without cookies and without identifying you personally, according to Vercel.',
           'OpenStreetMap (tile.openstreetmap.org): provides the map images.',
           'Eleven Systems (tupr.elevensystems.pt): provides the live bus positions.',
