@@ -15,7 +15,7 @@ export function NowPanel({ initialStop = 'estacao', limit = 4, heading }: { init
   const fav = useFavorites()
   const [stopId, setStopId] = useState<string>(fav.stops[0] ?? initialStop)
   return (
-    <section aria-labelledby="agora-titulo" className="rounded-2xl border border-hair bg-surface p-4 sm:p-6">
+    <section aria-labelledby="agora-titulo" className="glass-panel rounded-2xl border border-hair bg-surface p-4 sm:p-6">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <h2 id="agora-titulo" className="text-xs font-bold uppercase tracking-[0.14em] text-muted">{heading ?? t('now.heading')}</h2>

@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       <div className="relative z-10 mx-auto -mt-16 max-w-6xl px-4 sm:-mt-20 sm:px-6">
-        <section aria-labelledby="planear-titulo" className="rise rounded-3xl border border-hair bg-surface p-5 shadow-sm sm:p-8" style={{ animationDelay: '200ms' }}>
+        <section aria-labelledby="planear-titulo" className="glass-panel rise rounded-3xl border border-hair bg-surface p-5 shadow-sm sm:p-8" style={{ animationDelay: '200ms' }}>
           <h2 id="planear-titulo" className="mb-5 text-xl font-bold text-primary sm:text-2xl">{t('plan.title')}</h2>
           <PlannerForm onSubmit={(p) => nav(`/planear?de=${p.from}&para=${p.to}&data=${p.date}&hora=${p.time}`)} />
           <div className="mt-5 border-t border-hair pt-5">
@@ -65,7 +65,7 @@ export default function Home() {
             <div className="space-y-5">
               <ServiceStatusCard now={now} />
               <FavoritesPanel />
-              <div className="rounded-2xl border border-hair bg-surface p-4">
+              <div className="glass-panel rounded-2xl border border-hair bg-surface p-4">
                 <NearbyStops />
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function Home() {
             {quick.map(({ to, label, icon: Icon }, i) => (
               <li key={to}>
                 <Reveal delay={i * 70}>
-                  <Link to={to} className="group flex min-h-24 flex-col justify-between rounded-2xl border border-hair bg-surface p-4 transition hover:-translate-y-1 hover:bg-primary-soft hover:shadow-md">
+                  <Link to={to} className="glass-panel group flex min-h-24 flex-col justify-between rounded-2xl border border-hair bg-surface p-4 transition hover:-translate-y-1 hover:bg-primary-soft hover:shadow-md">
                     <Icon className="h-7 w-7 text-primary transition-transform group-hover:scale-110" aria-hidden="true" />
                     <span className="mt-3 flex items-center justify-between font-display text-lg font-bold">
                       {label} <ArrowRight className="h-4 w-4 text-muted transition-transform group-hover:translate-x-1" aria-hidden="true" />

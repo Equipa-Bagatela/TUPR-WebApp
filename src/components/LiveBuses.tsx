@@ -19,7 +19,7 @@ export function LiveBuses({ lineIds, onLocate, compact = false }: { lineIds?: st
   const { buses, status, updatedAt } = useBuses()
   const shown = lines.filter((l) => !lineIds || lineIds.includes(l.id))
   return (
-    <section aria-labelledby="live-titulo" className="rounded-2xl border border-hair bg-surface p-4">
+    <section aria-labelledby="live-titulo" className="glass-panel rounded-2xl border border-hair bg-surface p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h3 id="live-titulo" className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-muted">
           <span className={`inline-block h-2.5 w-2.5 rounded-full ${status === 'error' ? 'bg-bad' : 'live-dot bg-accent'}`} aria-hidden="true" />

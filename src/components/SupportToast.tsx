@@ -46,7 +46,7 @@ export function SupportToast() {
       aria-modal="false"
       aria-labelledby="support-title"
       style={{ bottom: 'calc(max(1rem, env(safe-area-inset-bottom)) + 4.5rem)' }}
-      className="rise fixed right-4 z-[1000] w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-hair bg-surface p-4 shadow-[0_18px_44px_-14px_rgba(15,42,61,0.5)]"
+      className="glass-panel rise fixed right-4 z-[1000] w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-hair bg-surface p-4 shadow-[0_18px_44px_-14px_rgba(15,42,61,0.5)]"
     >
       <button onClick={close} aria-label={t('support.close')} className="absolute right-1.5 top-1.5 inline-flex h-10 w-10 items-center justify-center rounded-full text-muted hover:bg-surface-2">
         <X className="h-4 w-4" aria-hidden="true" />

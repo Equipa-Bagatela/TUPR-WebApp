@@ -9,7 +9,7 @@ export function FavoritesPanel() {
   const f = useFavorites()
   const empty = f.stops.length === 0 && f.routes.length === 0
   return (
-    <section aria-labelledby="fav-titulo" className="rounded-2xl border border-hair bg-surface p-4">
+    <section aria-labelledby="fav-titulo" className="glass-panel rounded-2xl border border-hair bg-surface p-4">
       <h3 id="fav-titulo" className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-muted">
         <Star className="h-4 w-4 fill-[#f5b301] text-[#f5b301]" aria-hidden="true" /> {t('fav.heading')}
       </h3>

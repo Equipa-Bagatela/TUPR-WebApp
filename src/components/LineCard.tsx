@@ -11,7 +11,7 @@ export function LineCard({ line }: { line: Line }) {
   const last = line.stops[line.stops.length - 1]
   const dur = toMinutes(last.times[0]) - toMinutes(first.times[0])
   return (
-    <Link to={`/linhas/${line.id}`} className="group rise block overflow-hidden rounded-2xl border border-hair bg-surface transition hover:-translate-y-0.5 hover:border-[color:var(--c)]" style={{ ['--c' as string]: `var(--line-${line.id})` }}>
+    <Link to={`/linhas/${line.id}`} className="glass-panel group rise block overflow-hidden rounded-2xl border border-hair bg-surface transition hover:-translate-y-0.5 hover:border-[color:var(--c)]" style={{ ['--c' as string]: `var(--line-${line.id})` }}>
       <div className="flex items-center gap-3 px-5 py-4 text-white" style={{ background: line.color }}>
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20"><Bus className="h-6 w-6" aria-hidden="true" /></span>
         <h3 className="font-display text-xl font-bold">{line.name}</h3>

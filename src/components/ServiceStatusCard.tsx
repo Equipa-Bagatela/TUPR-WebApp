@@ -9,7 +9,7 @@ export function ServiceStatusCard({ now }: { now: Date }) {
   const { loading, error, status, retry } = useServiceStatus()
   const noServiceToday = !hasServiceOn(now.getDay())
   return (
-    <section aria-labelledby="estado-titulo" className="rounded-2xl border border-hair bg-surface p-4">
+    <section aria-labelledby="estado-titulo" className="glass-panel rounded-2xl border border-hair bg-surface p-4">
       <h3 id="estado-titulo" className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-muted">
         {t('status.heading')}
       </h3>

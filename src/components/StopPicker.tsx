@@ -122,7 +122,7 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
         )}
       </div>
       {open && (
-        <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className="absolute left-0 right-0 z-30 mt-2 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg">
+        <ul id={listId} role="listbox" aria-label={t('picker.listAria', { label })} className="glass-panel absolute left-0 right-0 z-30 mt-2 max-h-72 overflow-auto rounded-xl border border-hair bg-surface py-1 shadow-lg">
           {options.length === 0 && <li className="px-4 py-4 text-sm text-muted">{t('picker.none', { q: query })}</li>}
           {options.map((s, i) => (
             <li
