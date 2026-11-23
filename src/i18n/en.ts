@@ -57,7 +57,7 @@ export const en: Record<keyof typeof pt, string> = {
   'fav.stops': 'Favourite stops',
   'footer.about': 'Timetables, map and trip planner for the urban transport of Peso da Régua (TUPR). Unofficial app.',
   'footer.aboutTitle': 'About this project',
-  'footer.independent': 'A standalone, unofficial Bagatela project.',
+  'footer.independent': 'A standalone, unofficial Bagatela project. Made with love, coffee and a bit of a rush to catch the bus, for tourists and locals who would rather not waste time reading a PDF.',
   'footer.source': 'Timetables source: information published by the Municipality of Peso da Régua. Live bus positions: Eleven Systems.',
   'footer.terms': 'Terms of use',
   'footer.privacy': 'Privacy',
