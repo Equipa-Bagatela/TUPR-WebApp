@@ -65,9 +65,7 @@ export function InstallBanner() {
   return (
     <>
       <div role="region" aria-label={t('a2hs.region')} className="flex items-center gap-2 bg-primary px-3 py-2 text-on-primary">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15" style={{ ['--logo-hole' as string]: '#143c57', ['--logo-swoosh' as string]: '#fff' }}>
-          <LogoMark className="h-6 w-6" />
-        </span>
+        <LogoMark onDark className="h-9 w-9 shrink-0 rounded-xl" />
         <p className="min-w-0 flex-1 text-[0.82rem] font-semibold leading-tight">{t('a2hs.banner')}</p>
         <button onClick={() => setOpen(true)} className="min-h-10 shrink-0 rounded-lg bg-white px-3 text-sm font-bold text-[#143c57]">
           {t('a2hs.how')}

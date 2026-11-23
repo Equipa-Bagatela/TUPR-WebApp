@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { tr } from '../i18n'
 import { LogoMark } from './Logo'
 
 const KEY = 'tupr:intro'
@@ -11,7 +12,7 @@ const seen = () => {
   }
 }
 
-/** Autocarro TUPR (desenho próprio). As rodas giram através de CSS (.wheel). */
+/** Autocarro (desenho próprio). As rodas giram através de CSS (.wheel). */
 function Bus() {
   return (
     <svg viewBox="0 0 280 120" className="splash-bus-svg block h-full w-full" aria-hidden="true">
@@ -44,7 +45,7 @@ function Bus() {
 }
 
 /**
- * Abertura: um autocarro TUPR atravessa o ecrã e, à sua passagem, a página vai aparecendo.
+ * Abertura: um autocarro atravessa o ecrã e, à sua passagem, a página vai aparecendo.
  * Só aparece uma vez por sessão e não aparece com "reduzir movimento".
  */
 export function Splash() {
@@ -63,10 +64,10 @@ export function Splash() {
   if (!show) return null
   return (
     <div className="splash" aria-hidden="true" onClick={() => setShow(false)} onAnimationEnd={(e) => e.animationName === 'splash-wipe' && setShow(false)}>
-      <div className="splash-brand" style={{ ['--logo-hole' as string]: '#143c57', ['--logo-swoosh' as string]: '#fff' }}>
-        <LogoMark className="h-20 w-20 sm:h-24 sm:w-24" />
-        <span className="font-display text-5xl font-extrabold tracking-[0.2em] text-white sm:text-6xl">TUPR</span>
-        <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-xs">Transportes Urbanos · Peso da Régua</span>
+      <div className="splash-brand" >
+        <LogoMark onDark className="h-20 w-20 rounded-2xl sm:h-24 sm:w-24" />
+        <span className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-6xl">Horários TUPR</span>
+        <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-xs">{tr('brand.sub')}</span>
       </div>
       <div className="splash-road" />
       <div className="splash-bus">

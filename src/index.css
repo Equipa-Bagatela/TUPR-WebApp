@@ -131,7 +131,7 @@ html[data-vt='fade']::view-transition-new(root) { animation: vt-in 0.4s ease bot
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; } }
 
-/* ───────── Abertura: o autocarro TUPR a passar ───────── */
+/* ───────── Abertura: o autocarro a passar ───────── */
 .splash {
   --bus-w: min(70vw, 300px);
   --dur: 2.1s;

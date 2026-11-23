@@ -1,7 +1,7 @@
 {
-  "name": "TUPR – Transportes Urbanos do Peso da Régua",
-  "short_name": "TUPR",
-  "description": "Horários, planeador de viagem e autocarros em direto do TUPR.",
+  "name": "Horários TUPR (não oficial)",
+  "short_name": "Horários TUPR",
+  "description": "Horários, planeador de viagem e autocarros em direto do TUPR. Aplicação não oficial.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
