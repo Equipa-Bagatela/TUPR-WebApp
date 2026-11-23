@@ -291,3 +291,15 @@ html.glass header.border-b.border-hair.bg-surface:not(.sticky) {
 html.glass thead th { background-color: color-mix(in srgb, var(--surface-2) 80%, transparent) !important; }
 /* o popup de apoio e os campos de escrever ficam sólidos */
 html.glass .solid { background-color: var(--surface) !important; backdrop-filter: none !important; }
+
+/* Data e hora: em iOS/Safari os campos nativos têm largura própria e sobrepunham-se. Aqui encolhem com a coluna. */
+.date-time-field {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  text-align: left;
+}
+.date-time-field::-webkit-date-and-time-value { text-align: left; min-width: 0; }
+.date-time-field::-webkit-datetime-edit { padding: 0; }

@@ -103,18 +103,18 @@ export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParam
       </button>
       {geo.status === 'denied' && wantNear === false && <p className="-mt-2 text-sm text-muted">{t('loc.deniedShort')}</p>}
 
-      <div className="grid grid-cols-2 gap-3 md:max-w-xl">
-        <div>
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-3 max-[339px]:grid-cols-1 md:max-w-xl">
+        <div className="min-w-0">
           <label htmlFor="plan-date" className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-muted">
             <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" /> {t('plan.date')}
           </label>
-          <input id="plan-date" type="date" required value={date} onChange={(e) => setDate(e.target.value)} className="h-12 w-full min-w-0 rounded-xl border border-hair bg-surface px-3 text-base font-semibold text-ink" />
+          <input id="plan-date" type="date" required value={date} onChange={(e) => setDate(e.target.value)} className="date-time-field h-12 w-full min-w-0 max-w-full rounded-xl border border-hair bg-surface px-3 text-base font-semibold text-ink" />
         </div>
-        <div>
+        <div className="min-w-0">
           <label htmlFor="plan-time" className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-muted">
             <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {t('plan.time')}
           </label>
-          <input id="plan-time" type="time" required value={time} onChange={(e) => setTime(e.target.value)} className="h-12 w-full min-w-0 rounded-xl border border-hair bg-surface px-3 text-base font-semibold text-ink" />
+          <input id="plan-time" type="time" required value={time} onChange={(e) => setTime(e.target.value)} className="date-time-field h-12 w-full min-w-0 max-w-full rounded-xl border border-hair bg-surface px-3 text-base font-semibold text-ink" />
         </div>
       </div>
 
