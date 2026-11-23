@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
 import { Logo } from './Logo'
@@ -28,10 +29,25 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/15">
-        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-white/70 sm:px-6">
-          {t('footer.mapCredit')} <a className="underline" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>. {t('footer.disclaimer')}
-        </p>
-        <p className="mx-auto max-w-6xl px-4 pb-5 text-xs font-semibold text-white/85 sm:px-6">Powered by{' '}<a className="underline hover:text-white" href="https://bagatela.pt" target="_blank" rel="noopener noreferrer">Bagatela</a></p>
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <p className="max-w-2xl text-xs text-white/70">
+            {t('footer.mapCredit')} <a className="underline" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>. {t('footer.disclaimer')}
+          </p>
+          <a
+            href="https://bagatela.pt"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Powered by Bagatela (bagatela.pt)"
+            className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/25 bg-white/[0.06] py-1.5 pl-2 pr-4 transition duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-white/10"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent font-display text-sm font-extrabold text-[#143c57] transition-transform duration-500 group-hover:rotate-[360deg]" aria-hidden="true">B</span>
+            <span className="flex flex-col leading-none">
+              <span className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-white/60">Powered by</span>
+              <span className="mt-1 font-display text-[1.05rem] font-extrabold tracking-wide text-white">Bagatela</span>
+            </span>
+            <ArrowUpRight className="h-4 w-4 text-accent transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+          </a>
+        </div>
       </div>
     </footer>
   )
