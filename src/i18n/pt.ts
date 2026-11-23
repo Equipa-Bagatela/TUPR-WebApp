@@ -54,7 +54,7 @@ export const pt = {
   'fav.stops': 'Paragens favoritas',
   'footer.about': 'Consulta de horários e planeador de viagem para os Transportes Urbanos do Peso da Régua.',
   'footer.aboutTitle': 'Sobre este projeto',
-  'footer.independent': 'Projeto isolado da Bagatela.',
+  'footer.independent': 'Projeto isolado da Bagatela. Feito com amor para ajudar os turistas e a população da Régua a não perder o autocarro.',
   'footer.dataNote': 'Os horários são informação pública e podem estar desatualizados; confirme sempre junto do serviço de transportes.',
   'footer.app': 'Aplicação',
   'footer.disclaimer': 'Posições das paragens aproximadas.',

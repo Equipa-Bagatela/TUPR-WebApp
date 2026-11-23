@@ -56,7 +56,7 @@ export const en: Record<keyof typeof pt, string> = {
   'fav.stops': 'Favourite stops',
   'footer.about': 'Timetables and trip planner for the urban buses of Peso da Régua.',
   'footer.aboutTitle': 'About this project',
-  'footer.independent': 'A standalone Bagatela project.',
+  'footer.independent': 'A standalone Bagatela project. Made with love to help tourists and the people of Régua not miss the bus.',
   'footer.dataNote': 'Timetables are public information and may be out of date; always check with the transport service.',
   'footer.app': 'App',
   'footer.disclaimer': 'Stop positions are approximate.',
