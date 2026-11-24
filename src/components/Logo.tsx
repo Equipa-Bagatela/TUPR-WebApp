@@ -1,4 +1,5 @@
 import { useT } from '../i18n'
+import { WORDMARK } from './wordmarkPaths'
 
 /** Símbolo do Reguamove: um M feito de duas linhas que se encontram numa paragem (usado como ícone da app). `onDark`: acrescenta um aro claro para fundos escuros. */
 export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?: string; onDark?: boolean }) {
@@ -26,14 +27,23 @@ export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?
   )
 }
 
+/** Nome "Reguamove" desenhado em Outfit: o "a" liga-se ao "m" de "move" e termina com o ponto do ícone. */
+export function Wordmark({ light = false, className = '' }: { light?: boolean; className?: string }) {
+  const [dx, dy, dr] = WORDMARK.dot
+  return (
+    <svg viewBox={`0 ${WORDMARK.top} ${WORDMARK.w} ${WORDMARK.bottom - WORDMARK.top}`} className={className} role="img" aria-label="Reguamove">
+      <path d={WORDMARK.left} fill={light ? '#ffffff' : '#143c57'} />
+      <path d={WORDMARK.right} fill={light ? '#9bd14f' : '#5f9a2a'} />
+      <circle cx={dx} cy={dy} r={dr} fill="#9bd14f" stroke="#143c57" strokeWidth={dr * 0.3} />
+    </svg>
+  )
+}
+
 export function Logo({ light = false }: { light?: boolean }) {
   const { t } = useT()
   return (
     <span className="flex min-w-0 flex-col leading-none">
-      <span className="font-display text-[1.45rem] font-extrabold tracking-tight sm:text-[1.7rem]">
-        <span className={light ? 'text-white' : 'text-primary'}>Regua</span>
-        <span className={light ? 'text-[#9bd14f]' : 'text-[#5f9a2a]'}>move</span>
-      </span>
+      <Wordmark light={light} className="h-[1.6rem] w-auto sm:h-[1.95rem]" />
       <span className={`mt-1.5 text-[0.5rem] font-semibold uppercase leading-[1.2] tracking-[0.03em] min-[360px]:text-[0.54rem] min-[360px]:tracking-[0.07em] sm:text-[0.6rem] sm:tracking-[0.12em] ${light ? 'text-white/80' : 'text-muted'}`}>{t('brand.sub')}</span>
     </span>
   )
