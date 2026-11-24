@@ -1,4 +1,4 @@
-import { ArrowUpRight, Coffee, Mail } from 'lucide-react'
+import { ArrowUpRight, Coffee } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n'
 import { CONTACT_EMAIL } from '../i18n/legal'
@@ -72,7 +72,6 @@ export function Footer() {
               </li>
               <li>
                 <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('report.subject', { what: 'Réguamove' }))}`} className={linkClass}>
-                  <Mail className="mr-1.5 h-4 w-4 opacity-70" aria-hidden="true" />
                   {t('footer.report')}
                 </a>
               </li>
