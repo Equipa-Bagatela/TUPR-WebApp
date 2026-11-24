@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { lines } from '../data/lines'
 import { stops } from '../data/stops'
 import { useT } from '../i18n'
+import { matchesTokens, queryTokens, stopHaystack } from '../utils/search'
 import { normalize } from '../utils/service'
 
 export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -15,11 +16,11 @@ export function SearchDialog({ open, onClose }: { open: boolean; onClose: () => 
   const dialog = useRef<HTMLDivElement>(null)
 
   const results = useMemo(() => {
-    const tokens = normalize(q.trim()).split(/\s+/).filter(Boolean)
+    const tokens = queryTokens(q)
     if (!tokens.length) return []
-    const ls = lines.filter((l) => tokens.every((t) => normalize(l.name).includes(t))).map((l) => ({ kind: 'line' as const, id: l.id, title: l.name, sub: t('search.line'), to: `/linhas/${l.id}` }))
+    const ls = lines.filter((l) => matchesTokens(normalize(l.name), tokens)).map((l) => ({ kind: 'line' as const, id: l.id, title: l.name, sub: t('search.line'), to: `/linhas/${l.id}` }))
     const ss = stops
-      .filter((s) => tokens.every((t) => normalize(`${s.name} ${s.detail ?? ''}`).includes(t)))
+      .filter((s) => matchesTokens(stopHaystack(s), tokens))
       .slice(0, 12)
       .map((s) => ({ kind: 'stop' as const, id: s.id, title: s.name, sub: s.detail ?? t('stop.one'), to: `/paragens/${s.id}` }))
     return [...ls, ...ss]

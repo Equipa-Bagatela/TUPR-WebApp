@@ -6,6 +6,7 @@ import { HolidayNotice } from '../components/HolidayNotice'
 import { JourneyCard } from '../components/JourneyCard'
 import { MapBox } from '../components/MapBox'
 import { PlannerForm, type PlanParams } from '../components/PlannerForm'
+import { ShareButton } from '../components/ShareButton'
 import { EmptyState, PageHeader } from '../components/ui'
 import { getStop, stopById } from '../data/network'
 import { useFavorites } from '../hooks/useFavorites'
@@ -77,7 +78,12 @@ export default function Plan() {
                     {weekdayName(date!.getDay())}, {date!.toLocaleDateString(locale, { day: 'numeric', month: 'long' })} · {t('plan.fromTime', { time: fromMinutes(selMin) })}
                   </p>
                 </div>
-                {route && <FavoriteButton active={fav.isRouteFav(route)} onToggle={() => fav.toggleRoute(route)} label={`${getStop(from!).name} → ${getStop(to!).name}`} />}
+                {route && (
+                  <div className="flex shrink-0 gap-2">
+                    <ShareButton title={`${getStop(from!).name} → ${getStop(to!).name}`} />
+                    <FavoriteButton active={fav.isRouteFav(route)} onToggle={() => fav.toggleRoute(route)} label={`${getStop(from!).name} → ${getStop(to!).name}`} />
+                  </div>
+                )}
               </div>
 
               {date && <HolidayNotice date={date} />}

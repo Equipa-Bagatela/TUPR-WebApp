@@ -7,7 +7,7 @@ Webapp (React + Vite + TypeScript + Tailwind + Leaflet) para consultar horários
 ```bash
 npm install
 npm run dev      # desenvolvimento
-npm test         # integridade dos dados + planeador
+npm test         # dados, planeador, pesquisa, feriados e formulário (25 testes)
 npm run build    # produção (dist/)
 ```
 
@@ -73,3 +73,7 @@ Variáveis de ambiente do build:
 | `BASE` | Subpasta de alojamento (GitHub Pages: `/TUPR-WebApp/`). Em domínio próprio fica `/`. |
 
 `vercel.json` ativa `cleanUrls` (serve `/horarios` a partir de `horarios.html`) e reencaminha endereços desconhecidos para a app.
+
+## Licença
+
+Todos os direitos reservados © Bagatela (ver `LICENSE`). Os horários, o tarifário e a posição dos autocarros são de terceiros; o mapa é © OpenStreetMap.

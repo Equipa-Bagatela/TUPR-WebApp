@@ -8,15 +8,15 @@ import { EmptyState, PageHeader } from '../components/ui'
 import { linesAtStop } from '../data/network'
 import { stops } from '../data/stops'
 import { useT } from '../i18n'
-import { normalize } from '../utils/service'
+import { matchesTokens, queryTokens, stopHaystack } from '../utils/search'
 
 export default function Stops() {
   const { t } = useT()
   const [q, setQ] = useState('')
   const list = useMemo(() => {
-    const tokens = normalize(q.trim()).split(/\s+/).filter(Boolean)
+    const tokens = queryTokens(q)
     return stops
-      .filter((s) => tokens.every((t) => normalize(`${s.name} ${s.detail ?? ''}`).includes(t)))
+      .filter((s) => matchesTokens(stopHaystack(s), tokens))
       .sort((a, b) => a.name.localeCompare(b.name, 'pt') || (a.detail ?? '').localeCompare(b.detail ?? '', 'pt'))
   }, [q])
   return (

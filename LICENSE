@@ -1,0 +1,13 @@
+Copyright (c) 2026 Bagatela. All rights reserved. / Todos os direitos reservados.
+
+This source code, its design, texts and graphics are the exclusive property of Bagatela.
+No licence is granted. You may not copy, modify, distribute, sublicense or use this
+software, in whole or in part, without prior written permission from Bagatela.
+
+Este código-fonte, o seu design, textos e elementos gráficos são propriedade exclusiva da Bagatela.
+Não é concedida qualquer licença. Não é permitido copiar, modificar, distribuir, sublicenciar
+ou usar este software, no todo ou em parte, sem autorização prévia e escrita da Bagatela.
+
+Third-party data and components keep their own owners and licences / Os dados e componentes de terceiros
+mantêm os seus titulares e licenças: timetables and live bus positions belong to their respective owners;
+map data © OpenStreetMap contributors (ODbL); open-source dependencies under their own licences (see package.json).

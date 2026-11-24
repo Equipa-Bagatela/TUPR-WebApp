@@ -158,6 +158,8 @@ export const privacy: Record<Lang, LegalDoc> = {
         ul: [
           'as suas paragens e percursos favoritos;',
           'o modo claro/escuro;',
+          'a última paragem que escolheu no ecrã inicial, para a mostrar logo da próxima vez;',
+          'uma cópia da aplicação (ficheiros e páginas que visitou), para funcionar mesmo sem Internet;',
           'se já fechou o aviso para adicionar a aplicação ao ecrã principal;',
           'durante a sessão, se já viu a animação de abertura.',
         ],
@@ -209,6 +211,8 @@ export const privacy: Record<Lang, LegalDoc> = {
         ul: [
           'your favourite stops and journeys;',
           'your light/dark mode;',
+          'the last stop you chose on the home screen, to show it straight away next time;',
+          'a copy of the app (files and pages you visited), so it works even without Internet;',
           'whether you have dismissed the prompt to add the app to your Home Screen;',
           'during the session, whether you have already seen the opening animation.',
         ],

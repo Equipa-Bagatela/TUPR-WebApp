@@ -4,7 +4,7 @@ import { stops } from '../data/stops'
 import { linesAtStop, stopById } from '../data/network'
 import { useFavorites } from '../hooks/useFavorites'
 import { useT } from '../i18n'
-import { normalize } from '../utils/service'
+import { matchesTokens, queryTokens, stopHaystack } from '../utils/search'
 import { LineDot } from './LineBadge'
 
 interface Props {
@@ -35,12 +35,8 @@ export function StopPicker({ label, value, onChange, placeholder, onUseLocation,
   const selected = value ? stopById.get(value) : undefined
 
   const options = useMemo(() => {
-    const q = normalize(query.trim())
-    const tokens = q.split(/\s+/).filter(Boolean)
-    const list = stops.filter((s) => {
-      const hay = normalize(`${s.name} ${s.detail ?? ''}`)
-      return tokens.every((t) => hay.includes(t))
-    })
+    const tokens = queryTokens(query)
+    const list = stops.filter((s) => matchesTokens(stopHaystack(s), tokens))
     return list.sort((a, b) => Number(favs.includes(b.id)) - Number(favs.includes(a.id)) || a.name.localeCompare(b.name, 'pt') || (a.detail ?? '').localeCompare(b.detail ?? '', 'pt')).slice(0, 60)
   }, [query, favs])
 
