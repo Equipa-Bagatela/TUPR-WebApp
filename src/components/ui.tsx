@@ -62,12 +62,12 @@ export function SectionTitle({ eyebrow, title, action }: { eyebrow?: string; tit
   )
 }
 
-export function PageHeader({ title, subtitle, children }: { title: string; subtitle?: string; children?: ReactNode }) {
+export function PageHeader({ title, subtitle, children, compact = false }: { title: string; subtitle?: string; children?: ReactNode; compact?: boolean }) {
   return (
     <header className="border-b border-hair bg-surface">
-      <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-9">
+      <div className={`mx-auto max-w-6xl px-4 sm:px-6 sm:py-9 ${compact ? 'py-4' : 'py-7'}`}>
         <h1 className="text-3xl font-extrabold text-primary sm:text-4xl">{title}</h1>
-        {subtitle && <p className="mt-2 max-w-2xl text-base text-muted">{subtitle}</p>}
+        {subtitle && <p className={`mt-2 max-w-2xl text-base text-muted ${compact ? 'hidden sm:block' : ''}`}>{subtitle}</p>}
         {children && <div className="mt-5">{children}</div>}
       </div>
     </header>

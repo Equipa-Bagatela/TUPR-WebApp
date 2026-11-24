@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { DayChips } from '../components/DayChips'
 import { FavoriteButton } from '../components/FavoriteButton'
 import { LineBadge } from '../components/LineBadge'
+import { MAP_SECTION_ID } from '../components/JumpToMap'
 import { MapBox } from '../components/MapBox'
 import { NextDepartures } from '../components/DepartureList'
 import { ReportError } from '../components/ReportError'
@@ -79,7 +80,7 @@ export default function StopDetail() {
             <ReportError what={stop.name} />
           </section>
         </div>
-        <aside aria-label={t('stop.locAria')} className="lg:sticky lg:top-24 lg:self-start">
+        <aside id={MAP_SECTION_ID} aria-label={t('stop.locAria')} className="scroll-mt-24 lg:sticky lg:top-24 lg:self-start">
           {stop.coords ? <MapBox height="h-80" highlightStopId={stop.id} label={t('stop.mapOf', { name: stop.name })} /> : <EmptyState title={t('stop.noPosTitle')}>{t('stop.noPosText')}</EmptyState>}
           <p className="mt-2 text-xs text-muted">{t('stop.approx')}</p>
         </aside>

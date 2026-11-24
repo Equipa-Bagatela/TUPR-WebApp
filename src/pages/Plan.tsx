@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { FavoriteButton } from '../components/FavoriteButton'
 import { HolidayNotice } from '../components/HolidayNotice'
 import { JourneyCard } from '../components/JourneyCard'
+import { JumpToMap, MAP_SECTION_ID } from '../components/JumpToMap'
 import { MapBox } from '../components/MapBox'
 import { PlannerForm, type PlanParams } from '../components/PlannerForm'
 import { ShareButton } from '../components/ShareButton'
@@ -86,6 +87,7 @@ export default function Plan() {
                 )}
               </div>
 
+              <JumpToMap className="mb-3" />
               {date && <HolidayNotice date={date} />}
               {noService ? (
                 <EmptyState icon={<CalendarX2 className="h-5 w-5" aria-hidden="true" />} title={t('plan.noServiceTitle')}>
@@ -118,7 +120,7 @@ export default function Plan() {
                 </>
               )}
             </section>
-            <aside aria-label={t('plan.mapAria')} className="lg:sticky lg:top-24 lg:self-start">
+            <aside id={MAP_SECTION_ID} aria-label={t('plan.mapAria')} className="scroll-mt-24 lg:sticky lg:top-24 lg:self-start">
               <MapBox height="h-80 lg:h-[26rem]" originId={from} destId={to} label={t('plan.mapLabel')} />
             </aside>
           </div>

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { LineDot } from '../components/LineBadge'
 import { LiveBuses } from '../components/LiveBuses'
+import { MAP_SECTION_ID } from '../components/JumpToMap'
 import { MapBox } from '../components/MapBox'
 import { PageHeader } from '../components/ui'
 import { lines } from '../data/lines'
@@ -20,8 +21,8 @@ export default function MapPage() {
   const toggle = (id: string) => setOn((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
   return (
     <>
-      <PageHeader title={t('nav.map')} subtitle={t('map.subtitle')} />
-      <div className="mx-auto max-w-6xl space-y-4 px-4 py-6 sm:px-6">
+      <PageHeader compact title={t('nav.map')} subtitle={t('map.subtitle')} />
+      <div className="mx-auto max-w-6xl space-y-4 px-4 py-4 sm:px-6 sm:py-6">
         <div className="flex flex-wrap items-center gap-2">
           <div role="group" aria-label={t('map.visibleLines')} className="flex flex-wrap gap-2">
             {lines.map((l) => (
@@ -40,9 +41,13 @@ export default function MapPage() {
           {geo.status === 'error' && t('loc.errorShort')}
           {geo.status === 'granted' && `📍 ${t('map.locShown')}`}
         </div>
-        <LiveBuses headingLevel={2} lineIds={on} onLocate={(id) => setFocus((f) => ({ id, tick: f.tick + 1 }))} />
-        <MapBox height="h-[65dvh] min-h-[24rem]" focusBusId={focus.id} focusTick={focus.tick} lineIds={on} originId={ok('de')} destId={ok('para')} highlightStopId={ok('paragem')} userPos={geo.pos} label={t('map.interactive')} />
+        <MapBox id={MAP_SECTION_ID} height="h-[62dvh] min-h-[22rem]" focusBusId={focus.id} focusTick={focus.tick} lineIds={on} originId={ok('de')} destId={ok('para')} highlightStopId={ok('paragem')} userPos={geo.pos} label={t('map.interactive')} />
         <p className="text-sm text-muted">{t('map.tip')}</p>
+        <LiveBuses headingLevel={2} lineIds={on} onLocate={(id) => {
+          setFocus((f) => ({ id, tick: f.tick + 1 }))
+          document.getElementById(MAP_SECTION_ID)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }} />
+
       </div>
     </>
   )

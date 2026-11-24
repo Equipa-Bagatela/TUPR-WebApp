@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { DayChips } from '../components/DayChips'
 import { LiveBuses } from '../components/LiveBuses'
+import { JumpToMap, MAP_SECTION_ID } from '../components/JumpToMap'
 import { MapBox } from '../components/MapBox'
 import { Timeline } from '../components/Timeline'
 import { ReportError } from '../components/ReportError'
@@ -52,6 +53,7 @@ export default function LineDetail() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_26rem]">
         <section aria-labelledby="percurso-titulo">
           <h2 id="percurso-titulo" className="mb-4 text-2xl font-bold">{t('line.fullRoute')}</h2>
+          <JumpToMap className="mb-4" />
           <div className="mb-5 space-y-4">
             <DayChips value={day} onChange={setDay} />
             <div>
@@ -73,7 +75,7 @@ export default function LineDetail() {
           <ScheduleChecked className="mt-3" />
           <ReportError what={line.name} />
         </section>
-        <aside aria-label={t('line.mapOf', { name: line.name })} className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+        <aside id={MAP_SECTION_ID} aria-label={t('line.mapOf', { name: line.name })} className="scroll-mt-24 space-y-4 lg:sticky lg:top-24 lg:self-start">
           <LiveBuses lineIds={[line.id]} compact />
           <MapBox height="h-80 lg:h-[30rem]" lineIds={[line.id]} label={t('line.mapOf', { name: line.name })} />
         </aside>
