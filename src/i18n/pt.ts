@@ -96,6 +96,7 @@ export const pt = {
   'footer.dataNote': 'Os horários são informação pública e podem estar desatualizados; confirme sempre junto do serviço de transportes.',
   'footer.app': 'Aplicação',
   'footer.disclaimer': 'Posições das paragens aproximadas.',
+  'footer.legal': 'Informação',
   'footer.mapCredit': 'Mapa © colaboradores do',
   'footer.navAria': 'Navegação do rodapé',
   'home.infoEyebrow': 'Informação',

@@ -98,6 +98,7 @@ export const en: Record<keyof typeof pt, string> = {
   'footer.dataNote': 'Timetables are public information and may be out of date; always check with the transport service.',
   'footer.app': 'App',
   'footer.disclaimer': 'Stop positions are approximate.',
+  'footer.legal': 'Information',
   'footer.mapCredit': 'Map © contributors of',
   'footer.navAria': 'Footer navigation',
   'home.infoEyebrow': 'Information',
