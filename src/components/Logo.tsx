@@ -1,7 +1,7 @@
 import { useT } from '../i18n'
 import { WORDMARK } from './wordmarkPaths'
 
-/** Ícone do Reguamove (do pacote de identidade): M com a paragem e o rio. `onDark` acrescenta um aro claro para fundos escuros. */
+/** Ícone do Réguamove (do pacote de identidade): M com a paragem e o rio. `onDark` acrescenta um aro claro para fundos escuros. */
 export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?: string; onDark?: boolean }) {
   return (
     <svg viewBox="0 0 64 64" className={className} aria-hidden="true" focusable="false">
@@ -22,12 +22,12 @@ export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?
   )
 }
 
-/** Logótipo horizontal "Reguamove." (símbolo + nome em Space Grotesk Bold, desenhado em contornos). */
+/** Logótipo horizontal "Réguamove." (símbolo + nome em Space Grotesk Bold, desenhado em contornos). */
 export function Wordmark({ light = false, symbol = true, className = '' }: { light?: boolean; symbol?: boolean; className?: string }) {
   const ink = light ? '#ffffff' : '#143c57'
   const green = light ? '#a6d062' : '#5c962b'
   return (
-    <svg viewBox={`${symbol ? 0 : 70} 0 ${symbol ? WORDMARK.w : WORDMARK.w - 70} ${WORDMARK.h}`} className={className} role="img" aria-label="Reguamove">
+    <svg viewBox={`${symbol ? 0 : 70} ${WORDMARK.y0} ${symbol ? WORDMARK.w : WORDMARK.w - 70} ${WORDMARK.h - WORDMARK.y0}`} className={className} role="img" aria-label="Réguamove">
       {symbol && (
       <g transform="scale(1.2609) translate(-9 -12)">
         <path d="M17 47V20L32 35L47 20V47" fill="none" stroke={ink} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
@@ -44,9 +44,10 @@ export function Wordmark({ light = false, symbol = true, className = '' }: { lig
 export function Logo({ light = false }: { light?: boolean }) {
   const { t } = useT()
   return (
-    <span className="flex min-w-0 flex-col leading-none">
-      <Wordmark light={light} className="h-[2rem] w-auto sm:h-[2.35rem]" />
-      <span className={`mt-1.5 text-[0.5rem] font-semibold uppercase leading-[1.2] tracking-[0.03em] min-[360px]:text-[0.54rem] min-[360px]:tracking-[0.07em] sm:text-[0.6rem] sm:tracking-[0.12em] ${light ? 'text-white/80' : 'text-muted'}`}>{t('brand.sub')}</span>
+    <span className="flex min-w-0 flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2.5">
+      <Wordmark light={light} className="h-[1.95rem] w-auto shrink-0 sm:h-[2.5rem]" />
+      <span aria-hidden="true" className={`hidden h-6 w-px shrink-0 sm:block ${light ? 'bg-white/40' : 'bg-ink/25'}`} />
+      <span className={`text-[0.58rem] font-semibold uppercase leading-none tracking-[0.12em] sm:text-[0.7rem] sm:tracking-[0.06em] ${light ? 'text-white/85' : 'text-muted'}`}>{t('brand.sub')}</span>
     </span>
   )
 }

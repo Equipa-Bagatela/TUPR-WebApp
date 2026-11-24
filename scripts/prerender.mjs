@@ -114,7 +114,7 @@ function jsonLd(lang, path) {
   const t = (k, p) => translate(lang, k, p)
   const crumbs = (items) => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map(([name, p], i) => ({ '@type': 'ListItem', position: i + 1, name, item: abs(lang, p) })) })
   if (path === '/') {
-    out.push({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Reguamove', url: abs(lang, '/'), inLanguage: HTML_LANG[lang], description: seoFor('/', lang).description, publisher: { '@type': 'Organization', name: 'Bagatela', url: 'https://abagatela.pt' } })
+    out.push({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Réguamove', url: abs(lang, '/'), inLanguage: HTML_LANG[lang], description: seoFor('/', lang).description, publisher: { '@type': 'Organization', name: 'Bagatela', url: 'https://abagatela.pt' } })
   }
   const lm = /^\/linhas\/([\w-]+)$/.exec(path)
   if (lm) out.push(crumbs([[t('nav.home'), '/'], [t('nav.lines'), '/linhas'], [lines.find((l) => l.id === lm[1]).name, path]]))
@@ -140,7 +140,7 @@ function page(lang, path) {
     NOINDEX ? '' : `<link rel="alternate" hreflang="en" href="${esc(abs('en', path))}" />`,
     NOINDEX ? '' : `<link rel="alternate" hreflang="x-default" href="${esc(abs('pt', path))}" />`,
     '<meta property="og:type" content="website" />',
-    '<meta property="og:site_name" content="Reguamove" />',
+    '<meta property="og:site_name" content="Réguamove" />',
     `<meta property="og:title" content="${esc(info.title)}" />`,
     `<meta property="og:description" content="${esc(info.description)}" />`,
     `<meta property="og:url" content="${esc(abs(lang, path))}" />`,
@@ -149,7 +149,7 @@ function page(lang, path) {
     `<meta property="og:image" content="${esc(img)}" />`,
     '<meta property="og:image:width" content="1200" />',
     '<meta property="og:image:height" content="630" />',
-    `<meta property="og:image:alt" content="Reguamove – ${esc(translate(lang, 'brand.sub'))}" />`,
+    `<meta property="og:image:alt" content="Réguamove – ${esc(translate(lang, 'brand.sub'))}" />`,
     '<meta name="twitter:card" content="summary_large_image" />',
     `<meta name="twitter:title" content="${esc(info.title)}" />`,
     `<meta name="twitter:description" content="${esc(info.description)}" />`,

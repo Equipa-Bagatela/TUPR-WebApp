@@ -46,7 +46,7 @@ export function Footer() {
           <p className="mt-3 flex flex-wrap gap-x-5 text-sm font-semibold">
             <Link to="/termos" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.terms')}</Link>
             <Link to="/privacidade" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.privacy')}</Link>
-            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('report.subject', { what: 'Reguamove' }))}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.report')}</a>
+            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('report.subject', { what: 'Réguamove' }))}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">{t('footer.report')}</a>
           </p>
         </div>
       </div>
