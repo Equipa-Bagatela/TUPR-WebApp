@@ -20,7 +20,7 @@ export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?
 <path d="M48 150V54L100 97" fill="none" stroke="url(#rm-gv)" strokeWidth="28" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M100 97L152 54V150" fill="none" stroke="url(#rm-rv)" strokeWidth="28" strokeLinecap="round" strokeLinejoin="round"/>
 </g>
-<circle cx="100" cy="102" r="17" fill="#9bd14f" stroke="#143c57" strokeWidth="4"/>
+<circle cx="100" cy="96" r="17" fill="#9bd14f" stroke="#143c57" strokeWidth="4"/>
 
     </svg>
   )
