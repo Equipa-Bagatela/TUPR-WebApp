@@ -25,7 +25,15 @@ describe('PlannerForm', () => {
     }
     fireEvent.click(screen.getByRole('button', { name: /Trocar origem e destino/i }))
     fireEvent.click(screen.getByRole('button', { name: /Planear viagem/i }))
-    expect(onSubmit).toHaveBeenCalledWith({ from: 'ponte', to: 'estacao', date: '2026-12-01', time: '09:00' })
+    expect(onSubmit).toHaveBeenCalledWith({ from: 'ponte', to: 'estacao', date: '2026-12-01', time: '09:00', mode: 'depart' })
+  })
+
+  it('permite escolher chegar até às', () => {
+    const onSubmit = vi.fn()
+    render(<PlannerForm onSubmit={onSubmit} initial={{ from: 'ponte', to: 'estacao' }} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Chegar' }))
+    fireEvent.click(screen.getByRole('button', { name: /Planear viagem/i }))
+    expect(onSubmit.mock.calls[0][0].mode).toBe('arrive')
   })
 
   it('não deixa origem e destino iguais', () => {

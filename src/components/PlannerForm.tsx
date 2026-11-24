@@ -11,6 +11,8 @@ export interface PlanParams {
   to: string
   date: string
   time: string
+  /** 'depart' = partir às · 'arrive' = chegar até às */
+  mode: 'depart' | 'arrive'
 }
 
 function formatDate(iso: string, locale: string) {
@@ -46,6 +48,7 @@ export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParam
   const [to, setTo] = useState<string | null>(initial?.to ?? null)
   const [date, setDate] = useState(initial?.date ?? isoDate(now))
   const [time, setTime] = useState(initial?.time ?? clock(now))
+  const [mode, setMode] = useState<'depart' | 'arrive'>(initial?.mode ?? 'depart')
   const [touched, setTouched] = useState(false)
   const geo = useGeolocation()
   const [wantNear, setWantNear] = useState(false)
@@ -76,7 +79,7 @@ export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParam
     e.preventDefault()
     setTouched(true)
     if (invalid || same) return
-    onSubmit({ from: from!, to: to!, date, time })
+    onSubmit({ from: from!, to: to!, date, time, mode })
   }
   const swap = () => {
     setFrom(to)
@@ -129,9 +132,17 @@ export function PlannerForm({ initial, onSubmit }: { initial?: Partial<PlanParam
       </button>
       {geo.status === 'denied' && wantNear === false && <p className="-mt-2 text-sm text-muted">{t('loc.deniedShort')}</p>}
 
+      <div className="grid grid-cols-2 gap-1 rounded-2xl bg-surface-2 p-1 md:max-w-xl" role="group" aria-label={t('plan.modeAria')}>
+        {(['depart', 'arrive'] as const).map((m) => (
+          <button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className={`min-h-11 rounded-xl text-sm font-bold transition ${mode === m ? 'bg-surface text-primary shadow-sm ring-1 ring-hair' : 'text-ink/75 hover:bg-surface/60'}`}>
+            {t(m === 'depart' ? 'plan.depart' : 'plan.arrive')}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-3 max-[339px]:grid-cols-1 md:max-w-xl">
         <PickerBox id="plan-date" type="date" label={t('plan.date')} icon={<CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />} value={date} onChange={setDate} shown={formatDate(date, locale)} />
-        <PickerBox id="plan-time" type="time" label={t('plan.time')} icon={<Clock className="h-3.5 w-3.5" aria-hidden="true" />} value={time} onChange={setTime} shown={time || '--:--'} />
+        <PickerBox id="plan-time" type="time" label={t(mode === 'arrive' ? 'plan.timeArrive' : 'plan.timeDepart')} icon={<Clock className="h-3.5 w-3.5" aria-hidden="true" />} value={time} onChange={setTime} shown={time || '--:--'} />
       </div>
 
       {/* atalhos: seletor compacto de três opções */}

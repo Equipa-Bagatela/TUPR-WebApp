@@ -22,6 +22,8 @@ export interface TransitMapProps {
   /** Ao mudar, o mapa centra-se neste autocarro */
   focusBusId?: string | null
   focusTick?: number
+  /** Troços de viagem a destacar (as restantes linhas ficam esbatidas e o mapa enquadra o percurso) */
+  legPaths?: { lineId: string; path: LatLng[] }[]
   interactive?: boolean
   className?: string
   /** Descrição acessível do mapa */
@@ -32,7 +34,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const css = (v: string) => getComputedStyle(document.documentElement).getPropertyValue(v).trim()
 
 /** Mapa Leaflet + OpenStreetMap (tiles oficiais, com atribuição visível). */
-export default function TransitMap({ lineIds, originId, destId, highlightStopId, userPos, showBuses = true, focusBusId, focusTick, interactive = true, className = '', label }: TransitMapProps) {
+export default function TransitMap({ lineIds, originId, destId, highlightStopId, userPos, showBuses = true, focusBusId, focusTick, legPaths, interactive = true, className = '', label }: TransitMapProps) {
   const el = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
   const layer = useRef<L.LayerGroup | null>(null)
@@ -103,10 +105,18 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
     shown.forEach((line, i) => {
       const color = css(`--line-${line.id}`) || (dark ? line.colorDark : line.color)
       const w = i === 0 ? 7 : 3.5 // a 2.ª linha é mais fina para não tapar a 1.ª onde coincidem
-      if (i === 0) L.polyline(line.shape, { color: dark ? '#0b1a26' : '#fff', weight: 10, opacity: 0.9 }).addTo(g)
-      L.polyline(line.shape, { color, weight: w, opacity: 0.95 }).addTo(g).bindTooltip(line.name, { sticky: true })
+      const dim = !!legPaths?.length
+      if (i === 0) L.polyline(line.shape, { color: dark ? '#0b1a26' : '#fff', weight: 10, opacity: dim ? 0.35 : 0.9 }).addTo(g)
+      L.polyline(line.shape, { color, weight: w, opacity: dim ? 0.22 : 0.95 }).addTo(g).bindTooltip(line.name, { sticky: true })
       line.shape.forEach((p) => bounds.push(p))
     })
+    const legBounds: L.LatLngExpression[] = []
+    for (const leg of legPaths ?? []) {
+      const lc = css(`--line-${leg.lineId}`) || '#143c57'
+      L.polyline(leg.path, { color: dark ? '#0b1a26' : '#fff', weight: 13, opacity: 0.95, lineCap: 'round' }).addTo(g)
+      L.polyline(leg.path, { color: lc, weight: 8, opacity: 1, lineCap: 'round' }).addTo(g)
+      leg.path.forEach((p) => legBounds.push(p))
+    }
     const visibleStops = new Set(shown.flatMap((l) => l.stops.map((s) => s.stopId)))
     for (const s of stops) {
       if (!s.coords || !visibleStops.has(s.id)) continue
@@ -146,15 +156,17 @@ export default function TransitMap({ lineIds, originId, destId, highlightStopId,
       L.circle(userPos, { radius: 60, color: '#1a73e8', weight: 1, fillOpacity: 0.08 }).addTo(g)
       bounds.push(userPos)
     }
-    const key = `${(lineIds ?? []).join()}|${originId}|${destId}|${highlightStopId}|${userPos ? 'u' : ''}`
+    const legKey = (legPaths ?? []).map((l) => `${l.lineId}:${l.path.length}:${l.path[0]?.join(',')}`).join(';')
+    const key = `${(lineIds ?? []).join()}|${originId}|${destId}|${highlightStopId}|${userPos ? 'u' : ''}|${legKey}`
     if (fitted.current !== key) {
       fitted.current = key
       const focus = [originId, destId, highlightStopId].map((id) => (id ? stopById.get(id)?.coords : undefined)).filter(Boolean) as LatLng[]
-      if (focus.length >= 2) m.fitBounds(L.latLngBounds(focus), { padding: [50, 50], maxZoom: 16 })
+      if (legBounds.length) m.fitBounds(L.latLngBounds(legBounds), { padding: [40, 40], maxZoom: 17 })
+      else if (focus.length >= 2) m.fitBounds(L.latLngBounds(focus), { padding: [50, 50], maxZoom: 16 })
       else if (focus.length === 1) m.setView(focus[0], 16)
       else if (bounds.length) m.fitBounds(L.latLngBounds(bounds), { padding: [24, 24] })
     }
-  }, [lineIds, originId, destId, highlightStopId, userPos, theme, lang])
+  }, [lineIds, originId, destId, highlightStopId, userPos, theme, lang, legPaths])
 
   /** Desliza o marcador até à nova posição (entre duas actualizações da API, ~10 s). */
   const glide = (mk: L.Marker, to: LatLng) => {

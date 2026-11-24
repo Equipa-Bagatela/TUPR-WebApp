@@ -50,7 +50,7 @@ export default function Home() {
       <div className="relative z-10 mx-auto -mt-16 max-w-6xl px-4 sm:-mt-20 sm:px-6">
         <section aria-labelledby="planear-titulo" className="glass-panel rise rounded-3xl border border-hair bg-surface p-5 shadow-sm sm:p-8" style={{ animationDelay: '200ms' }}>
           <h2 id="planear-titulo" className="mb-5 text-xl font-bold text-primary sm:text-2xl">{t('plan.title')}</h2>
-          <PlannerForm onSubmit={(p) => nav(`/planear?de=${p.from}&para=${p.to}&data=${p.date}&hora=${p.time}`)} />
+          <PlannerForm onSubmit={(p) => nav(`/planear?de=${p.from}&para=${p.to}&data=${p.date}&hora=${p.time}${p.mode === 'arrive' ? '&modo=chegar' : ''}`)} />
           <div className="mt-5 border-t border-hair pt-5">
             <Link to="/proximos" className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-hair px-5 font-bold text-primary transition-colors hover:bg-primary-soft">
               <Clock className="h-5 w-5" aria-hidden="true" /> {t('home.seeNext')}
