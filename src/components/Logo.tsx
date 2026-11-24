@@ -1,4 +1,3 @@
-import { useT } from '../i18n'
 import { WORDMARK } from './wordmarkPaths'
 
 /** Ícone do Réguamove (do pacote de identidade): M com a paragem e o rio. `onDark` acrescenta um aro claro para fundos escuros. */
@@ -42,12 +41,5 @@ export function Wordmark({ light = false, symbol = true, className = '' }: { lig
 }
 
 export function Logo({ light = false }: { light?: boolean }) {
-  const { t } = useT()
-  return (
-    <span className="flex min-w-0 flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2.5">
-      <Wordmark light={light} className="h-[1.95rem] w-auto shrink-0 sm:h-[2.5rem]" />
-      <span aria-hidden="true" className={`hidden h-6 w-px shrink-0 sm:block ${light ? 'bg-white/40' : 'bg-ink/25'}`} />
-      <span className={`text-[0.58rem] font-semibold uppercase leading-none tracking-[0.12em] sm:text-[0.7rem] sm:tracking-[0.06em] ${light ? 'text-white/85' : 'text-muted'}`}>{t('brand.sub')}</span>
-    </span>
-  )
+  return <Wordmark light={light} className="h-[2.1rem] w-auto shrink-0 sm:h-[2.5rem]" />
 }
