@@ -58,6 +58,10 @@ export const terms: Record<Lang, LegalDoc> = {
         p: ['Pode usar a aplicação livremente para consulta pessoal. Não a use para sobrecarregar os serviços de que depende (por exemplo, com pedidos automáticos em massa) nem para fins ilícitos.'],
       },
       {
+        h: 'Direitos de autor',
+        p: ['O design, o código-fonte, os textos e os elementos gráficos desta aplicação são propriedade da Bagatela, que reserva todos os direitos. Não é permitido copiar, reproduzir, adaptar ou distribuir a aplicação, no todo ou em parte, sem autorização escrita. Isto não se aplica aos horários, ao tarifário nem à posição dos autocarros, que são informação de terceiros e pertencem aos respetivos titulares, nem aos dados do OpenStreetMap, que seguem a sua própria licença.'],
+      },
+      {
         h: 'Apoio voluntário',
         p: ['Se quiser, pode apoiar o projeto através do Buy Me a Coffee. É totalmente voluntário e não dá direito a nenhum serviço, garantia, suporte ou tratamento especial: a aplicação é gratuita para todos. O pagamento é processado pelo Buy Me a Coffee, nos termos próprios dessa plataforma.'],
       },
@@ -113,6 +117,10 @@ export const terms: Record<Lang, LegalDoc> = {
       {
         h: 'Appropriate use',
         p: ['You may use the app freely for personal lookups. Do not use it to overload the services it depends on (for example with mass automated requests) or for unlawful purposes.'],
+      },
+      {
+        h: 'Copyright',
+        p: ['The design, source code, texts and graphics of this app are the property of Bagatela, which reserves all rights. You may not copy, reproduce, adapt or distribute the app, in whole or in part, without written permission. This does not apply to timetables, fares or bus positions, which are third-party information and belong to their respective owners, nor to OpenStreetMap data, which follows its own licence.'],
       },
       {
         h: 'Voluntary support',

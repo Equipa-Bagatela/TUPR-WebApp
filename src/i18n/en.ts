@@ -85,6 +85,7 @@ export const en: Record<keyof typeof pt, string> = {
   'support.later': 'Not now',
   'support.close': 'Close support notice',
   'footer.report': 'Report a mistake',
+  'footer.rights': '© {year} Bagatela. All rights reserved over the design, code and texts of this app. Copying or reproduction without permission is prohibited. Timetables and live bus positions belong to their respective owners.',
   'footer.support': 'Buy us a coffee',
   'footer.supportNote': 'Helps keep the timetables online. Voluntary support.',
   'footer.terms': 'Terms of use',

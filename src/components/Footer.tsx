@@ -52,9 +52,12 @@ export function Footer() {
       </div>
       <div className="border-t border-white/15">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p className="max-w-2xl text-xs text-white/70">
+          <div className="max-w-2xl space-y-1.5 text-xs text-white/70">
+            <p>{t('footer.rights', { year: new Date().getFullYear() })}</p>
+          <p>
             {t('footer.mapCredit')} <a className="underline" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>. {t('footer.disclaimer')}
           </p>
+          </div>
           <a
             href="https://abagatela.pt"
             target="_blank"
