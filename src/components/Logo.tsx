@@ -7,8 +7,8 @@ export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?
 <defs>
 <linearGradient id="rm-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2a7bb0"/><stop offset="1" stopColor="#143c57"/></linearGradient>
 <radialGradient id="rm-gl" cx=".25" cy=".1" r=".8"><stop offset="0" stopColor="#fff" stopOpacity=".28"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></radialGradient>
-<linearGradient id="rm-gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#b4e66e"/><stop offset="1" stopColor="#8bc34a"/></linearGradient>
-<linearGradient id="rm-rv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ff7b7b"/><stop offset="1" stopColor="#e5484d"/></linearGradient>
+<linearGradient id="rm-gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff"/><stop offset="1" stopColor="#dcecf7"/></linearGradient>
+<linearGradient id="rm-rv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff"/><stop offset="1" stopColor="#dcecf7"/></linearGradient>
 <filter id="rm-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#04141f" floodOpacity=".28"/></filter>
 <clipPath id="rm-cl"><rect width="200" height="200" rx="46"/></clipPath>
 </defs>
@@ -20,7 +20,7 @@ export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?
 <path d="M48 150V54L100 112" fill="none" stroke="url(#rm-gv)" strokeWidth="28" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M100 112L152 54V150" fill="none" stroke="url(#rm-rv)" strokeWidth="28" strokeLinecap="round" strokeLinejoin="round"/>
 </g>
-<circle cx="100" cy="116" r="15" fill="#fff"/>
+<circle cx="100" cy="116" r="17" fill="#9bd14f" stroke="#143c57" strokeWidth="7"/>
 
     </svg>
   )
