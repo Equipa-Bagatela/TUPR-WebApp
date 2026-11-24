@@ -314,3 +314,54 @@ html.glass .solid { background-color: var(--surface) !important; backdrop-filter
 
 /* Qualquer caixa com uma lista de sugestões aberta passa à frente do que vem depois (evita a lista ficar por baixo de outros campos) */
 html.glass :is(.glass-panel, .rounded-2xl, .rounded-3xl):has([role='listbox']) { z-index: 25; }
+
+/* ───────── liquid glass: o que faltava (campos, botões redondos, seletores, destaques, botões principais) ───────── */
+/* qualquer caixa/botão arredondado com fundo "superfície", seja qual for a borda ou o raio */
+html.glass :is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl, .rounded-full).bg-surface:not(input):not(select):not(textarea):not(.solid):not(.glass-panel):not(.dt-box):not(.border-hair) {
+  isolation: isolate;
+  background-color: var(--glass-fill) !important;
+  backdrop-filter: blur(16px) saturate(175%);
+  -webkit-backdrop-filter: blur(16px) saturate(175%);
+  box-shadow: inset 0 1.5px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-lo), 0 10px 26px -16px var(--glass-shadow);
+}
+/* campo de escrita e de data/hora: vidro mais denso (para o texto ler bem), contorno visível */
+html.glass :is(input, select, textarea).bg-surface,
+html.glass .dt-box.dt-box {
+  background-color: color-mix(in srgb, var(--surface) 72%, transparent) !important;
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  border-color: color-mix(in srgb, var(--ink) 18%, transparent) !important;
+  box-shadow: inset 0 1.5px 0 var(--glass-hi), 0 6px 16px -12px var(--glass-shadow);
+}
+/* botões e etiquetas ativos/selecionados: vidro mais forte para se distinguirem */
+html.glass :is(button, a)[aria-pressed='true'].bg-surface,
+html.glass .bg-surface.shadow-sm.ring-1 { background-color: color-mix(in srgb, var(--surface) 92%, transparent) !important; }
+/* blocos de fundo cinzento (seletor Hoje/Amanhã/Agora, etc.) */
+html.glass :is(.rounded-xl, .rounded-2xl, .rounded-full).bg-surface-2:not(.isolate):not(.skeleton) {
+  background-color: color-mix(in srgb, var(--surface-2) 58%, transparent) !important;
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  box-shadow: inset 0 1px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-lo);
+}
+/* destaques azulados (etiquetas selecionadas, avisos): vidro com tom */
+html.glass :is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-full).bg-primary-soft {
+  background-color: color-mix(in srgb, var(--primary-soft) 72%, transparent) !important;
+  backdrop-filter: blur(14px) saturate(175%);
+  -webkit-backdrop-filter: blur(14px) saturate(175%);
+  box-shadow: inset 0 1.5px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-lo);
+}
+/* botões principais (azul/verde): ficam sólidos (marca) mas com o brilho e a espessura do vidro */
+html.glass :is(button, a).bg-primary {
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.38), inset 0 -2px 0 rgba(0, 0, 0, 0.16), 0 12px 24px -12px rgba(20, 60, 87, 0.75) !important;
+}
+/* rodapé e faixa do ecrã principal: aresta luminosa */
+html.glass footer { box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.28); }
+/* botões redondos/pequenos com contorno (favoritos, trocar, localização…) */
+html.glass :is(.rounded-lg, .rounded-full).bg-surface.border-hair:not(input):not(.solid):not(.glass-panel):not(.dt-box) {
+  isolation: isolate;
+  background-color: var(--glass-fill) !important;
+  backdrop-filter: blur(14px) saturate(175%);
+  -webkit-backdrop-filter: blur(14px) saturate(175%);
+  border-color: var(--glass-edge) !important;
+  box-shadow: inset 0 1.5px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-lo), 0 8px 18px -12px var(--glass-shadow);
+}
