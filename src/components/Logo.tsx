@@ -31,7 +31,7 @@ export function LogoMark({ className = 'h-9 w-9', onDark = false }: { className?
 export function Wordmark({ light = false, className = '' }: { light?: boolean; className?: string }) {
   const [dx, dy, dr] = WORDMARK.dot
   return (
-    <svg viewBox={`0 ${WORDMARK.top} ${WORDMARK.w} ${WORDMARK.bottom - WORDMARK.top}`} className={className} role="img" aria-label="Reguamove">
+    <svg viewBox={`0 ${WORDMARK.top} ${WORDMARK.w} ${WORDMARK.bottom - WORDMARK.top}`} className={className} role="img" aria-label="Réguamove">
       <path d={WORDMARK.left} fill={light ? '#ffffff' : '#143c57'} />
       <path d={WORDMARK.right} fill={light ? '#9bd14f' : '#5f9a2a'} />
       <circle cx={dx} cy={dy} r={dr} fill="#9bd14f" stroke="#143c57" strokeWidth={dr * 0.3} />
@@ -43,7 +43,7 @@ export function Logo({ light = false }: { light?: boolean }) {
   const { t } = useT()
   return (
     <span className="flex min-w-0 flex-col leading-none">
-      <Wordmark light={light} className="h-[1.6rem] w-auto sm:h-[1.95rem]" />
+      <Wordmark light={light} className="h-[1.85rem] w-auto sm:h-[2.2rem]" />
       <span className={`mt-1.5 text-[0.5rem] font-semibold uppercase leading-[1.2] tracking-[0.03em] min-[360px]:text-[0.54rem] min-[360px]:tracking-[0.07em] sm:text-[0.6rem] sm:tracking-[0.12em] ${light ? 'text-white/80' : 'text-muted'}`}>{t('brand.sub')}</span>
     </span>
   )
