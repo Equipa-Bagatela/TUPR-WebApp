@@ -1,5 +1,5 @@
 @import '@fontsource-variable/inter';
-@import '@fontsource-variable/nunito';
+@import '@fontsource-variable/space-grotesk';
 @import 'leaflet/dist/leaflet.css';
 @import 'tailwindcss';
 
@@ -60,7 +60,7 @@
   --color-warn: var(--warn);
   --color-bad: var(--bad);
   --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Nunito Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Inter Variable', system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
