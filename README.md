@@ -1,4 +1,4 @@
-# Horários TUPR (não oficial)
+# Reguamove · Horários TUPR (não oficial)
 
 Webapp (React + Vite + TypeScript + Tailwind + Leaflet) para consultar horários, planear viagens e ver as próximas partidas do TUPR.
 

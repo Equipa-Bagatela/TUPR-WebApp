@@ -1,4 +1,4 @@
-/* Service worker do Horários TUPR: a app e os horários abrem sem rede.
+/* Service worker do Reguamove: a app e os horários abrem sem rede.
  * - Páginas: rede primeiro; sem rede, usa a cópia guardada (ou a página inicial, que arranca a app).
  * - /assets (ficheiros com hash): cache primeiro.
  * - Restante conteúdo do próprio site: devolve a cópia guardada e atualiza em segundo plano.

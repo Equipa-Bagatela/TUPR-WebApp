@@ -24,7 +24,7 @@ export function Logo({ light = false }: { light?: boolean }) {
     <span className="flex min-w-0 items-center gap-2.5 sm:gap-3">
       <LogoMark onDark={light} className="h-9 w-9 shrink-0 rounded-[0.65rem] ring-1 ring-hair sm:h-10 sm:w-10 sm:rounded-[0.7rem]" />
       <span className="flex flex-col leading-none">
-        <span className={`font-display text-[1.12rem] font-extrabold tracking-tight sm:text-[1.3rem] ${light ? 'text-white' : 'text-primary'}`}>Horários TUPR</span>
+        <span className={`font-display text-[1.12rem] font-extrabold tracking-tight sm:text-[1.3rem] ${light ? 'text-white' : 'text-primary'}`}>Reguamove</span>
         <span className={`mt-1.5 text-[0.5rem] font-semibold uppercase leading-[1.2] tracking-[0.03em] min-[360px]:text-[0.54rem] min-[360px]:tracking-[0.07em] sm:text-[0.6rem] sm:tracking-[0.12em] ${light ? 'text-white/80' : 'text-muted'}`}>{t('brand.sub')}</span>
       </span>
     </span>

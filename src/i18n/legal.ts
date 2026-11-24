@@ -21,11 +21,11 @@ export const terms: Record<Lang, LegalDoc> = {
   pt: {
     title: 'Termos de utilização',
     updated: UPDATED.pt,
-    intro: 'Ao usar o Horários TUPR aceita estes termos. São curtos e escritos para se perceberem.',
+    intro: 'Ao usar o Reguamove aceita estes termos. São curtos e escritos para se perceberem.',
     sections: [
       {
         h: 'Quem somos',
-        p: ['O Horários TUPR é um projeto isolado e não oficial da Bagatela. Não é um serviço da Câmara Municipal do Peso da Régua, do operador dos transportes urbanos nem da Eleven Systems, e não tem qualquer parceria ou aval da parte deles.', 'TUPR e as restantes marcas ou nomes referidos pertencem aos respetivos titulares e são usados apenas para identificar o serviço a que a informação diz respeito.'],
+        p: ['O Reguamove (horários do TUPR) é um projeto isolado e não oficial da Bagatela. Não é um serviço da Câmara Municipal do Peso da Régua, do operador dos transportes urbanos nem da Eleven Systems, e não tem qualquer parceria ou aval da parte deles.', 'TUPR e as restantes marcas ou nomes referidos pertencem aos respetivos titulares e são usados apenas para identificar o serviço a que a informação diz respeito.'],
       },
       {
         h: 'O que a aplicação faz',
@@ -82,11 +82,11 @@ export const terms: Record<Lang, LegalDoc> = {
   en: {
     title: 'Terms of use',
     updated: UPDATED.en,
-    intro: 'By using Horários TUPR you accept these terms. They are short and written to be understood.',
+    intro: 'By using Reguamove you accept these terms. They are short and written to be understood.',
     sections: [
       {
         h: 'Who we are',
-        p: ['Horários TUPR is a standalone, unofficial Bagatela project. It is not a service of the Municipality of Peso da Régua, of the urban transport operator or of Eleven Systems, and has no partnership with or endorsement from them.', 'TUPR and any other brands or names mentioned belong to their respective owners and are used only to identify the service the information refers to.'],
+        p: ['Reguamove (TUPR timetables) is a standalone, unofficial Bagatela project. It is not a service of the Municipality of Peso da Régua, of the urban transport operator or of Eleven Systems, and has no partnership with or endorsement from them.', 'TUPR and any other brands or names mentioned belong to their respective owners and are used only to identify the service the information refers to.'],
       },
       {
         h: 'What the app does',

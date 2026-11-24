@@ -1,6 +1,6 @@
 {
-  "name": "Horários TUPR (não oficial)",
-  "short_name": "Horários TUPR",
+  "name": "Reguamove · Horários TUPR (não oficial)",
+  "short_name": "Reguamove",
   "description": "Horários, planeador de viagem e autocarros em direto do TUPR. Aplicação não oficial.",
   "start_url": "./",
   "scope": "./",
