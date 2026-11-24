@@ -66,7 +66,7 @@ export function Splash() {
     <div className="splash" aria-hidden="true" onClick={() => setShow(false)} onAnimationEnd={(e) => e.animationName === 'splash-wipe' && setShow(false)}>
       <div className="splash-brand" >
         <LogoMark onDark className="h-20 w-20 rounded-2xl sm:h-24 sm:w-24" />
-        <Wordmark light className="h-10 w-auto sm:h-16" />
+        <Wordmark light className="h-16 w-auto sm:h-24" />
         <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-xs">{tr('brand.sub')}</span>
       </div>
       <div className="splash-road" />
