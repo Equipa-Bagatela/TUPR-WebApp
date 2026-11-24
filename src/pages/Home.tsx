@@ -61,7 +61,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-6xl space-y-16 px-4 pt-12 sm:px-6 sm:pt-16">
         <Reveal>
-          <div className="grid gap-5 lg:grid-cols-[1.35fr_1fr]">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[1.35fr_1fr]">
             <NowPanel />
             <div className="space-y-5">
               <ServiceStatusCard now={now} />

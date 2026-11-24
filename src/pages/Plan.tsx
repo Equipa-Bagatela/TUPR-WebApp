@@ -102,7 +102,7 @@ export default function Plan() {
             {t('plan.emptyText')}
           </EmptyState>
         ) : (
-          <div className="grid gap-8 lg:grid-cols-[1fr_26rem]">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1fr_26rem]">
             <section aria-labelledby="res-titulo" aria-live="polite">
               <div className="mb-5 flex items-start justify-between gap-3">
                 <div>
