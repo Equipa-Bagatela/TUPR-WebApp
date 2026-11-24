@@ -83,7 +83,7 @@ export const pt = {
   'support.later': 'Agora não',
   'support.close': 'Fechar aviso de apoio',
   'footer.report': 'Reportar um erro',
-  'footer.rights': '© {year} Bagatela. Todos os direitos reservados sobre o design, o código e os textos desta aplicação. É proibida a cópia ou reprodução sem autorização. Os horários e a posição dos autocarros pertencem aos respetivos titulares.',
+  'footer.rights': '© {year} Bagatela. Todos os direitos reservados.',
   'footer.support': 'Paga-nos um café',
   'footer.supportNote': 'Ajuda a manter os horários online. Apoio voluntário.',
   'footer.terms': 'Termos de utilização',
