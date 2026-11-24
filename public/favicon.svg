@@ -8,8 +8,8 @@
 </defs><rect width="200" height="200" rx="46" fill="url(#bg)"/>
 <g clip-path="url(#cl)"><path d="M-10 160C30 148 66 172 104 160S170 148 210 158V210H-10Z" fill="#fff" fill-opacity=".14"/><path d="M-10 178C34 168 68 188 106 178S172 168 210 176V210H-10Z" fill="#fff" fill-opacity=".12"/></g>
 <g filter="url(#sh)">
-<path d="M48 150V54L100 112" fill="none" stroke="url(#gv)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M100 112L152 54V150" fill="none" stroke="url(#rv)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M48 150V54L100 104" fill="none" stroke="url(#gv)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M100 104L152 54V150" fill="none" stroke="url(#rv)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <circle cx="100" cy="104" r="20" fill="#9bd14f" stroke="#143c57" stroke-width="7"/>
 </svg>
